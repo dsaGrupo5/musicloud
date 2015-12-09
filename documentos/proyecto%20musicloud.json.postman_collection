@@ -1,0 +1,34 @@
+{
+	"id": "2d745f85-75a7-5209-d63c-8c59df2ea060",
+	"name": "proyecto musicloud",
+	"description": "",
+	"order": [
+		"e644bac1-4447-f3e3-f052-f2545a358371"
+	],
+	"folders": [],
+	"timestamp": 1449658680260,
+	"owner": 0,
+	"remoteLink": "",
+	"public": false,
+	"requests": [
+		{
+			"id": "e644bac1-4447-f3e3-f052-f2545a358371",
+			"headers": "",
+			"url": "http://localhost:8080/musicloud/myresource",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "GET",
+			"data": [],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1449659559778,
+			"name": "Peticion inicial",
+			"description": "",
+			"collectionId": "2d745f85-75a7-5209-d63c-8c59df2ea060",
+			"responses": []
+		}
+	]
+}
