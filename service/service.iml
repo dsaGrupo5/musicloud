@@ -32,5 +32,8 @@
     <orderEntry type="library" name="Maven: javax.ws.rs:javax.ws.rs-api:2.0.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.9" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.hamcrest:hamcrest-core:1.1" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.jersey.ext:jersey-declarative-linking:2.21" level="project" />
+    <orderEntry type="library" name="Maven: javax.el:javax.el-api:2.2.4" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.web:javax.el:2.2.4" level="project" />
   </component>
 </module>
