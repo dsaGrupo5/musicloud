@@ -54,3 +54,15 @@ CREATE TABLE auth_tokens (
     PRIMARY KEY (token),
     FOREIGN KEY (iduser) REFERENCES users(id) on delete cascade    
 );
+# Create user plankton with role organization
+insert into users (id, login, nombre, apellidos, email, password) values(
+UNHEX(REPLACE(UUID(),'-','')), 
+'admin',
+'carlos',
+'valdes perez',
+'admin@musicloud.com', 
+UNHEX(MD5('0000'))
+);
+select @idadmin := id from users where login='admin';
+insert into user_roles (iduser, role) values (@idadmin, 'administrador');
+insert into auth_tokens (iduser, token) values (@idadmin, UNHEX(REPLACE(UUID(),'-','')));
