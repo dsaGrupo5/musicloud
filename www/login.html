@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>MusiCloud - Contacto</title>
+    <title>MusiCloud - Login</title>
 
     <!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -54,13 +54,13 @@
                         <a href="#page-top"></a>
                     </li>
                   <li class="page-scroll">
-                        <a href="login.html">Login</a>
+                        <a href="#login">Login</a>
                     </li>
                     <li class="page-scroll">
                         <a href="registro.html">Registrarse</a>
                     </li>
                     <li class="page-scroll">
-                        <a href="#contacto">Contacto</a>
+                        <a href="contacto.html">Contacto</a>
                     </li>
                 </ul>
             </div>
@@ -72,11 +72,11 @@
     <br>
 	<br>
     <!-- Contact Section -->
-    <section id="contacto">
+    <section id="login">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2>Contacta con nosotros</h2>
+                    <h2>Accede a tu perfil</h2>
                     <hr class="star-primary">
                 </div>
             </div>
@@ -87,28 +87,24 @@
                     <form name="sentMessage" id="contactoForm" novalidate>
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Nombre</label>
-                                <input type="text" class="form-control" placeholder="Nombre" id="nombre" required data-validation-required-message="Por favor introduce tu nombre">
-                                <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-						<div class="row control-group">
-                            <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Email</label>
-                                <input type="text" class="form-control" placeholder="Email" id="email" required data-validation-required-message="Por favor introduce tu email">
+                                <label>ID Usuario</label>
+                                <input type="text" class="form-control" placeholder="ID Usuario" id="idusuario" required data-validation-required-message="Por favor introduce tu identificador de usuario de Musicloud">
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
 						
-                        <div class="row control-group">
+						<div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Mensaje</label>
-                                <textarea rows="2" class="form-control" placeholder="Mensaje" id="mensaje" required data-validation-required-message="Por favor introduce tu mensaje"></textarea>
+                                <label>Password</label>
+                                <input type="password" class="form-control" placeholder="Password" id="password" required data-validation-required-message="Por favor introduce tu clave de acceso">
                                 <p class="help-block text-danger"></p>
-								<div id="success"></div>
+                            </div>
+                        </div>
+												
+                        
                         <div class="row">
                             <div class="form-group col-xs-12">
-                                <button type="submit" class="btn btn-success btn-lg">Enviar</button>
+                                <button type="submit" class="btn btn-success btn-lg">Acceso</button>
                             </div>
                         </div>
                         </div>
