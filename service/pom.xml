@@ -95,6 +95,11 @@
             <version>2.17</version> <!-- Make sure the Jersey matches
                                  the one you are currently using -->
         </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.ext</groupId>
+            <artifactId>jersey-declarative-linking</artifactId>
+            <version>2.21</version>
+        </dependency>
 
     </dependencies>
 
