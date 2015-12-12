@@ -1,0 +1,14 @@
+[
+  {
+    "path":"myresource",
+    "methods":["GET"]
+  },
+  {
+    "path": "users/registrar",
+    "methods": ["POST"]
+  },
+  {
+    "path": "login/login_in",
+    "methods": ["POST"]
+  }
+]

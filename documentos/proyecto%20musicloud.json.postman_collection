@@ -3,7 +3,11 @@
 	"name": "proyecto musicloud",
 	"description": "",
 	"order": [
-		"e644bac1-4447-f3e3-f052-f2545a358371"
+		"e644bac1-4447-f3e3-f052-f2545a358371",
+		"0f986358-c41a-7a80-d8f3-cc1dde25ca0d",
+		"ccecc5db-1e7a-aadb-547c-6449249c7e9f",
+		"c7dfe1ff-0c8e-7731-a082-a4a64f7c3c94",
+		"8feeffae-985c-e5df-e9bc-1605147487e7"
 	],
 	"folders": [],
 	"timestamp": 1449658680260,
@@ -11,6 +15,133 @@
 	"remoteLink": "",
 	"public": false,
 	"requests": [
+		{
+			"id": "0f986358-c41a-7a80-d8f3-cc1dde25ca0d",
+			"headers": "",
+			"url": "http://localhost:8080/musicloud/users/registrar",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "login",
+					"value": null,
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "nombre",
+					"value": "carlos2",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "apellidos",
+					"value": "valdes perez",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "email",
+					"value": "carlos2@musicloud.com",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "password",
+					"value": "0000",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1449869666759,
+			"name": "crear usuario",
+			"description": "  user = carlos2\n  \"token\": \"3005aefea04611e5ab98441ea1d028cf\",\n  \"iduser\": \"2FFE8582A04611E5AB98441EA1D028CF\"",
+			"collectionId": "2d745f85-75a7-5209-d63c-8c59df2ea060",
+			"responses": []
+		},
+		{
+			"id": "8feeffae-985c-e5df-e9bc-1605147487e7",
+			"headers": "X-Auth-Token: 4f75ef7ca07d11e5ab98441ea1d028cf\n",
+			"url": "http://localhost:8080/musicloud/login/login_out",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "login",
+					"value": "carlos",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1449889626274,
+			"name": "login_out user",
+			"description": "",
+			"collectionId": "2d745f85-75a7-5209-d63c-8c59df2ea060",
+			"responses": []
+		},
+		{
+			"id": "c7dfe1ff-0c8e-7731-a082-a4a64f7c3c94",
+			"headers": "",
+			"url": "http://localhost:8080/musicloud/login/login_in",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "login",
+					"value": "carlos",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "password",
+					"value": "0000",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1449889604482,
+			"name": "login_in user",
+			"description": "{ carlos\n  \"token\": \"4f75ef7ca07d11e5ab98441ea1d028cf\",\n  \"role\": \"registrado\",\n  \"iduser\": \"4BEA8BB1A07D11E5AB98441EA1D028CF\"\n}",
+			"collectionId": "2d745f85-75a7-5209-d63c-8c59df2ea060",
+			"responses": []
+		},
+		{
+			"id": "ccecc5db-1e7a-aadb-547c-6449249c7e9f",
+			"headers": "X-Auth-Token: 626b30b1a06111e5ab98441ea1d028cf\n",
+			"url": "http://localhost:8080/musicloud/users/eliminar/e",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "DELETE",
+			"data": [],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1449877589934,
+			"name": "eliminar usuario",
+			"description": "Peticion http , es necesaria token , regisatrado o administrador\nhttp://localhost:8080/musicloud/users/eliminar/{login}",
+			"collectionId": "2d745f85-75a7-5209-d63c-8c59df2ea060",
+			"responses": []
+		},
 		{
 			"id": "e644bac1-4447-f3e3-f052-f2545a358371",
 			"headers": "",
