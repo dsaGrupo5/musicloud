@@ -2,6 +2,8 @@ var API_BASE_URL = "http://127.0.0.1:8080/musicloud";
 var USERNAME = "";
 var PASSWORD = "";
 
+//REVISAR COMO FUNCIONAN LAS COOKIES Y COMO SE CONSTRUYE EL POST QUE SE ENVIA A LA API
+
 $(document).ready(function() {
 });
 
