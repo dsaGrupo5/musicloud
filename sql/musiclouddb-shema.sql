@@ -66,3 +66,5 @@ UNHEX(MD5('0000'))
 select @idadmin := id from users where login='admin';
 insert into user_roles (iduser, role) values (@idadmin, 'administrador');
 insert into auth_tokens (iduser, token) values (@idadmin, UNHEX(REPLACE(UUID(),'-','')));
+
+insert into genero (id, nombre) values (UNHEX('7851C407A0C011E5B140441EA1D028CF'), 'rock');

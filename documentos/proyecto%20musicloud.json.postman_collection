@@ -7,7 +7,8 @@
 		"0f986358-c41a-7a80-d8f3-cc1dde25ca0d",
 		"ccecc5db-1e7a-aadb-547c-6449249c7e9f",
 		"c7dfe1ff-0c8e-7731-a082-a4a64f7c3c94",
-		"8feeffae-985c-e5df-e9bc-1605147487e7"
+		"8feeffae-985c-e5df-e9bc-1605147487e7",
+		"cfe7bec0-afb2-5ef6-420a-366cfc93c822"
 	],
 	"folders": [],
 	"timestamp": 1449658680260,
@@ -139,6 +140,50 @@
 			"time": 1449877589934,
 			"name": "eliminar usuario",
 			"description": "Peticion http , es necesaria token , regisatrado o administrador\nhttp://localhost:8080/musicloud/users/eliminar/{login}",
+			"collectionId": "2d745f85-75a7-5209-d63c-8c59df2ea060",
+			"responses": []
+		},
+		{
+			"id": "cfe7bec0-afb2-5ef6-420a-366cfc93c822",
+			"headers": "X-Auth-Token: c2987324a0c011e5b140441ea1d028cf\n",
+			"url": "http://localhost:8080/musicloud/cancion/cargarcancion",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "file",
+					"value": null,
+					"type": "file",
+					"enabled": true
+				},
+				{
+					"key": "artista",
+					"value": "q",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "nombre",
+					"value": "a",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "genero",
+					"value": "7851C407A0C011E5B140441EA1D028CF",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1449918956866,
+			"name": "login_out user copy",
+			"description": "",
 			"collectionId": "2d745f85-75a7-5209-d63c-8c59df2ea060",
 			"responses": []
 		},
