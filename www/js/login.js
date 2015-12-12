@@ -6,6 +6,7 @@ $(document).ready(function() {
 });
 
 $("#login_in").click(function(e) {
+	
 	e.preventDefault();
 	if($("#idusuario").val() == "" || $("#password").val() == "")
 	{
@@ -30,33 +31,35 @@ $("#login_in").click(function(e) {
 
 function getlogin(login, password)
 { 	
+alert ('entra en getlogin');
 	var url = API_BASE_URL + '/login/login_in';		
-	$.post( url,{login: login,password : password}).done(function(data, status, jqxhr)
+	$.post( url,{login: login,password : password}).done(function(data, status, jqxhr) //como se esta construyendo esta ruta?
 
 		{
 			if(data.role== 'registrado')
 			{
-				
+				alert ('entra en registrado');
 				$.cookie('login', login);
 				$.cookie('userid', data.userid);
 				$.cookie('token', data.token);
 				
-			    window.location = "http://localhost/registered.html" ;
+			    window.location = "http://localhost/registro.html" ;
 			}
 			if(data.role== 'administrador')
 			{
 				$.cookie('login', login);
 				$.cookie('userid', data.userid);
 				$.cookie('token', data.token);
-				window.location = "http://localhost/admin.html" ;
+				window.location = "http://localhost/contacto.html" ;
 			}
 		})
 	    .fail( function( jqXHR, textStatus, errorThrown )
 		{ 
 		//CAMBIAR EL COLOR
-			//document.getElementById('login_username').style.background='#F6B5B5';
-			//document.getElementById('login_username').value=null;
-			$('#login_username').attr('placeholder','USUARIO NO REGISTRADO');
+		alert ('fallo login');
+			document.getElementById('idusuario').style.background='#F6B5B5';
+			document.getElementById('idusuario').value=null;
+			$('#idusuario').attr('placeholder','USUARIO NO REGISTRADO');
 		});
 
 }
