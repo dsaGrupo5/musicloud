@@ -37,6 +37,7 @@ public class UserResource {
             URI uri = new URI(uriInfo.getAbsolutePath().toString() + "/" + user.getId());
             return Response.ok().build();
         }
+
         @RolesAllowed({"administrador","registrado"})
         @Path("/eliminar/{login}")
         @DELETE
@@ -66,6 +67,22 @@ public class UserResource {
             }catch (SQLException e){
                 throw new InternalServerErrorException();
             }
+            return response;
+        }
+
+        @RolesAllowed({"administrador","registrado"})
+        @Path("/obtener/{login}")
+        @POST
+        @Produces(MusicloudMediaType.MUSICLOUD_USER)
+        public User obtenerUser(@PathParam("login")String login) throws SQLException,WebApplicationException{
+            UserDAO userdao = new UserDAOImpl();
+            User response = null;
+            try{
+                response = userdao.obtener_User_por_Login(login);
+                if(response == null)
+                    throw new  WebApplicationException("El usuario no existe", Response.Status.CONFLICT);
+            }
+            catch (SQLException e){throw new InternalServerErrorException();}
             return response;
         }
 }

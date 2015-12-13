@@ -16,11 +16,11 @@ import java.util.UUID;
 /**
  * Created by carlos on 12/12/2015.
  */
-public class CancionDAOImpl {
+public class CancionDAOImpl implements CancionDAO{
 
     private Application app;
 
-
+    @Override
     public UUID cargar_CANCION_en_SF (InputStream file) throws SQLException{
         UUID uuid = UUID.randomUUID();
         String filename = uuid.toString() + ".mp3";
@@ -47,6 +47,7 @@ public class CancionDAOImpl {
         System.out.println(uuid);
         return uuid;
     }
+    @Override
     public boolean cargar_CANCION_en_BD (InputStream file,Cancion cancion) throws SQLException
     {
         Connection connection = null;

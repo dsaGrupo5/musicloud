@@ -8,6 +8,8 @@
 		"ccecc5db-1e7a-aadb-547c-6449249c7e9f",
 		"c7dfe1ff-0c8e-7731-a082-a4a64f7c3c94",
 		"8feeffae-985c-e5df-e9bc-1605147487e7",
+		"898c888e-a6db-b9ab-b761-84c249cf7578",
+		"bb4c7579-c385-8177-60ec-51068f3e96ee",
 		"cfe7bec0-afb2-5ef6-420a-366cfc93c822"
 	],
 	"folders": [],
@@ -67,6 +69,26 @@
 			"responses": []
 		},
 		{
+			"id": "898c888e-a6db-b9ab-b761-84c249cf7578",
+			"headers": "X-Auth-Token: 0a93c14ba16811e59a5a441ea1d028cf\nContent-Type: application/vnd.dsa.musicloud.user+json\n",
+			"url": "http://localhost:8080/musicloud/user/editar/{ç}",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "PUT",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1449991125308,
+			"name": "editar user",
+			"description": "",
+			"collectionId": "2d745f85-75a7-5209-d63c-8c59df2ea060",
+			"responses": [],
+			"rawModeData": "{\n  \"id\": \"07417799A16811E59A5A441EA1D028CF\",\n  \"login\": \"sergio123\",\n  \"nombre\": \"sergio\",\n  \"apellidos\": \"valdes perez\",\n  \"email\": \"nuevo@correo\"\n}\n  \n  \n  \n  \n  \n  \n  \"token\": \"0a93c14ba16811e59a5a441ea1d028cf\",\n  \"role\": \"registrado\",\n  \"iduser\": \"07417799A16811E59A5A441EA1D028CF\""
+		},
+		{
 			"id": "8feeffae-985c-e5df-e9bc-1605147487e7",
 			"headers": "X-Auth-Token: 4f75ef7ca07d11e5ab98441ea1d028cf\n",
 			"url": "http://localhost:8080/musicloud/login/login_out",
@@ -91,6 +113,26 @@
 			"description": "",
 			"collectionId": "2d745f85-75a7-5209-d63c-8c59df2ea060",
 			"responses": []
+		},
+		{
+			"id": "bb4c7579-c385-8177-60ec-51068f3e96ee",
+			"headers": "X-Auth-Token: 0a93c14ba16811e59a5a441ea1d028cf\n",
+			"url": "http://localhost:8080/musicloud/user/obtener/sergio123",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1449995462084,
+			"name": "obtener user ",
+			"description": "",
+			"collectionId": "2d745f85-75a7-5209-d63c-8c59df2ea060",
+			"responses": [],
+			"rawModeData": ""
 		},
 		{
 			"id": "c7dfe1ff-0c8e-7731-a082-a4a64f7c3c94",
@@ -182,7 +224,7 @@
 			"currentHelper": "normal",
 			"helperAttributes": {},
 			"time": 1449918956866,
-			"name": "login_out user copy",
+			"name": "cargar cancion en servidor",
 			"description": "",
 			"collectionId": "2d745f85-75a7-5209-d63c-8c59df2ea060",
 			"responses": []
