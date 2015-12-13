@@ -37,8 +37,6 @@ public class UserResource {
             URI uri = new URI(uriInfo.getAbsolutePath().toString() + "/" + user.getId());
             return Response.ok().build();
         }
-
-
         @RolesAllowed({"administrador","registrado"})
         @Path("/eliminar/{login}")
         @DELETE
@@ -53,6 +51,22 @@ public class UserResource {
                 throw new InternalServerErrorException();
             }
             return Response.ok().build();
+        }
+        @RolesAllowed({"administrador","registrado"})
+        @Path("/editar/{login}")
+        @PUT
+        @Consumes(MusicloudMediaType.MUSICLOUD_USER)
+        @Produces(MusicloudMediaType.MUSICLOUD_USER)
+        public User editarUser(@PathParam("login") String login, User user) throws SQLException,  UserNoExisteException{
+            UserDAO userdao = new UserDAOImpl();
+            User response = null;
+            try{response= userdao.modificar_Usuario(user);}
+            catch (UserNoExisteException e){
+                throw new  WebApplicationException("El usuario no existe", Response.Status.CONFLICT);
+            }catch (SQLException e){
+                throw new InternalServerErrorException();
+            }
+            return response;
         }
 }
 

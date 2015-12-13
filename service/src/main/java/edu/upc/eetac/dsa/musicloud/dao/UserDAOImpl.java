@@ -161,22 +161,21 @@ public class UserDAOImpl implements UserDAO{
     }
 
     @Override
-    public User  modificar_Usuario(String id,String nombre, String apellidos, String email)throws SQLException, UserNoExisteException {
+    public User  modificar_Usuario(User user)throws SQLException, UserNoExisteException {
         Connection connection = null;
         PreparedStatement stmt = null;
-        User user = null;
+
         try
         {
-            user = obtener_User_por_Id(id);
-            if (user == null) throw new UserNoExisteException();
+            if (obtener_User_por_Login(user.getLogin()) == null) throw new UserNoExisteException();
             connection = Database.getConnection();
             stmt = connection.prepareStatement(UserDAOQuery.MODIFICAR_USER);
-            stmt.setString(1, nombre);
-            stmt.setString(2, apellidos);
-            stmt.setString(1, email);
-            stmt.setString(2, id);
+            stmt.setString(1, user.getNombre());
+            stmt.setString(2, user.getApellidos());
+            stmt.setString(3, user.getEmail());
+            stmt.setString(4, user.getLogin());
             int rows = stmt.executeUpdate();
-            if (rows == 1) {user = obtener_User_por_Id(id);}
+            if (rows == 1) {user = obtener_User_por_Login(user.getLogin());}
         }
         catch (SQLException e) {throw e;}
         finally
@@ -225,4 +224,5 @@ public class UserDAOImpl implements UserDAO{
         }
 
     }
+
 }

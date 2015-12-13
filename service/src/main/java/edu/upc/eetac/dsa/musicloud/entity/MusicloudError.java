@@ -1,6 +1,6 @@
 package edu.upc.eetac.dsa.musicloud.entity;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
+
 
 
 public class MusicloudError {
