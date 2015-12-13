@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>MusiCloud - Mi Perfil</title>
+
+    <!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/freelancer.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body id="page-top" class="index">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">MusiCloud - Mi Perfil</a>
+				
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                  <li class="page-scroll">
+                        <a href="#listaspersonales">Mis listas</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#editarperfil">Editar Perfil</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#crearlistas">Crear Listas</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+    <br>
+	<br>
+	   <!-- Portfolio Grid Section -->
+    <section id="listaspersonales">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2>Mis Listas</h2>
+                    <hr class="star-primary">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 portfolio-item">
+                    <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
+                        <div class="caption">
+                            <div class="caption-content">
+                                <i class="fa fa-search-plus fa-3x"></i>
+                            </div>
+                        </div>
+                        <img src="img/portfolio/pop-music.jpg" class="img-responsive" alt="">
+                    </a>
+                </div>
+                <div class="col-sm-4 portfolio-item">
+                    <a href="#portfolioModal2" class="portfolio-link" data-toggle="modal">
+                        <div class="caption">
+                            <div class="caption-content">
+                                <i class="fa fa-search-plus fa-3x"></i>
+                            </div>
+                        </div>
+                        <img src="img/portfolio/hard rock.jpg" class="img-responsive" alt="">
+                    </a>
+                </div>
+                <div class="col-sm-4 portfolio-item">
+                    <a href="#portfolioModal3" class="portfolio-link" data-toggle="modal">
+                        <div class="caption">
+                            <div class="caption-content">
+                                <i class="fa fa-search-plus fa-3x"></i>
+                            </div>
+                        </div>
+                        <img src="img/portfolio/techno.jpg" class="img-responsive" alt="">
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Editar Section -->
+    <section id="editarperfil">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2>Editar Perfil</h2>
+                    <hr class="star-primary">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
+                    <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
+                    <form name="sentMessage" id="registroForm" novalidate>
+                        <div class="row control-group">
+                            <div class="form-group col-xs-12 floating-label-form-group controls">
+                                <label>ID de Musicloud</label>
+                                <input type="text" class="form-control" placeholder="ID Usuario a editar" id="login_editar" required data-validation-required-message="Por favor introduce tu usuario para MusiCloud">
+                                <p class="help-block text-danger"></p>
+                            </div>
+                        </div>
+						<div class="row control-group">
+                            <div class="form-group col-xs-12 floating-label-form-group controls">
+                                <label>Nombre</label>
+                                <input type="text" class="form-control" placeholder="Nombre" id="nombre" required data-validation-required-message="Por favor introduce tu nombre de pila">
+                                <p class="help-block text-danger"></p>
+                            </div>
+                        </div>
+						<div class="row control-group">
+                            <div class="form-group col-xs-12 floating-label-form-group controls">
+                                <label>Apellidos</label>
+                                <input type="text" class="form-control" placeholder="Apellidos" id="apellidos" required data-validation-required-message="Por favor introduce tus apellidos">
+                                <p class="help-block text-danger"></p>
+                            </div>
+                        </div>
+                        <div class="row control-group">
+                            <div class="form-group col-xs-12 floating-label-form-group controls">
+                                <label>Email</label>
+                                <input type="email" class="form-control" placeholder="Email" id="email" required data-validation-required-message="Por favor introduce tu  email">
+                                <p class="help-block text-danger"></p>
+                            </div>
+                        </div>
+                        <div class="row control-group">
+                            <div class="form-group col-xs-12 floating-label-form-group controls">
+                                <label>Password</label>
+                                <input type="password" class="form-control" placeholder="Password" id="password" required data-validation-required-message="Por favor introduce tu clave de acceso a MusiCloud">
+                                <p class="help-block text-danger"></p>
+                            </div>
+                        </div>
+						<div class="form-group col-xs-12">
+                                <button type="submit" class="btn btn-success btn-lg" id="editaruser">Editar</button>
+                            </div>
+                        </div>
+                            </div>
+                        </div>              
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+	
+	
+    <br>
+	<br>
+    <!-- Eliminar Section -->
+    <section id="eliminaruser">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2>Eliminar usuario</h2>
+                    <hr class="star-primary">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
+                    <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
+                    <form name="sentMessage" id="registroForm" novalidate>
+                        <div class="row control-group">
+                            <div class="form-group col-xs-12 floating-label-form-group controls">
+                                <label>Usuario a eliminar</label>
+                                <input type="text" class="form-control" placeholder="ID Usuario a eliminar" id="login_eliminar" required data-validation-required-message="Por favor introduce tu usuario para MusiCloud">
+                                <p class="help-block text-danger"></p>
+                            </div>
+                        </div>
+						
+						<div class="form-group col-xs-12">
+                                <button type="submit" class="btn btn-success btn-lg" id="eliminaruser">Eliminar</button>
+                        </div>
+                        </div>
+                            </div>
+                        </div>
+                       
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+	
+	<br>
+	<br>
+    <!-- Eliminar Section -->
+    <section id="crearlistas">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2>Editar Listas Globales</h2>
+                    <hr class="star-primary">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
+                    <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
+                    <form name="sentMessage" id="registroForm" novalidate>
+                        <div class="row control-group">
+                            <div class="form-group col-xs-12 floating-label-form-group controls">
+                                <label>Seleccionar lista</label>
+                                <input type="text" class="form-control" placeholder="Introducir el nombre de lista" id="nombrelista" required data-validation-required-message="Por favor introduce tu usuario para MusiCloud">
+                                <p class="help-block text-danger"></p>
+                            </div>
+							<div class="form-group col-xs-12 floating-label-form-group controls">
+                                <label>Seleccionar tema</label>
+								<input type="file" id="myfile" name="myfile" class="rm-input" onchange="selectedFile();"/>                                
+                                <p class="help-block text-danger"></p>
+								
+									<progress id="progressBar" value="0" max="100" class="rm-progress"></progress>							
+								
+                            </div>
+							<div class="row control-group">
+                            <div class="form-group col-xs-12 floating-label-form-group controls">
+                                <label>Artista</label>
+                                <input type="text" class="form-control" placeholder="Artista" id="artista" required data-validation-required-message="Por favor introduce tus apellidos">
+                                <p class="help-block text-danger"></p>
+                            </div>
+                        </div>
+                        <div class="row control-group">
+                            <div class="form-group col-xs-12 floating-label-form-group controls">
+                                <label>Nombre de Canción</label>
+                                <input type="email" class="form-control" placeholder="Nombre Canción" id="nombrecancion" required data-validation-required-message="Por favor introduce tu  email">
+                                <p class="help-block text-danger"></p>
+                            </div>
+                        </div>
+                        <div class="row control-group">
+                            <div class="form-group col-xs-12 floating-label-form-group controls">
+                                <label>Género</label>
+                                <input type="password" class="form-control" placeholder="Género Canción" id="genero" required data-validation-required-message="Por favor introduce tu clave de acceso a MusiCloud">
+                                <p class="help-block text-danger"></p>
+                            </div>
+                        </div>
+                        </div>
+						
+						<div class="form-group col-xs-12">
+								<!--<input type="button" value="Subir Archivo" onClick="uploadFile()" class="rm-button" />-->
+                                <button type="submit" class="btn btn-success btn-lg" id="subircancion">Subir archivo</button>
+								
+                        </div>
+						
+                            </div>
+                        </div>
+                       
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+        <!-- Footer -->
+    <footer class="text-center">
+        <div class="footer-below">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        Copyright &copy; Your Website 2014
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
+    <div class="scroll-top page-scroll visible-xs visible-sm">
+        <a class="btn btn-primary" href="#page-top">
+            <i class="fa fa-chevron-up"></i>
+        </a>
+    </div>
+
+
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+	<script src="js/home_user.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script src="js/classie.js"></script>
+    <script src="js/cbpAnimatedHeader.js"></script>
+	
+    <!-- Contact Form JavaScript -->
+    <script src="js/jqBootstrapValidation.js"></script>
+    
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/freelancer.js"></script>
+
+</body>
+
+</html>
