@@ -13,12 +13,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.UUID;
 
-/**
- * Created by carlos on 12/12/2015.
- */
+
 public class CancionDAOImpl implements CancionDAO{
 
-    private Application app;
+
 
     @Override
     public UUID cargar_CANCION_en_SF (InputStream file) throws SQLException{
@@ -48,8 +46,12 @@ public class CancionDAOImpl implements CancionDAO{
         return uuid;
     }
     @Override
-    public boolean cargar_CANCION_en_BD (InputStream file,Cancion cancion) throws SQLException
-    {
+    public UUID descargar_CANCION_en_SF (InputStream file) throws SQLException{
+        UUID uuid= null;
+        return uuid;
+    }
+    @Override
+    public Cancion crear_CANCION (InputStream file,Cancion cancion) throws SQLException{
         Connection connection = null;
         PreparedStatement stmt = null;
         UUID uuid = cargar_CANCION_en_SF(file);
@@ -60,7 +62,7 @@ public class CancionDAOImpl implements CancionDAO{
             stmt.setString(1, uuid.randomUUID().toString().replaceAll("-", ""));
             stmt.setString(2, cancion.getArtista());
             stmt.setString(3, cancion.getNombre());
-            stmt.setString(4, cancion.getIdgenero());
+            stmt.setString(4, cancion.getGenero());
             stmt.executeUpdate();
             stmt.close();
         } catch (SQLException e) {
@@ -74,8 +76,94 @@ public class CancionDAOImpl implements CancionDAO{
                 connection.setAutoCommit(true);
                 connection.close();
             }
-            return true;
+            return cancion;
         }
     }
+    @Override
+    public boolean eliminar_CANCION (String id) throws SQLException, CancionNoExisteException{
+        Connection connection = null;
+        PreparedStatement stmt = null;
+        try
+        {
+            if (obtener_CANCION_por_ID(id) == null)throw new CancionNoExisteException();
+            connection = Database.getConnection();
+            stmt = connection.prepareStatement(CancionDAOQuery.ELIMINAR_CANCION);
+            stmt.setString(1,id);
+            stmt.executeUpdate();
+            return true;
+        }
+        catch (SQLException e){throw e;}
+        finally
+        {
+            if (stmt != null) stmt.close();
+            if (connection != null)
+            {
+                int res;
+                res=1;
+                connection.close();
+            }
+        }
+
+    }
+    @Override
+    public Cancion editar_CANCION (Cancion cancion) throws SQLException,CancionNoExisteException{
+        Connection connection = null;
+        PreparedStatement stmt = null;
+
+        try
+        {
+            if (obtener_CANCION_por_ID(cancion.getId()) == null)
+                throw new CancionNoExisteException();
+            connection = Database.getConnection();
+            stmt = connection.prepareStatement(CancionDAOQuery.MODIFICAR_CANCION);
+            stmt.setString(1, cancion.getArtista());
+            stmt.setString(2, cancion.getNombre());
+            stmt.setString(3, cancion.getGenero());
+            int rows = stmt.executeUpdate();
+            if (rows == 1) {cancion = obtener_CANCION_por_ID(cancion.getId());}
+        }
+        catch (SQLException e) {throw e;}
+        finally
+        {
+            if (stmt != null) stmt.close();
+            if (connection != null)
+            {
+                connection.setAutoCommit(true);
+                connection.close();
+            }
+        }
+        return cancion;
+
+    }
+    @Override
+    public Cancion obtener_CANCION_por_ID (String id) throws SQLException{
+        Cancion cancion = null;
+        Connection connection = null;
+        PreparedStatement stmt = null;
+
+        try {
+            connection = Database.getConnection();
+            stmt = connection.prepareStatement(CancionDAOQuery.obtener_CANCION_por_ID);
+            stmt.setString(1, id);
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+
+                cancion.setId(rs.getString("id"));
+                cancion.setArtista(rs.getString("artista"));
+                cancion.setNombre(rs.getString("nombre"));
+                cancion.setGenero(rs.getString("genero"));
+
+            }
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            if (stmt != null) stmt.close();
+            if (connection != null) connection.close();
+        }
+        return cancion;
+    }
+
 }
+
 

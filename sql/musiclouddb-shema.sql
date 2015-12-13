@@ -12,20 +12,16 @@ CREATE TABLE users (
     password BINARY(16) NOT NULL,
     PRIMARY KEY (id)
 );
-CREATE TABLE genero (
-    id BINARY(16) NOT NULL,    
-    nombre VARCHAR(255) NOT NULL,    	
-    PRIMARY KEY (id)    
-);
+
 CREATE TABLE canciones (
     id BINARY(16) NOT NULL,
     artista VARCHAR(15) NOT NULL,
     nombre VARCHAR(255) NOT NULL,
-    idgenero BINARY(16) NOT NULL,
+    genero VARCHAR(15) NOT NULL,
     last_modified TIMESTAMP NOT NULL,
     creation_timestamp DATETIME not null default current_timestamp,	
-    PRIMARY KEY (id),
-    FOREIGN KEY (idgenero) REFERENCES genero(id) on delete cascade
+    PRIMARY KEY (id)
+    
 );
 CREATE TABLE listas_usuarios (
     id BINARY(16) NOT NULL,
@@ -67,4 +63,3 @@ select @idadmin := id from users where login='admin';
 insert into user_roles (iduser, role) values (@idadmin, 'administrador');
 insert into auth_tokens (iduser, token) values (@idadmin, UNHEX(REPLACE(UUID(),'-','')));
 
-insert into genero (id, nombre) values (UNHEX('7851C407A0C011E5B140441EA1D028CF'), 'rock');

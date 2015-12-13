@@ -72,7 +72,7 @@ public class UserResource {
 
         @RolesAllowed({"administrador","registrado"})
         @Path("/obtener/{login}")
-        @POST
+        @GET
         @Produces(MusicloudMediaType.MUSICLOUD_USER)
         public User obtenerUser(@PathParam("login")String login) throws SQLException,WebApplicationException{
             UserDAO userdao = new UserDAOImpl();

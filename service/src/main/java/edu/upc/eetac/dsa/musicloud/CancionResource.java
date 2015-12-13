@@ -23,7 +23,8 @@ public class CancionResource{
     @Path("/cargarcancion")
     @POST
     @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public Response uploadSong(@FormDataParam("file") InputStream file,
+    @Produces(MusicloudMediaType.MUSICLOUD_CANCION)
+    public Cancion uploadSong(@FormDataParam("file") InputStream file,
                               @FormDataParam("artista") String artista,
                               @FormDataParam("nombre") String nombre,
                               @FormDataParam("genero") String genero) throws SQLException
@@ -31,16 +32,16 @@ public class CancionResource{
         Cancion cancion = new Cancion();
         cancion.setArtista(artista);
         cancion.setNombre(nombre);
-        cancion.setIdgenero(genero);
+        cancion.setGenero(genero);
         CancionDAOImpl canciondaoimpl = new CancionDAOImpl();
         try
         {
-            canciondaoimpl.cargar_CANCION_en_BD(file, cancion);
+            cancion= canciondaoimpl.crear_CANCION(file, cancion);
         }
         catch (SQLException e)
         {
             throw new InternalServerErrorException();
-        }return Response.ok().build();
-
+        }
+        return cancion;
     }
 }
