@@ -3,6 +3,7 @@ var USERNAME = "";
 var PASSWORD = "";
 
 //FALTA MOSTRAR ERROR DE LOGIN DUPLICADO
+//añadir login tras registro a la web de home_user
 
 $(document).ready(function() {
 });
@@ -68,6 +69,6 @@ var url = API_BASE_URL + '/users/registrar';
 	}).done(function(data, status, jqxhr) {
 		 alert ('registro ok');	
   	}).fail(function() {
-		alert ('fail registro');
+		alert ('Usuario login ya escogido. Debes cambiar el ID de usuario MusiCloud');
 	});
 }

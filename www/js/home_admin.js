@@ -12,31 +12,71 @@ $(document).ready(function() {
 	//TOKEN = $.cookie('token');
 });
 
-$("#eliminaruser").click(function(e) {
-	
+$("#editaruser").click(function(e) {
 	e.preventDefault();
 	
-	//CONTROL DE RELLENADO DE VARIABLES	
-	if($("#login_eliminar").val() == ""){
-		if($("#login_eliminar").val() == "")
-			{
-				document.getElementById('login_eliminar').style.background='#F6B5B5';
-				$('#login_eliminar').attr('placeholder','RELLENE EL CAMPO');
-			}
+	//CONTROL DE RELLENADO DE VARIABLES
+	if($("#login_editar").val() == "")
+	{
+		if($("#login_editar").val() == "")
+		{
+			document.getElementById('login_editar').style.background='#EC991B';
+			$('#login_editar').attr('placeholder','CAMPO USER ID OBLIGATORIO');
+		}
+		
 	}
 	else
 	{
-		var nuevoUsuario	= new Object();	
-		nuevoUsuario.login = $("#login_eliminar").val();
+		
+	var nuevoUsuario	= new Object();
+	nuevoUsuario.login = $("#login_editar").val();
+	
+		if($("#nombre").val() != "")
+		{
+			nuevoUsuario.nombre = $("#nombre").val();
+		}
+		if($("#apellidos").val() != "")
+		{
+			nuevoUsuario.apellidos = $("#apellidos").val();
+		}
+		if($("#email").val() != "")
+		{
+			nuevoUsuario.email = $("#email").val();	
+		}
+		if($("#password").val() != "")
+		{
+			nuevoUsuario.password = $("#password").val();
+		}	
+	
+	editar_usuario(nuevoUsuario);
+	
+	}
+});
 
-		eliminar_usuario(nuevoUsuario);
+$("#eliminaruser").click(function(e) {
+	e.preventDefault();
+	
+	//CONTROL DE RELLENADO DE VARIABLES
+	if($("#login_eliminar").val() == "")
+	{
+		document.getElementById('login_eliminar').style.background='#EC991B';
+			$('#login_eliminar').attr('placeholder','CAMPO USER ID OBLIGATORIO');
+	}
+	else
+	{
+		
+	var nuevoUsuario	= new Object();
+	nuevoUsuario.login = $("#login_eliminar").val();
+	
+	eliminar_usuario(nuevoUsuario);
+	
 	}
 });
 
 function eliminar_usuario(usuario) 
 {
 	var url = API_BASE_URL + '/users/eliminar/'+ usuario.login;
-	console.log(url);	
+	//console.log(url);	
 	$.ajax({
 		url : url,
 		type : 'DELETE',
