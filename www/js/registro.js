@@ -66,7 +66,7 @@ var url = API_BASE_URL + '/users/registrar';
 		data : $.param(usuario),
 		
 	}).done(function(data, status, jqxhr) {
-		 alert ('regsitro ok');	
+		 alert ('registro ok');	
   	}).fail(function() {
 		alert ('fail registro');
 	});
