@@ -11,11 +11,12 @@ import java.util.UUID;
  */
 public interface CancionDAO {
 
-     public UUID cargar_CANCION_en_SF (InputStream file) throws SQLException;
+     public void cargar_CANCION_en_SF (InputStream file,String id) throws SQLException;
      public UUID descargar_CANCION_en_SF (InputStream file) throws SQLException;
-     public Cancion crear_CANCION (InputStream file,Cancion cancion) throws SQLException;
-     public boolean eliminar_CANCION (String id) throws SQLException, CancionNoExisteException;
+     public Cancion crear_CANCION (InputStream file,Cancion cancion) throws SQLException, CancionExisteException;
+     public boolean eliminar_CANCION_en_BD_y_SF (String id) throws SQLException, CancionNoExisteException,CancionNoencontradaSFException;
      public Cancion editar_CANCION (Cancion Cancion) throws SQLException,CancionNoExisteException;
      public Cancion obtener_CANCION_por_ID (String id) throws SQLException;
+     public Cancion obtener_CANCION_por_ARTISTA_y_NOMBRE(String artista, String nombre) throws SQLException;
 
 }

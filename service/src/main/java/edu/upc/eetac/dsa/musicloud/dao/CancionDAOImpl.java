@@ -15,13 +15,41 @@ import java.util.UUID;
 
 
 public class CancionDAOImpl implements CancionDAO{
+    @Override
+    public Cancion obtener_CANCION_por_ARTISTA_y_NOMBRE(String artista, String nombre) throws SQLException
+    {
+        Cancion cancion = null;
+        Connection connection = null;
+        PreparedStatement stmt = null;
 
+        try {
+            connection = Database.getConnection();
+            stmt = connection.prepareStatement(CancionDAOQuery.obtener_CANCION_por_ARTISTA_Y_NOMBRE);
+            stmt.setString(1, artista);
+            stmt.setString(2, nombre);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                cancion = new Cancion();
+                cancion.setId(rs.getString("id"));
+                cancion.setArtista(rs.getString("artista"));
+                cancion.setNombre(rs.getString("nombre"));
+                cancion.setGenero(rs.getString("genero"));
 
+            }
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            if (stmt != null) stmt.close();
+            if (connection != null) connection.close();
+        }
+        return cancion;
+
+    }
 
     @Override
-    public UUID cargar_CANCION_en_SF (InputStream file) throws SQLException{
-        UUID uuid = UUID.randomUUID();
-        String filename = uuid.toString() + ".mp3";
+    public void cargar_CANCION_en_SF (InputStream file, String id) throws SQLException{
+
+        String filename = id.toString() + ".mp3";
         DataInputStream dis = new DataInputStream(file);
 
         try {
@@ -42,8 +70,6 @@ public class CancionDAOImpl implements CancionDAO{
                     "Something has been wrong when converting the file.");
         }
 
-        System.out.println(uuid);
-        return uuid;
     }
     @Override
     public UUID descargar_CANCION_en_SF (InputStream file) throws SQLException{
@@ -51,15 +77,19 @@ public class CancionDAOImpl implements CancionDAO{
         return uuid;
     }
     @Override
-    public Cancion crear_CANCION (InputStream file,Cancion cancion) throws SQLException{
+    public Cancion crear_CANCION (InputStream file,Cancion cancion) throws SQLException, CancionExisteException{
         Connection connection = null;
         PreparedStatement stmt = null;
-        UUID uuid = cargar_CANCION_en_SF(file);
+        CancionDAO canciondao = new CancionDAOImpl();
 
+        if(canciondao.obtener_CANCION_por_ARTISTA_y_NOMBRE(cancion.getArtista(), cancion.getNombre()) != null)
+            throw new CancionExisteException();
+
+        cancion.setId(UUID.randomUUID().toString().replaceAll("-", ""));
         try {
             connection = Database.getConnection();
             stmt = connection.prepareStatement(CancionDAOQuery.cargar_cancion_BD);
-            stmt.setString(1, uuid.randomUUID().toString().replaceAll("-", ""));
+            stmt.setString(1, cancion.getId());
             stmt.setString(2, cancion.getArtista());
             stmt.setString(3, cancion.getNombre());
             stmt.setString(4, cancion.getGenero());
@@ -76,20 +106,24 @@ public class CancionDAOImpl implements CancionDAO{
                 connection.setAutoCommit(true);
                 connection.close();
             }
+            cargar_CANCION_en_SF(file,cancion.getId());
             return cancion;
         }
     }
     @Override
-    public boolean eliminar_CANCION (String id) throws SQLException, CancionNoExisteException{
+    public boolean  eliminar_CANCION_en_BD_y_SF (String id) throws SQLException, CancionNoExisteException,CancionNoencontradaSFException{
         Connection connection = null;
         PreparedStatement stmt = null;
+        String filename = id.toString() + ".mp3";
+        File fichero = new File(filename);
         try
         {
             if (obtener_CANCION_por_ID(id) == null)throw new CancionNoExisteException();
             connection = Database.getConnection();
             stmt = connection.prepareStatement(CancionDAOQuery.ELIMINAR_CANCION);
-            stmt.setString(1,id);
+            stmt.setString(1, id);
             stmt.executeUpdate();
+            if(!fichero.delete()) throw  new CancionNoencontradaSFException();
             return true;
         }
         catch (SQLException e){throw e;}
@@ -163,7 +197,6 @@ public class CancionDAOImpl implements CancionDAO{
         }
         return cancion;
     }
-
 }
 
 
