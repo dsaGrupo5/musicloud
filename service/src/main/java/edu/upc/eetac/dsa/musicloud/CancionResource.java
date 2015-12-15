@@ -27,6 +27,10 @@ public class CancionResource{
                               @FormDataParam("artista") String artista,
                               @FormDataParam("nombre") String nombre,
                               @FormDataParam("genero") String genero) throws SQLException, CancionExisteException{
+
+        if(file == null)
+            throw new BadRequestException("Es necesario selecionar un archivo");
+
         Cancion cancion = new Cancion();
         cancion.setArtista(artista);
         cancion.setNombre(nombre);

@@ -15,9 +15,16 @@ public class Cancion {
     private String artista;
     private String nombre;
     private String genero;
+    private String url;
     private long last_modified;
     private long creation_timestamp;
 
+    public String getUrl() {
+        return url;
+    }
+    public void setUrl(String url) {
+        this.url = url;
+    }
     public List<Link> getLinks(){return links;}
     public void   setLinks(List<Link> links) {this.links = links;}
     public String getId() {return id;}

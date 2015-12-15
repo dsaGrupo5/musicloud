@@ -11,10 +11,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.PropertyResourceBundle;
+import java.util.ResourceBundle;
 import java.util.UUID;
 
 
 public class CancionDAOImpl implements CancionDAO{
+    private static String URIdescargaCANCION;
+    PropertyResourceBundle prb = (PropertyResourceBundle) ResourceBundle.getBundle("musicloud");
     @Override
     public Cancion obtener_CANCION_por_ARTISTA_y_NOMBRE(String artista, String nombre) throws SQLException
     {
@@ -34,6 +38,7 @@ public class CancionDAOImpl implements CancionDAO{
                 cancion.setArtista(rs.getString("artista"));
                 cancion.setNombre(rs.getString("nombre"));
                 cancion.setGenero(rs.getString("genero"));
+                cancion.setUrl(rs.getString("url"));
 
             }
         } catch (SQLException e) {
@@ -81,11 +86,15 @@ public class CancionDAOImpl implements CancionDAO{
         Connection connection = null;
         PreparedStatement stmt = null;
         CancionDAO canciondao = new CancionDAOImpl();
+        String url = new String();
+
+
 
         if(canciondao.obtener_CANCION_por_ARTISTA_y_NOMBRE(cancion.getArtista(), cancion.getNombre()) != null)
             throw new CancionExisteException();
 
         cancion.setId(UUID.randomUUID().toString().replaceAll("-", ""));
+        cancion.setUrl(prb.getString("musicloud.context")+ "/descargacancion/" + cancion.getId());
         try {
             connection = Database.getConnection();
             stmt = connection.prepareStatement(CancionDAOQuery.cargar_cancion_BD);
@@ -93,6 +102,7 @@ public class CancionDAOImpl implements CancionDAO{
             stmt.setString(2, cancion.getArtista());
             stmt.setString(3, cancion.getNombre());
             stmt.setString(4, cancion.getGenero());
+            stmt.setString(5, cancion.getUrl());
             stmt.executeUpdate();
             stmt.close();
         } catch (SQLException e) {
@@ -187,7 +197,7 @@ public class CancionDAOImpl implements CancionDAO{
                 cancion.setArtista(rs.getString("artista"));
                 cancion.setNombre(rs.getString("nombre"));
                 cancion.setGenero(rs.getString("genero"));
-
+                cancion.setUrl(rs.getString("url"));
             }
         } catch (SQLException e) {
             throw e;
