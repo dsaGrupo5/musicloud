@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>MusiCloud - ADMIN</title>
+    <title>MusiCloud - Mi Perfil</title>
 
     <!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -44,7 +44,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">MusiCloud - @dmin</a>
+                <a class="navbar-brand" href="index.html">MusiCloud - Mi Perfil</a>
 				
             </div>
 
@@ -55,13 +55,13 @@
                         <a href="#page-top"></a>
                     </li>
                   <li class="page-scroll">
-                        <a href="#editaruser">Editar Usuario</a>
+                        <a href="#listaspersonales">Mis listas</a>
                     </li>
                     <li class="page-scroll">
-                        <a href="#eliminaruser">Eliminar Usuario</a>
+                        <a href="#editarperfil">Editar Perfil</a>
                     </li>
                     <li class="page-scroll">
-                        <a href="#listasglobales">Editar Listas</a>
+                        <a href="#crearlistas">Crear Listas</a>
                     </li>
                 </ul>
             </div>
@@ -72,12 +72,57 @@
 
     <br>
 	<br>
-    <!-- Editar Section -->
-    <section id="editaruser">
+	   <!-- Portfolio Grid Section -->
+    <section id="listaspersonales">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2>Editar usuario</h2>
+                    <h2>Mis Listas</h2>
+                    <hr class="star-primary">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 portfolio-item">
+                    <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
+                        <div class="caption">
+                            <div class="caption-content">
+                                <i class="fa fa-search-plus fa-3x"></i>
+                            </div>
+                        </div>
+                        <img src="img/portfolio/pop-music.jpg" class="img-responsive" alt="">
+                    </a>
+                </div>
+                <div class="col-sm-4 portfolio-item">
+                    <a href="#portfolioModal2" class="portfolio-link" data-toggle="modal">
+                        <div class="caption">
+                            <div class="caption-content">
+                                <i class="fa fa-search-plus fa-3x"></i>
+                            </div>
+                        </div>
+                        <img src="img/portfolio/hard rock.jpg" class="img-responsive" alt="">
+                    </a>
+                </div>
+                <div class="col-sm-4 portfolio-item">
+                    <a href="#portfolioModal3" class="portfolio-link" data-toggle="modal">
+                        <div class="caption">
+                            <div class="caption-content">
+                                <i class="fa fa-search-plus fa-3x"></i>
+                            </div>
+                        </div>
+                        <img src="img/portfolio/techno.jpg" class="img-responsive" alt="">
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Editar Section -->
+    <section id="editarperfil">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2>Editar Perfil</h2>
                     <hr class="star-primary">
                 </div>
             </div>
@@ -88,7 +133,7 @@
                     <form name="sentMessage" id="registroForm" novalidate>
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Usuario a editar</label>
+                                <label>ID de Musicloud</label>
                                 <input type="text" class="form-control" placeholder="ID Usuario a editar" id="login_editar" required data-validation-required-message="Por favor introduce tu usuario para MusiCloud">
                                 <p class="help-block text-danger"></p>
                             </div>
@@ -176,7 +221,7 @@
 	<br>
 	<br>
     <!-- Eliminar Section -->
-    <section id="listasglobales">
+    <section id="crearlistas">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -212,15 +257,15 @@
                         </div>
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Nombre de CanciÃ³n</label>
-                                <input type="email" class="form-control" placeholder="Nombre CanciÃ³n" id="nombrecancion" required data-validation-required-message="Por favor introduce tu  email">
+                                <label>Nombre de Canción</label>
+                                <input type="email" class="form-control" placeholder="Nombre Canción" id="nombrecancion" required data-validation-required-message="Por favor introduce tu  email">
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>GÃ©nero</label>
-                                <input type="password" class="form-control" placeholder="GÃ©nero CanciÃ³n" id="genero" required data-validation-required-message="Por favor introduce tu clave de acceso a MusiCloud">
+                                <label>Género</label>
+                                <input type="password" class="form-control" placeholder="Género Canción" id="genero" required data-validation-required-message="Por favor introduce tu clave de acceso a MusiCloud">
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
@@ -265,7 +310,7 @@
 
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
-	<script src="js/home_admin.js"></script>
+	<script src="js/home_user.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>

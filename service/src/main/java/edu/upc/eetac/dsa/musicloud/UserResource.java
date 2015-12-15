@@ -38,7 +38,7 @@ public class UserResource {
             return Response.ok().build();
         }
 
-        @RolesAllowed({"administrador","registrado"})
+        //@RolesAllowed({"administrador","registrado"})
         @Path("/eliminar/{login}")
         @DELETE
         public Response eliminarUser(@PathParam("login") String login) throws UserNoExisteException {
