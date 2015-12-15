@@ -18,6 +18,7 @@ CREATE TABLE canciones (
     artista VARCHAR(15) NOT NULL,
     nombre VARCHAR(255) NOT NULL,
     genero VARCHAR(15) NOT NULL,
+    url VARCHAR(255) NOT NULL,
     last_modified TIMESTAMP NOT NULL,
     creation_timestamp DATETIME not null default current_timestamp,	
     PRIMARY KEY (id)
