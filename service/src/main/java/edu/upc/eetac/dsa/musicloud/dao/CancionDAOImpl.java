@@ -182,7 +182,7 @@ public class CancionDAOImpl implements CancionDAO{
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-
+                cancion = new Cancion();
                 cancion.setId(rs.getString("id"));
                 cancion.setArtista(rs.getString("artista"));
                 cancion.setNombre(rs.getString("nombre"));

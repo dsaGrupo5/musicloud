@@ -16,7 +16,7 @@ package edu.upc.eetac.dsa.musicloud;
 
         @Context
         SecurityContext securityContext;
-        @RolesAllowed({"registrado"})
+        @RolesAllowed({"administrador","registrado"})
         @Path(("/login_out"))
         @POST
         @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
