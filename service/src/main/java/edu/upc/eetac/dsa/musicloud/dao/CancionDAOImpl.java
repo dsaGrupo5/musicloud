@@ -114,7 +114,7 @@ public class CancionDAOImpl implements CancionDAO{
     public boolean  eliminar_CANCION_en_BD_y_SF (String id) throws SQLException, CancionNoExisteException,CancionNoencontradaSFException{
         Connection connection = null;
         PreparedStatement stmt = null;
-        String filename = id.toString() + ".mp3";
+        String filename = "C:\\canciones\\" + id.toString() + ".mp3";
         File fichero = new File(filename);
         try
         {
