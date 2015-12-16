@@ -19,11 +19,13 @@ public class Main
         return GrizzlyHttpServerFactory.createHttpServer(URI.create(getBaseURI()), rc);
     }
     public static void main(String[] args) throws IOException {
+
         final HttpServer server = startServer();
-        System.out.println(String.format("Jersey app started with WADL available at "
-                + "%sapplication.wadl\nHit enter to stop it...", getBaseURI()));
-        System.in.read();
-        server.shutdownNow();
+    //    final HttpServer server = startServer();
+    //    System.out.println(String.format("Jersey app started with WADL available at "
+    //            + "%sapplication.wadl\nHit enter to stop it...", getBaseURI()));
+    //    System.in.read();
+    //    server.shutdownNow();
     }
     public static String getBaseURI() {
         if (baseURI == null) {

@@ -1,16 +1,11 @@
 package edu.upc.eetac.dsa.musicloud.dao;
 
 import edu.upc.eetac.dsa.musicloud.entity.Cancion;
+import edu.upc.eetac.dsa.musicloud.entity.CancionColeccion;
 
 import javax.ws.rs.InternalServerErrorException;
-import javax.ws.rs.core.Application;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.SecurityContext;
 import java.io.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 import java.util.UUID;
@@ -20,8 +15,7 @@ public class CancionDAOImpl implements CancionDAO{
     private static String URIdescargaCANCION;
     PropertyResourceBundle prb = (PropertyResourceBundle) ResourceBundle.getBundle("musicloud");
     @Override
-    public Cancion obtener_CANCION_por_ARTISTA_y_NOMBRE(String artista, String nombre) throws SQLException
-    {
+    public Cancion obtener_CANCION_por_ARTISTA_y_NOMBRE(String artista, String nombre) throws SQLException{
         Cancion cancion = null;
         Connection connection = null;
         PreparedStatement stmt = null;
@@ -50,18 +44,17 @@ public class CancionDAOImpl implements CancionDAO{
         return cancion;
 
     }
-
     @Override
     public void cargar_CANCION_en_SF (InputStream file, String id) throws SQLException{
 
-        String filename = id.toString() + ".mp3";
+        String filename =  prb.getString("CANCIONES.context")  + id.toString() + ".mp3";
         DataInputStream dis = new DataInputStream(file);
 
         try {
             OutputStream outpuStream = null;
             int read = 0;
             byte[] bytes = new byte[1024];
-            outpuStream = new FileOutputStream(new File("C:\\canciones\\" + filename));
+            outpuStream = new FileOutputStream(new File(filename));
             while ((read = file.read(bytes)) != -1) {
                 outpuStream.write(bytes, 0, read);
             }
@@ -74,7 +67,6 @@ public class CancionDAOImpl implements CancionDAO{
             throw new InternalServerErrorException(
                     "Something has been wrong when converting the file.");
         }
-
     }
     @Override
     public UUID descargar_CANCION_en_SF (InputStream file) throws SQLException{
@@ -94,7 +86,7 @@ public class CancionDAOImpl implements CancionDAO{
             throw new CancionExisteException();
 
         cancion.setId(UUID.randomUUID().toString().replaceAll("-", ""));
-        cancion.setUrl(prb.getString("musicloud.context")+ "/descargacancion/" + cancion.getId());
+        cancion.setUrl(prb.getString("musicloud.context")+ "/reproduccion/" + cancion.getId() + ".mp3");
         try {
             connection = Database.getConnection();
             stmt = connection.prepareStatement(CancionDAOQuery.cargar_cancion_BD);
@@ -124,7 +116,7 @@ public class CancionDAOImpl implements CancionDAO{
     public boolean  eliminar_CANCION_en_BD_y_SF (String id) throws SQLException, CancionNoExisteException,CancionNoencontradaSFException{
         Connection connection = null;
         PreparedStatement stmt = null;
-        String filename = "C:\\canciones\\" + id.toString() + ".mp3";
+        String filename =  prb.getString("CANCIONES.context")  + id.toString() + ".mp3";
         File fichero = new File(filename);
         try
         {
@@ -207,6 +199,53 @@ public class CancionDAOImpl implements CancionDAO{
         }
         return cancion;
     }
+    @Override
+    public CancionColeccion obtener_catalogo_CANCIONES(long timestamp, boolean before) throws SQLException{
+        Cancion cancion = null;
+        CancionColeccion cancioncoleccion = new CancionColeccion();
+        Connection connection = null;
+        PreparedStatement stmt = null;
+        try
+        {
+            connection = Database.getConnection();
+            if(before) stmt = connection.prepareStatement(CancionDAOQuery.OBTENER_COLECCION_GRUPOS_APARTIR_ID_PAGINADA_A_5);
+            else       stmt = connection.prepareStatement(CancionDAOQuery.OBTENER_COLECCION_GRUPOS_APARTIR_ID_PAGINADA_A_5_after);
+            stmt.setTimestamp(1, new Timestamp(timestamp));
+            ResultSet rs = stmt.executeQuery();
+            boolean first = true;
+            while (rs.next())
+            {
+                cancion = new Cancion();
+                cancion.setId(rs.getString("id"));
+                cancion.setNombre(rs.getString("artista"));
+                cancion.setNombre(rs.getString("nombre"));
+                cancion.setNombre(rs.getString("genero"));
+                cancion.setNombre(rs.getString("url"));
+                cancion.setCreation_timestamp(rs.getTimestamp("creation_timestamp").getTime());
+                cancion.setLast_modified(rs.getTimestamp("last_modified").getTime());
+                if (first)
+                {
+                    cancioncoleccion.setNewestTimestamp(cancion.getLast_modified());
+                    first = false;
+                }
+                cancioncoleccion.setOldestTimestamp(cancion.getLast_modified());
+                cancioncoleccion.getCanciones().add(cancion);
+            }
+        }
+        catch (SQLException e){throw e;}
+        finally
+        {
+            if (stmt != null) stmt.close();
+            if (connection != null)
+            {
+                connection.setAutoCommit(true);
+                connection.close();
+            }
+        }
+        return  cancioncoleccion;
+    }
+
+
 }
 
 

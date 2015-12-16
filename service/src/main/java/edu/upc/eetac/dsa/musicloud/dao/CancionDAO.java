@@ -1,6 +1,7 @@
 package edu.upc.eetac.dsa.musicloud.dao;
 
 import edu.upc.eetac.dsa.musicloud.entity.Cancion;
+import edu.upc.eetac.dsa.musicloud.entity.CancionColeccion;
 
 import java.io.InputStream;
 import java.sql.SQLException;
@@ -18,5 +19,6 @@ public interface CancionDAO {
      public Cancion editar_CANCION (Cancion Cancion) throws SQLException,CancionNoExisteException;
      public Cancion obtener_CANCION_por_ID (String id) throws SQLException;
      public Cancion obtener_CANCION_por_ARTISTA_y_NOMBRE(String artista, String nombre) throws SQLException;
+     public CancionColeccion obtener_catalogo_CANCIONES(long timestamp, boolean before) throws SQLException;
 
 }
