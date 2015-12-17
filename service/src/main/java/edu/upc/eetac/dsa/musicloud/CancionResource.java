@@ -4,6 +4,7 @@ package edu.upc.eetac.dsa.musicloud;
 import edu.upc.eetac.dsa.musicloud.dao.*;
 import edu.upc.eetac.dsa.musicloud.entity.Cancion;
 import edu.upc.eetac.dsa.musicloud.entity.CancionColeccion;
+import edu.upc.eetac.dsa.musicloud.entity.Listas_Usuarios;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
@@ -19,7 +20,6 @@ public class CancionResource
 {
     @Context
     private SecurityContext securityContext;
-
     @RolesAllowed({"registrado"})
     @Path("/cargarcancion")
     @POST
@@ -76,6 +76,49 @@ public class CancionResource
             throw new InternalServerErrorException();
         }
         return cancioncoleccion;
+    }
+    @RolesAllowed({"administrador","registrado"})
+    @Path(("/crear_listareproduccion"))
+    @POST
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MusicloudMediaType.MUSICLOUD_LISTA_USUARIO)
+    public Listas_Usuarios crear_LISTAUSUARIOS(@FormParam("iduser") String iduser,@FormParam("nombre") String nombre) throws SQLException, ListaExisteException,UserNoExisteException{
+        if(iduser== null ||nombre == null) throw new BadRequestException("Es necesario rellenar todos los campos");
+        CancionDAOImpl canciondao = new CancionDAOImpl();
+        Listas_Usuarios lista = new Listas_Usuarios();
+        try{lista = canciondao.crear_LISTAUSUARIOS(iduser,nombre);}
+        catch (ListaExisteException e){throw  new WebApplicationException("El nombre de esta lisya ya existe",Response.Status.CONFLICT );}
+        catch (UserNoExisteException e){throw  new WebApplicationException("El nombre de este usuario no existe",Response.Status.CONFLICT );}
+        catch (SQLException e){throw new InternalServerErrorException();}
+        return lista;
+    }
+    @RolesAllowed({"administrador","registrado"})
+    @Path(("/editar_listareproduccion/{id}"))
+    @PUT
+    @Consumes(MusicloudMediaType.MUSICLOUD_LISTA_USUARIO)
+    @Produces(MusicloudMediaType.MUSICLOUD_LISTA_USUARIO)
+    public Listas_Usuarios modificar_LISTAUSUARIOS(@PathParam("id") String id,Listas_Usuarios lista) throws SQLException, ListaExisteException,UserNoExisteException, ListaNoExisteException{
+        CancionDAOImpl canciondao = new CancionDAOImpl();
+        try{lista = canciondao.modifica_LISTAUSUARIO(id, lista.getCanciones(), lista.getNombre());}
+        catch (ListaExisteException e){throw  new WebApplicationException("El nombre de esta lisya ya existe",Response.Status.CONFLICT );}
+        catch (ListaNoExisteException e){throw  new WebApplicationException("Esta lista no existe",Response.Status.CONFLICT );}
+        catch (UserNoExisteException e){throw  new WebApplicationException("El nombre de este usuario no existe",Response.Status.CONFLICT );}
+        catch (SQLException e){throw new InternalServerErrorException();}
+        return lista;
+    }
+    @RolesAllowed({"administrador","registrado"})
+    @Path(("/obtener_listausuario/{id}"))
+    @GET
+    @Produces(MusicloudMediaType.MUSICLOUD_LISTA_USUARIO)
+    public Listas_Usuarios obtener_LISTAUSUARIOS(@PathParam("id") String id) throws SQLException, ListaExisteException,UserNoExisteException, ListaNoExisteException{
+        CancionDAOImpl canciondao = new CancionDAOImpl();
+        Listas_Usuarios lista = new Listas_Usuarios();
+        try{lista = canciondao.obtener_LISTAUSUARIOS_por_ID(id);}
+        catch (ListaExisteException e){throw  new WebApplicationException("El nombre de esta lisya ya existe",Response.Status.CONFLICT );}
+        catch (ListaNoExisteException e){throw  new WebApplicationException("Esta lista no existe",Response.Status.CONFLICT );}
+        catch (UserNoExisteException e){throw  new WebApplicationException("El nombre de este usuario no existe",Response.Status.CONFLICT );}
+        catch (SQLException e){throw new InternalServerErrorException();}
+        return lista;
     }
 
 }
