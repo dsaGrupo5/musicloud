@@ -310,11 +310,7 @@ public class CancionDAOImpl implements CancionDAO{
 
             list = obtener_CC_de_LISTAUSUARIOS(idlista);
             listaantigua =list.getCanciones();
-
-
             listanueva = cancioncoleccion.getCanciones();
-
-
             int Snuevo = listanueva.size();
             int Santiguo = listaantigua.size();
             boolean encontrado;
@@ -336,8 +332,6 @@ public class CancionDAOImpl implements CancionDAO{
                     }
                     if(encontrado== false)
                         eliminar_LISTACANCION(idlista, idantigua);
-
-
                 }
             }
             else
@@ -347,7 +341,6 @@ public class CancionDAOImpl implements CancionDAO{
                     encontrado = false;
                     cancionnueva = listanueva.get(i);
                     idnueva = cancionnueva.getId();
-
                     for (int b=0; b<Santiguo; b++)
                     {
                         cancionantigua = listaantigua.get(b);
@@ -357,8 +350,6 @@ public class CancionDAOImpl implements CancionDAO{
                     }
                     if(encontrado== false)
                         insertar_LISTACANCION(idlista, idnueva);
-
-
                 }
             }
         }
@@ -369,7 +360,6 @@ public class CancionDAOImpl implements CancionDAO{
             if (connection != null) connection.close();
         }
         return obtener_LISTAUSUARIOS_por_ID(idlista);
-
     }
     @Override
     public Listas_Usuarios comprobar_existe_LISTAUSUARIOS_por_NOMBRE(String nombre) throws  SQLException,ListaExisteException{

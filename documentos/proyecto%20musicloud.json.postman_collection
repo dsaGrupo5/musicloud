@@ -10,7 +10,12 @@
 		"8feeffae-985c-e5df-e9bc-1605147487e7",
 		"898c888e-a6db-b9ab-b761-84c249cf7578",
 		"bb4c7579-c385-8177-60ec-51068f3e96ee",
-		"cfe7bec0-afb2-5ef6-420a-366cfc93c822"
+		"cfe7bec0-afb2-5ef6-420a-366cfc93c822",
+		"2a6bbd8b-7f65-8f8b-d2c6-dc91a64aec7a",
+		"949754d4-93f9-c254-a0cd-5b8cca65ae95",
+		"24a5f383-7e5e-4362-e2e0-cec90ec842d4",
+		"9b734f75-4d0a-ec28-7e61-14a66619ba6c",
+		"bd299d28-ab3a-9a28-5c4b-54a3096e388d"
 	],
 	"folders": [],
 	"timestamp": 1449658680260,
@@ -28,7 +33,7 @@
 			"data": [
 				{
 					"key": "login",
-					"value": null,
+					"value": "carlos",
 					"type": "text",
 					"enabled": true
 				},
@@ -62,9 +67,60 @@
 			"tests": "",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1449869666759,
+			"time": 1450310340435,
 			"name": "crear usuario",
 			"description": "  user = carlos2\n  \"token\": \"3005aefea04611e5ab98441ea1d028cf\",\n  \"iduser\": \"2FFE8582A04611E5AB98441EA1D028CF\"",
+			"collectionId": "2d745f85-75a7-5209-d63c-8c59df2ea060",
+			"responses": []
+		},
+		{
+			"id": "24a5f383-7e5e-4362-e2e0-cec90ec842d4",
+			"headers": "X-Auth-Token: 8c79c62aa45011e5b94d441ea1d028cf\n",
+			"url": "http://localhost:8080/musicloud/cancion/crear_listareproduccion",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "iduser",
+					"value": "888EE880A45011E5B94D441EA1D028CF",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "nombre",
+					"value": "lista 1",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1450310336098,
+			"name": "crear lista usuario",
+			"description": "",
+			"collectionId": "2d745f85-75a7-5209-d63c-8c59df2ea060",
+			"responses": []
+		},
+		{
+			"id": "2a6bbd8b-7f65-8f8b-d2c6-dc91a64aec7a",
+			"headers": "X-Auth-Token: 8c79c62aa45011e5b94d441ea1d028cf\n",
+			"url": "http://localhost:8080/musicloud/cancion/eliminarcancion/2512b33201104b07b976c8bdce559485",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "DELETE",
+			"data": [],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1450318816451,
+			"name": "eliminar cancion servidor",
+			"description": "",
 			"collectionId": "2d745f85-75a7-5209-d63c-8c59df2ea060",
 			"responses": []
 		},
@@ -115,83 +171,51 @@
 			"responses": []
 		},
 		{
-			"id": "bb4c7579-c385-8177-60ec-51068f3e96ee",
-			"headers": "X-Auth-Token: 0a93c14ba16811e59a5a441ea1d028cf\n",
-			"url": "http://localhost:8080/musicloud/user/obtener/sergio123",
+			"id": "949754d4-93f9-c254-a0cd-5b8cca65ae95",
+			"headers": "X-Auth-Token: 8c79c62aa45011e5b94d441ea1d028cf\n",
+			"url": "http://localhost:8080/musicloud/cancion/catalogo_canciones",
 			"preRequestScript": "",
 			"pathVariables": {},
-			"method": "POST",
+			"method": "GET",
+			"data": [],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1450310332181,
+			"name": "obtener catalogo de canciones paginados",
+			"description": "",
+			"collectionId": "2d745f85-75a7-5209-d63c-8c59df2ea060",
+			"responses": []
+		},
+		{
+			"id": "9b734f75-4d0a-ec28-7e61-14a66619ba6c",
+			"headers": "X-Auth-Token: 8c79c62aa45011e5b94d441ea1d028cf\nContent-Type: application/vnd.dsa.musicloud.lista_usuario+json\n",
+			"url": "http://localhost:8080/musicloud/cancion/editar_listareproduccion/D352A27DA45011E5B94D441EA1D028CF",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "PUT",
 			"data": [],
 			"dataMode": "raw",
 			"version": 2,
 			"tests": "",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1449995462084,
-			"name": "obtener user ",
+			"time": 1450319290751,
+			"name": "modificar lista usuario",
 			"description": "",
 			"collectionId": "2d745f85-75a7-5209-d63c-8c59df2ea060",
 			"responses": [],
-			"rawModeData": ""
+			"rawModeData": "{\n  \"links\": [],\n  \"id\": \"D352A27DA45011E5B94D441EA1D028CF\",\n  \"iduser\": \"888EE880A45011E5B94D441EA1D028CF\",\n  \"nombre\": \"lista 1\",\n  \"canciones\": {\n    \"links\": [],\n    \"newestTimestamp\": 0,\n    \"oldestTimestamp\": 0,\n    \"canciones\": [\n      {\n        \"links\": [],\n        \"id\": \"330E0EBB81AD484C935A9901009989D5\",\n        \"artista\": \"artista  1\",\n        \"nombre\": \"nombre 1\",\n        \"genero\": \"genero 1\",\n        \"url\": \"http://0.0.0.0:8080/musicloud/reproduccion/330e0ebb81ad484c935a9901009989d5.mp3\",\n        \"last_modified\": 0,\n        \"creation_timestamp\": 0\n      },\n      {\n        \"links\": [],\n        \"id\": \"B594A94F54344017AA5A929C3D1CF570\",\n        \"artista\": \"artista  3\",\n        \"nombre\": \"nombre 1\",\n        \"genero\": \"genero 1\",\n        \"url\": \"http://0.0.0.0:8080/musicloud/reproduccion/b594a94f54344017aa5a929c3d1cf570.mp3\",\n        \"last_modified\": 0,\n        \"creation_timestamp\": 0\n      },\n      {\n      \"links\": [],\n      \"id\": \"CB83D66B76814ACAB003D07551D10E8D\",\n      \"artista\": \"artista  2\",\n      \"nombre\": \"nombre 1\",\n      \"genero\": \"genero 1\",\n      \"url\": \"http://0.0.0.0:8080/musicloud/reproduccion/cb83d66b76814acab003d07551d10e8d.mp3\",\n      \"last_modified\": 1450310194000,\n      \"creation_timestamp\": 1450310194000\n      },\n      {\n      \"links\": [],\n      \"id\": \"1CB47BFEB26D465C91F8D6B1A91924B6\",\n      \"artista\": \"artista  4\",\n      \"nombre\": \"nombre 1\",\n      \"genero\": \"genero 1\",\n      \"url\": \"http://0.0.0.0:8080/musicloud/reproduccion/1cb47bfeb26d465c91f8d6b1a91924b6.mp3\",\n      \"last_modified\": 1450310201000,\n      \"creation_timestamp\": 1450310201000\n      }\n      \n    ]\n  }\n}"
 		},
 		{
-			"id": "c7dfe1ff-0c8e-7731-a082-a4a64f7c3c94",
-			"headers": "",
-			"url": "http://localhost:8080/musicloud/login/login_in",
+			"id": "bb4c7579-c385-8177-60ec-51068f3e96ee",
+			"headers": "X-Auth-Token: 0a93c14ba16811e59a5a441ea1d028cf\n",
+			"url": "http://localhost:8080/musicloud/users/obtener/sergio123",
 			"preRequestScript": "",
 			"pathVariables": {},
-			"method": "POST",
-			"data": [
-				{
-					"key": "login",
-					"value": "carlos",
-					"type": "text",
-					"enabled": true
-				},
-				{
-					"key": "password",
-					"value": "0000",
-					"type": "text",
-					"enabled": true
-				}
-			],
-			"dataMode": "urlencoded",
-			"version": 2,
-			"tests": "",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1449889604482,
-			"name": "login_in user",
-			"description": "{ carlos\n  \"token\": \"4f75ef7ca07d11e5ab98441ea1d028cf\",\n  \"role\": \"registrado\",\n  \"iduser\": \"4BEA8BB1A07D11E5AB98441EA1D028CF\"\n}",
-			"collectionId": "2d745f85-75a7-5209-d63c-8c59df2ea060",
-			"responses": []
-		},
-		{
-			"id": "ccecc5db-1e7a-aadb-547c-6449249c7e9f",
-			"headers": "X-Auth-Token: 626b30b1a06111e5ab98441ea1d028cf\n",
-			"url": "http://localhost:8080/musicloud/users/eliminar/e",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "DELETE",
-			"data": [],
-			"dataMode": "urlencoded",
-			"version": 2,
-			"tests": "",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1449877589934,
-			"name": "eliminar usuario",
-			"description": "Peticion http , es necesaria token , regisatrado o administrador\nhttp://localhost:8080/musicloud/users/eliminar/{login}",
-			"collectionId": "2d745f85-75a7-5209-d63c-8c59df2ea060",
-			"responses": []
-		},
-		{
-			"id": "cfe7bec0-afb2-5ef6-420a-366cfc93c822",
-			"headers": "X-Auth-Token: c2987324a0c011e5b140441ea1d028cf\n",
-			"url": "http://localhost:8080/musicloud/cancion/cargarcancion",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "POST",
+			"method": "GET",
 			"data": [
 				{
 					"key": "file",
@@ -223,7 +247,146 @@
 			"tests": "",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1449918956866,
+			"time": 1449997771562,
+			"name": "obtener user ",
+			"description": "",
+			"collectionId": "2d745f85-75a7-5209-d63c-8c59df2ea060",
+			"responses": []
+		},
+		{
+			"id": "bd299d28-ab3a-9a28-5c4b-54a3096e388d",
+			"headers": "X-Auth-Token: 8c79c62aa45011e5b94d441ea1d028cf\n",
+			"url": "http://localhost:8080/musicloud/cancion/obtener_listausuario/D352A27DA45011E5B94D441EA1D028CF",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "GET",
+			"data": [
+				{
+					"key": "file",
+					"value": null,
+					"type": "file",
+					"enabled": true
+				},
+				{
+					"key": "artista",
+					"value": "artista  6",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "nombre",
+					"value": "nombre 1",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "genero",
+					"value": "genero 1",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1450314726123,
+			"name": "obtener  lista usuario ",
+			"description": "",
+			"collectionId": "2d745f85-75a7-5209-d63c-8c59df2ea060",
+			"responses": []
+		},
+		{
+			"id": "c7dfe1ff-0c8e-7731-a082-a4a64f7c3c94",
+			"headers": "",
+			"url": "http://localhost:8080/musicloud/login/login_in",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "login",
+					"value": "carlos",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "password",
+					"value": "0000",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1450310334461,
+			"name": "login_in user",
+			"description": "{ carlos\n  \"token\": \"4f75ef7ca07d11e5ab98441ea1d028cf\",\n  \"role\": \"registrado\",\n  \"iduser\": \"4BEA8BB1A07D11E5AB98441EA1D028CF\"\n}",
+			"collectionId": "2d745f85-75a7-5209-d63c-8c59df2ea060",
+			"responses": []
+		},
+		{
+			"id": "ccecc5db-1e7a-aadb-547c-6449249c7e9f",
+			"headers": "X-Auth-Token: 626b30b1a06111e5ab98441ea1d028cf\n",
+			"url": "http://localhost:8080/musicloud/users/eliminar/e",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "DELETE",
+			"data": [],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1449877589934,
+			"name": "eliminar usuario",
+			"description": "Peticion http , es necesaria token , regisatrado o administrador\nhttp://localhost:8080/musicloud/users/eliminar/{login}",
+			"collectionId": "2d745f85-75a7-5209-d63c-8c59df2ea060",
+			"responses": []
+		},
+		{
+			"id": "cfe7bec0-afb2-5ef6-420a-366cfc93c822",
+			"headers": "X-Auth-Token: 8c79c62aa45011e5b94d441ea1d028cf\n",
+			"url": "http://localhost:8080/musicloud/cancion/cargarcancion",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "file",
+					"value": null,
+					"type": "file",
+					"enabled": true
+				},
+				{
+					"key": "artista",
+					"value": "artista  6",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "nombre",
+					"value": "nombre 1",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "genero",
+					"value": "genero 1",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1450310338916,
 			"name": "cargar cancion en servidor",
 			"description": "",
 			"collectionId": "2d745f85-75a7-5209-d63c-8c59df2ea060",

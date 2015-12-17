@@ -27,7 +27,9 @@ CREATE TABLE canciones (
 CREATE TABLE listas_usuarios (
     id BINARY(16) NOT NULL,
     iduser BINARY(16) NOT NULL,
-    nombre VARCHAR(255) NOT NULL,	
+    nombre VARCHAR(255) NOT NULL,
+    last_modified TIMESTAMP NOT NULL,
+    creation_timestamp DATETIME not null default current_timestamp,	
     PRIMARY KEY (id),
     FOREIGN KEY (iduser) REFERENCES users(id) on delete cascade
 );
