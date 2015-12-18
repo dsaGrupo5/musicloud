@@ -19,6 +19,8 @@ $("#log_out").click(function(e){
 	
 });
 
+
+ 
 $("#editaruser").click(function(e) {
 	e.preventDefault();
 	

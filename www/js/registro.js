@@ -67,7 +67,8 @@ var url = API_BASE_URL + '/users/registrar';
 		data : $.param(usuario),
 		
 	}).done(function(data, status, jqxhr) {
-		 alert ('registro ok');	
+		 alert ('Alta realizada con éxito! Ya puede logarse con sus credenciales en el aparatado "Login"');
+			window.location = "http://localhost/index.html" ;
   	}).fail(function() {
 		alert ('Usuario login ya escogido. Debes cambiar el ID de usuario MusiCloud');
 	});

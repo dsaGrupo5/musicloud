@@ -50,7 +50,7 @@ function getlogin(login, password)
 			{
 				
 				$.cookie('login', login);
-				$.cookie('Iduser', data.Iduser);
+				$.cookie('login', data.login);
 				$.cookie('token', data.token);
 				
 			    window.location = "http://localhost/home_user.html" ;
@@ -58,7 +58,7 @@ function getlogin(login, password)
 			if(data.role== 'administrador')
 			{
 				$.cookie('login', login);
-				$.cookie('Iduser', data.Iduser);
+				$.cookie('login', data.login);
 				$.cookie('token', data.token);
 				window.location = "http://localhost/home_admin.html" ;
 			}
@@ -67,9 +67,10 @@ function getlogin(login, password)
 		{ 
 		//CAMBIAR EL COLOR
 		alert ('ID o password incorrectos!');
-			document.getElementById('userid').style.background='#F6B5B5';
-			document.getElementById('userid').value=null;
-			$('#userid').attr('placeholder','USUARIO NO REGISTRADO');
+			document.getElementById('login').style.background='#F6B5B5';
+			document.getElementById('login').value=null;
+			document.getElementById('password').value=null;
+			$('#login').attr('placeholder','USUARIO NO REGISTRADO');
 		});
 
 }
