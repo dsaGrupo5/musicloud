@@ -63,6 +63,9 @@
                     <li class="page-scroll">
                         <a href="#crearlistas">Crear Listas</a>
                     </li>
+					<li class="page-scroll">
+                        <a href="#eliminaruser">Eliminar Perfil</a>
+                    </li>
 					<li>
 						<button type="submit" class="btn btn-success btn-lg" id="log_out">Logout</button>
 					</li>
@@ -183,43 +186,7 @@
     </section>
 	
 	
-    <br>
-	<br>
-    <!-- Eliminar Section -->
-    <section id="eliminaruser">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2>Eliminar usuario</h2>
-                    <hr class="star-primary">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2">
-                    <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
-                    <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
-                    <form name="sentMessage" id="registroForm" novalidate>
-                        <div class="row control-group">
-                            <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Usuario a eliminar</label>
-                                <input type="text" class="form-control" placeholder="ID Usuario a eliminar" id="login_eliminar" required data-validation-required-message="Por favor introduce tu usuario para MusiCloud">
-                                <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-						
-						<div class="form-group col-xs-12">
-                                <button type="submit" class="btn btn-success btn-lg" id="eliminaruser">Eliminar</button>
-                        </div>
-                        </div>
-                            </div>
-                        </div>
-                       
-                        
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
+
 	
 	<br>
 	<br>
@@ -260,15 +227,15 @@
                         </div>
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Nombre de Canción</label>
-                                <input type="email" class="form-control" placeholder="Nombre Canción" id="nombrecancion" required data-validation-required-message="Por favor introduce tu  email">
+                                <label>Nombre de canci&oacute;n</label>
+                                <input type="email" class="form-control" placeholder="Nombre Canci&oacute;n" id="nombrecancion" required data-validation-required-message="Por favor introduce tu  email">
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Género</label>
-                                <input type="password" class="form-control" placeholder="Género Canción" id="genero" required data-validation-required-message="Por favor introduce tu clave de acceso a MusiCloud">
+                                <label>G&eacute;nero</label>
+                                <input type="password" class="form-control" placeholder="G&eacute;nero Canci&oacute;n" id="genero" required data-validation-required-message="Por favor introduce tu clave de acceso a MusiCloud">
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
@@ -280,6 +247,36 @@
 								
                         </div>
 						
+                            </div>
+                        </div>
+                       
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+	
+	    <br>
+	<br>
+    <!-- Eliminar Section -->
+    <section id="eliminaruser">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2>Eliminar Perfil</h2>
+                    <hr class="star-primary">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
+                    <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
+                    <form name="sentMessage" id="registroForm" novalidate>
+                        <div class="form-group col-xs-12">
+                                <button type="submit" class="btn btn-success btn-lg" id="baja">Darme de baja</button>
+                        </div>
+                        </div>
                             </div>
                         </div>
                        

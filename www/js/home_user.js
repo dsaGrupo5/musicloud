@@ -19,6 +19,13 @@ $("#log_out").click(function(e){
 	
 });
 
+$("#baja").click(function(e){
+	e.preventDefault();
+	var objetoBaja = new Object();
+	objetoBaja.login = LOGIN;
+	darserdebaja(objetoBaja, TOKEN);	
+});
+
 function getlogout(objetoLogout, TOKEN) 
 {
 	var url = API_BASE_URL + '/login/login_out';	
@@ -32,4 +39,20 @@ function getlogout(objetoLogout, TOKEN)
   	}).fail(function() {
 		alert ('logout fail!')
 	});
+}
+
+function darserdebaja(objetoBaja, TOKEN) 
+{
+	var url = API_BASE_URL + '/users/eliminar/'+ objetoBaja.login;
+	$.ajax({
+		url : url,
+		type : 'DELETE',
+		headers: {"X-Auth-Token":TOKEN}
+	}).done(function(data, status, jqxhr) {
+		alert ('Baja realizada correctamente');
+		window.location = "http://localhost/index.html" ;		
+  	}).fail(function() {
+		alert ('fallo baja');
+	});
+
 }

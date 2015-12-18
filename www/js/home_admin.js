@@ -57,7 +57,7 @@ $("#editaruser").click(function(e) {
 			nuevoUsuario.password = $("#password").val();
 		}	
 	
-	editar_usuario(nuevoUsuario);
+	editar_usuario(nuevoUsuario, TOKEN);
 	
 	}
 });
@@ -74,10 +74,10 @@ $("#eliminaruser").click(function(e) {
 	else
 	{
 		
-	var nuevoUsuario	= new Object();
-	nuevoUsuario.login = $("#login_eliminar").val();
+	var usuarioelim	= new Object();
+	usuarioelim.login = $("#login_eliminar").val();
 	
-	eliminar_usuario(nuevoUsuario);
+	eliminar_usuario(usuarioelim, TOKEN);
 	
 	}
 });
@@ -98,18 +98,20 @@ function getlogout(objetoLogout, TOKEN)
 }
 	
 
-function eliminar_usuario(usuario) 
+function eliminar_usuario(usuarioelim, TOKEN) 
 {
-	var url = API_BASE_URL + '/users/eliminar/'+ usuario.login;
-	//console.log(url);	
+	var url = API_BASE_URL + '/users/eliminar/'+ usuarioelim.login;
 	$.ajax({
 		url : url,
 		type : 'DELETE',
-		//headers: {"X-Auth-Token":TOKEN}
+		headers: {"X-Auth-Token":TOKEN}
 	}).done(function(data, status, jqxhr) {
-		alert ('eliminar ok');			
+		alert ('Usuario eliminado correctamente');
+		window.location = "http://localhost/home_admin.html" ;		
   	}).fail(function() {
-		alert ('fallo eliminar');	
+			document.getElementById('login_eliminar').style.background='#F6B5B5';
+			document.getElementById('login_eliminar').value=null;			
+			$('#login_eliminar').attr('placeholder','USUARIO NO REGISTRADO');
 	});
 
 }
