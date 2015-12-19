@@ -24,7 +24,7 @@ $("#log_out").click(function(e){
 $("#editaruser").click(function(e) {
 	e.preventDefault();
 	
-	//CONTROL DE RELLENADO DE VARIABLES
+	//PQ SE COLOREA ANTES DE APRETAR EL BOTON DE EDITAR
 	if($("#login_editar").val() == "")
 	{
 		if($("#login_editar").val() == "")
@@ -38,6 +38,7 @@ $("#editaruser").click(function(e) {
 	{
 		
 	var nuevoUsuario	= new Object();
+	
 	nuevoUsuario.login = $("#login_editar").val();
 	
 		if($("#nombre").val() != "")
@@ -56,11 +57,15 @@ $("#editaruser").click(function(e) {
 		{
 			nuevoUsuario.password = $("#password").val();
 		}	
-	
+
 	editar_usuario(nuevoUsuario, TOKEN);
 	
+	
+	
 	}
-});
+	
+	
+	});
 
 $("#eliminaruser").click(function(e) {
 	e.preventDefault();
@@ -115,3 +120,51 @@ function eliminar_usuario(usuarioelim, TOKEN)
 	});
 
 }
+
+function editar_usuario(nuevoUsuario, TOKEN) 
+{
+	var url = API_BASE_URL + '/users/obtener/' + nuevoUsuario.login;
+	
+	$.ajax(
+	{
+		url : url,type : 'GET',
+		data : {login: nuevoUsuario.login}, //aqui recibe el 
+		headers: {"X-Auth-Token":TOKEN}
+	}
+	).success(function(data, status, jqxhr)
+	{
+			var user = new Object();			
+			user.login= nuevoUsuario.login;
+			user.apellidos=nuevoUsuario.apellidos;
+			user.email=nuevoUsuario.email;
+			user.password=nuevoUsuario.password;
+			
+			insertarUsuario(user,TOKEN);
+	}
+	).fail(function()
+	{
+			alert ('obtener user mal');
+	});	
+}
+
+function insertarUsuario(user,TOKEN) 
+{
+	//console.log(user);
+	var data = JSON.stringify(user);
+	var url = API_BASE_URL + '/users/editar/' + user.login;
+	console.log(data);
+	    $.ajax({
+		url : url,
+		type : 'PUT',
+		crossDomain : true,
+		dataType : 'json',
+		contentType : 'application/vnd.dsa.musicloud.user+json',
+		data : data,
+		headers: {"X-Auth-Token":TOKEN},		
+	}).done(function(data, status, jqxhr){
+		alert ('edit ok');
+	}).fail(function(){
+		alert ('edit mal');
+	});
+}
+
