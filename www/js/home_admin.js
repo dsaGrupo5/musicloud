@@ -57,7 +57,7 @@ $("#editaruser").click(function(e) {
 		{
 			nuevoUsuario.password = $("#password").val();
 		}	
-
+	
 	editar_usuario(nuevoUsuario, TOKEN);
 	
 	
@@ -128,16 +128,29 @@ function editar_usuario(nuevoUsuario, TOKEN)
 	$.ajax(
 	{
 		url : url,type : 'GET',
-		data : {login: nuevoUsuario.login}, //aqui recibe el 
+		//data : {login: nuevoUsuario.login}, //aqui recibe o envia contenido
+		crossDomain : true,	
+		dataType : 'json',
+		contentType : 'application/vnd.dsa.musicloud.user+json',
 		headers: {"X-Auth-Token":TOKEN}
 	}
-	).success(function(data, status, jqxhr)
+	).success(function(data, status, jqxhr) //pq en algunos pone succes y en otros done?
 	{
-			var user = new Object();			
+			console.log(data);
+			var response = data;
+			var user = new Object(response);
+			//user.id = nuevoUsuario.id;   seria necesario almacenar la id ya que el json que recibe la contiene?
 			user.login= nuevoUsuario.login;
+			user.nombre= nuevoUsuario.nombre;
 			user.apellidos=nuevoUsuario.apellidos;
 			user.email=nuevoUsuario.email;
 			user.password=nuevoUsuario.password;
+			
+			console.log(user.login);
+			console.log(user.nombre);
+			console.log(user.apellidos);
+			console.log(user.email);
+			console.log(user.password);
 			
 			insertarUsuario(user,TOKEN);
 	}
