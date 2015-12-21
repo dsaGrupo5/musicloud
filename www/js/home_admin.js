@@ -21,7 +21,7 @@ $("#log_out").click(function(e){
 
 
  
-$("#editaruser").click(function(e) {
+$("#editauser").click(function(e) {
 	e.preventDefault();
 	
 	//PQ SE COLOREA ANTES DE APRETAR EL BOTON DE EDITAR
@@ -128,7 +128,6 @@ function editar_usuario(nuevoUsuario, TOKEN)
 	$.ajax(
 	{
 		url : url,type : 'GET',
-		//data : {login: nuevoUsuario.login}, //aqui recibe o envia contenido
 		crossDomain : true,	
 		dataType : 'json',
 		contentType : 'application/vnd.dsa.musicloud.user+json',
@@ -139,18 +138,12 @@ function editar_usuario(nuevoUsuario, TOKEN)
 			console.log(data);
 			var response = data;
 			var user = new Object(response);
-			//user.id = nuevoUsuario.id;   seria necesario almacenar la id ya que el json que recibe la contiene?
+			
 			user.login= nuevoUsuario.login;
 			user.nombre= nuevoUsuario.nombre;
 			user.apellidos=nuevoUsuario.apellidos;
 			user.email=nuevoUsuario.email;
 			user.password=nuevoUsuario.password;
-			
-			console.log(user.login);
-			console.log(user.nombre);
-			console.log(user.apellidos);
-			console.log(user.email);
-			console.log(user.password);
 			
 			insertarUsuario(user,TOKEN);
 	}
@@ -162,7 +155,7 @@ function editar_usuario(nuevoUsuario, TOKEN)
 
 function insertarUsuario(user,TOKEN) 
 {
-	//console.log(user);
+	console.log(user);
 	var data = JSON.stringify(user);
 	var url = API_BASE_URL + '/users/editar/' + user.login;
 	console.log(data);
@@ -180,4 +173,3 @@ function insertarUsuario(user,TOKEN)
 		alert ('edit mal');
 	});
 }
-
