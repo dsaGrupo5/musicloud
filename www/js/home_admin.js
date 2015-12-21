@@ -133,15 +133,52 @@ function editar_usuario(nuevoUsuario, TOKEN)
 		contentType : 'application/vnd.dsa.musicloud.user+json',
 		headers: {"X-Auth-Token":TOKEN}
 	}
-	).success(function(data, status, jqxhr) //pq en algunos pone succes y en otros done?
+	).success(function(data, status, jqxhr) 
 	{
-			console.log(data);
+			
 			var response = data;
 			var user = new Object(response);
 			
+			console.log(user);
+		
 			user.login= nuevoUsuario.login;
-			user.nombre= nuevoUsuario.nombre;
-			user.apellidos=nuevoUsuario.apellidos;
+			
+			//console.log(user.nombre);
+			
+			if (nuevoUsuario.nombre == "undefined")
+			{	
+				
+				user.nombre = user.nombre;
+				
+				
+			}else{				
+				
+				user.nombre = nuevoUsuario.nombre;
+			}
+			if (nuevoUsuario.apellidos == "undefined")
+			{
+				user.apellidos = nuevoUsuario.apellidos;
+			}else{
+				user.apellidos = user.apellidos;
+			}
+			/*if (nuevoUsuario.apellidos == "undefined")
+			{
+				user.apellidos = nuevoUsuario.apellidos;
+			}else{
+				user.apellidos = user.apellidos;
+			}
+			if (nuevoUsuario.apellidos == "undefined")
+			{
+				user.email = nuevoUsuario.email;
+			}else{
+				user.email = user.email;
+			}*/
+			
+			console.log(user);
+			
+			
+			//user.nombre= nuevoUsuario.nombre;
+			//user.apellidos=nuevoUsuario.apellidos;
 			user.email=nuevoUsuario.email;
 			user.password=nuevoUsuario.password;
 			
@@ -155,10 +192,9 @@ function editar_usuario(nuevoUsuario, TOKEN)
 
 function insertarUsuario(user,TOKEN) 
 {
-	console.log(user);
+	
 	var data = JSON.stringify(user);
 	var url = API_BASE_URL + '/users/editar/' + user.login;
-	console.log(data);
 	    $.ajax({
 		url : url,
 		type : 'PUT',
