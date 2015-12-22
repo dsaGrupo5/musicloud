@@ -13,7 +13,7 @@ public interface UserDAOQuery {
     public final static String obtener_User_por_Id =      "select hex(u.id)     as id, u.login, u.nombre, u.apellidos, u.email from users u where id=unhex(?)";
     public final static String obtener_User_por_Login =   "select hex(u.id)     as id, u.login, u.nombre, u.apellidos, u.email from users u where u.login=?";
     public final static String GET_PASSWORD =             "select hex(password) as password from users where id=unhex(?)";
-    public final static String MODIFICAR_USER =           "update users set nombre=?, apellidos=?, email=? where login=?";
+    public final static String MODIFICAR_USER =           "update users set nombre=?, apellidos=?, email=?, password=UNHEX(MD5(?))where login=?";
     public final static String ELIMINAR_USER =            "delete from users where login=?";
 
 }

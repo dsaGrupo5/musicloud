@@ -1,6 +1,8 @@
 package edu.upc.eetac.dsa.musicloud.dao;
 
 import edu.upc.eetac.dsa.musicloud.entity.User;
+import edu.upc.eetac.dsa.musicloud.entity.UserPasword;
+
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -161,21 +163,24 @@ public class UserDAOImpl implements UserDAO{
     }
 
     @Override
-    public User  modificar_Usuario(User user)throws SQLException, UserNoExisteException {
+    public User  modificar_Usuario(UserPasword userpassword)throws SQLException, UserNoExisteException {
         Connection connection = null;
         PreparedStatement stmt = null;
-
+        User user= null;
         try
         {
-            if (obtener_User_por_Login(user.getLogin()) == null) throw new UserNoExisteException();
+            if (obtener_User_por_Login(userpassword.getLogin()) == null) throw new UserNoExisteException();
             connection = Database.getConnection();
             stmt = connection.prepareStatement(UserDAOQuery.MODIFICAR_USER);
-            stmt.setString(1, user.getNombre());
-            stmt.setString(2, user.getApellidos());
-            stmt.setString(3, user.getEmail());
-            stmt.setString(4, user.getLogin());
+            stmt.setString(1, userpassword.getNombre());
+            stmt.setString(2, userpassword.getApellidos());
+            stmt.setString(3, userpassword.getEmail());
+            stmt.setString(4, userpassword.getPassword());
+            stmt.setString(5, userpassword.getLogin());
             int rows = stmt.executeUpdate();
-            if (rows == 1) {user = obtener_User_por_Login(user.getLogin());}
+            if (rows == 1) {
+                user = obtener_User_por_Login(userpassword.getLogin());
+            }
         }
         catch (SQLException e) {throw e;}
         finally

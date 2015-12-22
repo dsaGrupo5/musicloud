@@ -63,13 +63,13 @@ public class CancionResource
     @Path(("/catalogo_canciones"))
     @GET
     @Produces(MusicloudMediaType.MUSICLOUD_CANCION_COLECCION)
-    public CancionColeccion obtener_catalogo_Canciones(@QueryParam("timestamp") long timestamp, @DefaultValue("true") @QueryParam("before") boolean before) throws SQLException{
+    public CancionColeccion obtener_catalogo_Canciones(@QueryParam("timestamp") long timestamp, @DefaultValue("true") @QueryParam("before") boolean before,@DefaultValue("creation_timestamp") @QueryParam("ordenpor") String ordenpor) throws SQLException{
         CancionDAO canciondao = new CancionDAOImpl();
         CancionColeccion cancioncoleccion = null ;
         try
         {
             if (before && timestamp == 0) timestamp = System.currentTimeMillis();
-            cancioncoleccion = canciondao.obtener_catalogo_CANCIONES(timestamp, before);
+            cancioncoleccion = canciondao.obtener_catalogo_CANCIONES(ordenpor,timestamp, before);
         }
         catch(SQLException e)
         {

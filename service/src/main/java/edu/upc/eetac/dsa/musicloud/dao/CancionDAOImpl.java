@@ -197,7 +197,7 @@ public class CancionDAOImpl implements CancionDAO{
         return cancion;
     }
     @Override
-    public CancionColeccion obtener_catalogo_CANCIONES(long timestamp, boolean before) throws SQLException{
+    public CancionColeccion obtener_catalogo_CANCIONES(String Ordenpor, long timestamp, boolean before) throws SQLException{
         Cancion cancion = null;
         CancionColeccion cancioncoleccion = new CancionColeccion();
         Connection connection = null;
@@ -205,9 +205,10 @@ public class CancionDAOImpl implements CancionDAO{
         try
         {
             connection = Database.getConnection();
-            if(before) stmt = connection.prepareStatement(CancionDAOQuery.OBTENER_COLECCION_GRUPOS_APARTIR_ID_PAGINADA_A_5);
-            else       stmt = connection.prepareStatement(CancionDAOQuery.OBTENER_COLECCION_GRUPOS_APARTIR_ID_PAGINADA_A_5_after);
+            if(before) stmt = connection.prepareStatement(CancionDAOQuery.OBTENER_COLECCION_CANCIONES_APARTIR_ID_PAGINADA_A_5);
+            else       stmt = connection.prepareStatement(CancionDAOQuery.OBTENER_COLECCION_CANCIONES_APARTIR_ID_PAGINADA_A_5_after);
             stmt.setTimestamp(1, new Timestamp(timestamp));
+            stmt.setString(2, Ordenpor);
             ResultSet rs = stmt.executeQuery();
             boolean first = true;
             while (rs.next())
