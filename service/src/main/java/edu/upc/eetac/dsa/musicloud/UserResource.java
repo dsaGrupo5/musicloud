@@ -2,9 +2,7 @@ package edu.upc.eetac.dsa.musicloud;
 
 
 import edu.upc.eetac.dsa.musicloud.dao.*;
-import edu.upc.eetac.dsa.musicloud.entity.AuthToken;
 import edu.upc.eetac.dsa.musicloud.entity.User;
-import edu.upc.eetac.dsa.musicloud.entity.UserPasword;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
@@ -60,10 +58,10 @@ public class UserResource {
         @PUT
         @Consumes(MusicloudMediaType.MUSICLOUD_USERPASSWORD)
         @Produces(MusicloudMediaType.MUSICLOUD_USER)
-        public User editarUser(@PathParam("login") String login, UserPasword userpassword) throws SQLException,  UserNoExisteException{
+        public User editarUser(@PathParam("login") String login, User user) throws SQLException,  UserNoExisteException{
             UserDAO userdao = new UserDAOImpl();
             User response = null;
-            try{response= userdao.modificar_Usuario(userpassword);}
+            try{response= userdao.modificar_Usuario(user);}
             catch (UserNoExisteException e){
                 throw new  WebApplicationException("El usuario no existe", Response.Status.CONFLICT);
             }catch (SQLException e){

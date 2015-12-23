@@ -16,6 +16,15 @@ public class User {
     private String nombre;
     private String apellidos;
     private String email;
+    private String password;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public List<Link> getLinks() {return links;}
     public void setLinks(List<Link> links) {this.links = links;}
