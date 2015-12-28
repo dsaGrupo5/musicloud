@@ -56,7 +56,7 @@ public class UserResource {
         @RolesAllowed({"administrador","registrado"})
         @Path("/editar/{login}")
         @PUT
-        @Consumes(MusicloudMediaType.MUSICLOUD_USERPASSWORD)
+        @Consumes(MusicloudMediaType.MUSICLOUD_USER)
         @Produces(MusicloudMediaType.MUSICLOUD_USER)
         public User editarUser(@PathParam("login") String login, User user) throws SQLException,  UserNoExisteException{
             UserDAO userdao = new UserDAOImpl();

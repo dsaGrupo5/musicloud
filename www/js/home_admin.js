@@ -143,25 +143,17 @@ function editar_usuario(nuevoUsuario, TOKEN)
 		
 			user.login= nuevoUsuario.login;
 			
-			//console.log(user.nombre);
 			
-			if (nuevoUsuario.nombre == "undefined")
-			{	
-				
-				user.nombre = user.nombre;
-				
-				
-			}else{				
-				
-				user.nombre = nuevoUsuario.nombre;
+			//console.log(nuevoUsuario.nombre);
+			
+			
+			/*if (nuevoUsuario.nombre == 'undefined')
+			{					
+				user.nombre= nuevoUsuario.nombre;				
 			}
+					
+			
 			if (nuevoUsuario.apellidos == "undefined")
-			{
-				user.apellidos = nuevoUsuario.apellidos;
-			}else{
-				user.apellidos = user.apellidos;
-			}
-			/*if (nuevoUsuario.apellidos == "undefined")
 			{
 				user.apellidos = nuevoUsuario.apellidos;
 			}else{
@@ -174,11 +166,12 @@ function editar_usuario(nuevoUsuario, TOKEN)
 				user.email = user.email;
 			}*/
 			
+			
 			console.log(user);
 			
 			
-			//user.nombre= nuevoUsuario.nombre;
-			//user.apellidos=nuevoUsuario.apellidos;
+			user.nombre= nuevoUsuario.nombre;
+			user.apellidos=nuevoUsuario.apellidos;
 			user.email=nuevoUsuario.email;
 			user.password=nuevoUsuario.password;
 			
