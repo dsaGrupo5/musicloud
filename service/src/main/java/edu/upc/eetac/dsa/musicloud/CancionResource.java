@@ -20,7 +20,7 @@ public class CancionResource
 {
     @Context
     private SecurityContext securityContext;
-    @RolesAllowed({"registrado"})
+    @RolesAllowed({"administrador"})
     @Path("/cargarcancion")
     @POST
     @Consumes(MediaType.MULTIPART_FORM_DATA)

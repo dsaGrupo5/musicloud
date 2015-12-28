@@ -44,7 +44,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">MusiCloud - @dmin</a>
+                <a class="navbar-brand" href="index.html">MusiCloud - Listas</a>
 				
             </div>
 
@@ -55,13 +55,16 @@
                         <a href="#page-top"></a>
                     </li>
                   <li class="page-scroll">
-                        <a href="#editaruser">Editar Usuario</a>
+                        <a href="#crearlist">Crear</a>
                     </li>
                     <li class="page-scroll">
-                        <a href="#eliminaruser">Eliminar Usuario</a>
+                        <a href="#editarlist">Editar</a>
                     </li>
                     <li class="page-scroll">
-                        <a href="gestion_listas.html">Editar Listas</a>
+                        <a href="#eliminarlist">Eliminar</a>
+                    </li>
+					<li class="page-scroll">
+                        <a href="#subircan">Subir Canción</a>
                     </li>
 					<li>
 					<button type="submit" class="btn btn-success btn-lg" id="log_out">Logout</button>
@@ -75,12 +78,12 @@
 
     <br>
 	<br>
-    <!-- Editar Section -->
-    <section id="editaruser">
+    <!-- crear Section -->
+    <section id="crearlist">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2>Editar usuario</h2>
+                    <h2>Crear Lista</h2>
                     <hr class="star-primary">
                 </div>
             </div>
@@ -91,41 +94,14 @@
                     <form name="sentMessage" id="registroForm" novalidate>
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Usuario a editar</label>
-                                <input type="text" class="form-control" placeholder="ID Usuario a editar" id="login_editar" required data-validation-required-message="Por favor introduce tu usuario para MusiCloud">
+                                <label>Nombre de la nueva lista</label>
+                                <input type="text" class="form-control" placeholder="Nombre de la lista" id="nombre_lista" required data-validation-required-message="Por favor introduce tu usuario para MusiCloud">
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
-						<div class="row control-group">
-                            <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Nombre</label>
-                                <input type="text" class="form-control" placeholder="Nombre" id="nombre" required data-validation-required-message="Por favor introduce tu nombre de pila">
-                                <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-						<div class="row control-group">
-                            <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Apellidos</label>
-                                <input type="text" class="form-control" placeholder="Apellidos" id="apellidos" required data-validation-required-message="Por favor introduce tus apellidos">
-                                <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-                        <div class="row control-group">
-                            <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Email</label>
-                                <input type="email" class="form-control" placeholder="Email" id="email" required data-validation-required-message="Por favor introduce tu  email">
-                                <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-                        <div class="row control-group">
-                            <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Password</label>
-                                <input type="password" class="form-control" placeholder="Password" id="password" required data-validation-required-message="Por favor introduce tu clave de acceso a MusiCloud">
-                                <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
+						
 						<div class="form-group col-xs-12">
-                                <button type="submit" class="btn btn-success btn-lg" id="editauser">Editar</button>
+                                <button type="submit" class="btn btn-success btn-lg" id="crealista">Crear</button>
                             </div>
 							<div class="row">
 								<span id="resultado_edit"></span>
@@ -144,11 +120,11 @@
     <br>
 	<br>
     <!-- Eliminar Section -->
-    <section id="eliminaruser">
+    <section id="editarlist">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2>Eliminar usuario</h2>
+                    <h2>Editar Lista</h2>
                     <hr class="star-primary">
                 </div>
             </div>
@@ -181,7 +157,72 @@
 	
 	<br>
 	<br>
-
+    <!-- Eliminar Section -->
+    <section id="listasglobales">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2>Editar Listas Globales</h2>
+                    <hr class="star-primary">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
+                    <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
+                    <form name="sentMessage" id="registroForm" novalidate>
+                        <div class="row control-group">
+                            <div class="form-group col-xs-12 floating-label-form-group controls">
+                                <label>Seleccionar lista</label>
+                                <input type="text" class="form-control" placeholder="Introducir el nombre de lista" id="nombrelista" required data-validation-required-message="Por favor introduce tu usuario para MusiCloud">
+                                <p class="help-block text-danger"></p>
+                            </div>
+							<div class="form-group col-xs-12 floating-label-form-group controls">
+                                <label>Seleccionar Canción</label>
+								<input type="file" id="myfile" name="myfile" class="rm-input" onchange="selectedFile();"/>                                
+                                <p class="help-block text-danger"></p>
+								
+									<progress id="progressBar" value="0" max="100" class="rm-progress"></progress>							
+								
+                            </div>
+							<div class="row control-group">
+                            <div class="form-group col-xs-12 floating-label-form-group controls">
+                                <label>Artista</label>
+                                <input type="text" class="form-control" placeholder="Artista" id="artista" required data-validation-required-message="Por favor introduce tus apellidos">
+                                <p class="help-block text-danger"></p>
+                            </div>
+                        </div>
+                        <div class="row control-group">
+                            <div class="form-group col-xs-12 floating-label-form-group controls">
+                                <label>Nombre de Canción</label>
+                                <input type="email" class="form-control" placeholder="Nombre Canción" id="nombrecancion" required data-validation-required-message="Por favor introduce tu  email">
+                                <p class="help-block text-danger"></p>
+                            </div>
+                        </div>
+                        <div class="row control-group">
+                            <div class="form-group col-xs-12 floating-label-form-group controls">
+                                <label>Género</label>
+                                <input type="password" class="form-control" placeholder="Género Canción" id="genero" required data-validation-required-message="Por favor introduce tu clave de acceso a MusiCloud">
+                                <p class="help-block text-danger"></p>
+                            </div>
+                        </div>
+                        </div>
+						
+						<div class="form-group col-xs-12">
+								<!--<input type="button" value="Subir Archivo" onClick="uploadFile()" class="rm-button" />-->
+                                <button type="submit" class="btn btn-success btn-lg" id="subircancion">Subir archivo</button>
+								
+                        </div>
+						
+                            </div>
+                        </div>
+                       
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 
         <!-- Footer -->
     <footer class="text-center">
@@ -206,7 +247,7 @@
 
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
-	<script src="js/home_admin.js"></script>
+	<script src="js/gestion_listas.js"></script>
 	<script src="js/login.js"></script>
 	<script src="js/jquery.cookie.js"></script>
 
