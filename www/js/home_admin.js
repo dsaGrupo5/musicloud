@@ -139,41 +139,22 @@ function editar_usuario(nuevoUsuario, TOKEN)
 			var response = data;
 			var user = new Object(response);
 			
-			console.log(user);
-		
-			user.login= nuevoUsuario.login;
-			
-			
-			//console.log(nuevoUsuario.nombre);
-			
-			
-			/*if (nuevoUsuario.nombre == 'undefined')
-			{					
+			if (nuevoUsuario.nombre != undefined)
+			{						
 				user.nombre= nuevoUsuario.nombre;				
 			}
-					
 			
-			if (nuevoUsuario.apellidos == "undefined")
-			{
-				user.apellidos = nuevoUsuario.apellidos;
-			}else{
-				user.apellidos = user.apellidos;
+			if (nuevoUsuario.apellidos != undefined)
+			{		
+				user.apellidos= nuevoUsuario.apellidos;					
 			}
-			if (nuevoUsuario.apellidos == "undefined")
-			{
-				user.email = nuevoUsuario.email;
-			}else{
-				user.email = user.email;
-			}*/
+			if (nuevoUsuario.email != undefined)
+			{		
+				user.email= nuevoUsuario.email;					
+			}					
 			
 			
-			console.log(user);
-			
-			
-			user.nombre= nuevoUsuario.nombre;
-			user.apellidos=nuevoUsuario.apellidos;
-			user.email=nuevoUsuario.email;
-			user.password=nuevoUsuario.password;
+			//user.password=nuevoUsuario.password;
 			
 			insertarUsuario(user,TOKEN);
 	}
@@ -197,7 +178,8 @@ function insertarUsuario(user,TOKEN)
 		data : data,
 		headers: {"X-Auth-Token":TOKEN},		
 	}).done(function(data, status, jqxhr){
-		alert ('edit ok');
+		alert ('Datos modificados correctamente!');
+		window.location = "http://localhost/home_admin.html" ;	
 	}).fail(function(){
 		alert ('edit mal');
 	});
