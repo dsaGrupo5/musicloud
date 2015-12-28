@@ -172,19 +172,7 @@
                     <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
                     <form name="sentMessage" id="registroForm" novalidate>
                         <div class="row control-group">
-                            <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Seleccionar lista</label>
-                                <input type="text" class="form-control" placeholder="Introducir el nombre de lista" id="nombrelista" required data-validation-required-message="Por favor introduce tu usuario para MusiCloud">
-                                <p class="help-block text-danger"></p>
-                            </div>
-							<div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Seleccionar Canción</label>
-								<input type="file" id="myfile" name="myfile" class="rm-input" onchange="selectedFile();"/>                                
-                                <p class="help-block text-danger"></p>
-								
-									<progress id="progressBar" value="0" max="100" class="rm-progress"></progress>							
-								
-                            </div>
+                            
 							<div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
                                 <label>Artista</label>
@@ -206,6 +194,16 @@
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
+						<div class="form-group col-xs-12 floating-label-form-group controls">
+                                <label>Seleccionar Canción</label>
+								<ul class="options">
+									<li>
+										<input type="file" id="myfile" name="myfile" class="rm-input" onchange="selectedFile();"/>
+									</li>
+									                    
+								</ul>							
+								
+                            </div>
                         </div>
 						
 						<div class="form-group col-xs-12">

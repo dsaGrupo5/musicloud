@@ -87,6 +87,10 @@ $("#eliminaruser").click(function(e) {
 	}
 });
 
+
+
+
+
 function getlogout(objetoLogout, TOKEN) 
 {
 	var url = API_BASE_URL + '/login/login_out';	
