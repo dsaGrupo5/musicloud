@@ -65,6 +65,7 @@ $("#subircancion").click(function(e) {
 			console.log(nuevaCancion);
 			console.log(TOKEN);
 			
+			
 			cargar_cancion(nuevaCancion, TOKEN);	
 		}
 	
@@ -78,15 +79,16 @@ $("#subircancion").click(function(e) {
 function cargar_cancion(nuevaCancion,TOKEN) 
 {
 	
-	//var data = JSON.stringify(cancion);
-	var data = nuevaCancion;
-	alert ('entra en funcion!');
+	var data = JSON.stringify(nuevaCancion);
+	//var data = nuevaCancion;
+	
 	var url = API_BASE_URL + '/cancion/cargarcancion';
 	    $.ajax({
 		url : url,
 		type : 'POST',
 		crossDomain : true,
 		dataType : 'json',
+		//contentType : 'multipart/form-data',
 		contentType : 'application/vnd.dsa.musicloud.cancion+json',
 		data : data,
 		headers: {"X-Auth-Token":TOKEN},		
