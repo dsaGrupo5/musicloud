@@ -4,7 +4,7 @@ var PASSWORD = "";
 var TOKEN = "";
 var url= "";
 
-//REVISAR USO DE LOS TOKEN O COOCKIES. HA DE RESPETAR LOS ROLES
+
 
 $(document).ready(function() {
 	LOGIN = $.cookie('login');
@@ -21,52 +21,102 @@ $("#log_out").click(function(e){
 
 
  
-$("#editauser").click(function(e) {
+$("#subircancion").click(function(e) {
 	e.preventDefault();
 	
-	//PQ SE COLOREA ANTES DE APRETAR EL BOTON DE EDITAR
-	if($("#login_editar").val() == "")
+	var archivoSeleccionado = document.getElementById("cancion");
+	var archivo = archivoSeleccionado.files[0];
+	
+	
+	if($("#artista").val() == "" || $("#nombrecancion").val() == "" || $("#genero").val() == "")
 	{
-		if($("#login_editar").val() == "")
+		if($("#artista").val() == "")
 		{
-			document.getElementById('login_editar').style.background='#EC991B';
-			$('#login_editar').attr('placeholder','CAMPO USER ID OBLIGATORIO');
+			document.getElementById('artista').style.background='#EC991B';
+			$('#artista').attr('placeholder','CAMPO ARTISTA OBLIGATORIO');
+		}
+		if($("#nombrecancion").val() == "")
+		{
+			document.getElementById('nombrecancion').style.background='#EC991B';
+			$('#nombrecancion').attr('placeholder','NOMBRE CANCIÓN OBLIGATORIO');
+		}
+		if($("#genero").val() == "")
+		{
+			document.getElementById('genero').style.background='#EC991B';
+			$('#genero').attr('placeholder','GÉNERO OBLIGATORIO');
 		}
 		
 	}
 	else
 	{
-		
-	var nuevoUsuario	= new Object();
-	
-	nuevoUsuario.login = $("#login_editar").val();
-	
-		if($("#nombre").val() != "")
-		{
-			nuevoUsuario.nombre = $("#nombre").val();
+		if (!archivo){
+			alert ('Es necesario adjuntar archivo!');			
 		}
-		if($("#apellidos").val() != "")
-		{
-			nuevoUsuario.apellidos = $("#apellidos").val();
+		else
+		{		
+			var nuevaCancion	= new Object();
+			
+			nuevaCancion.file = archivo;
+			nuevaCancion.artista = $("#artista").val();
+			nuevaCancion.nombre = $("#nombrecancion").val();
+			nuevaCancion.genero = $("#genero").val();	
+			
+			
+			console.log(nuevaCancion);
+			console.log(TOKEN);
+			
+			cargar_cancion(nuevaCancion, TOKEN);	
 		}
-		if($("#email").val() != "")
-		{
-			nuevoUsuario.email = $("#email").val();	
-		}
-		if($("#password").val() != "")
-		{
-			nuevoUsuario.password = $("#password").val();
-		}	
-	
-	editar_usuario(nuevoUsuario, TOKEN);
-	
-	
 	
 	}
 	
 	
-	});
+});
 
+
+
+function cargar_cancion(nuevaCancion,TOKEN) 
+{
+	
+	//var data = JSON.stringify(cancion);
+	var data = nuevaCancion;
+	alert ('entra en funcion!');
+	var url = API_BASE_URL + '/cancion/cargarcancion';
+	    $.ajax({
+		url : url,
+		type : 'POST',
+		crossDomain : true,
+		dataType : 'json',
+		contentType : 'application/vnd.dsa.musicloud.cancion+json',
+		data : data,
+		headers: {"X-Auth-Token":TOKEN},		
+	}).done(function(data, status, jqxhr){
+		alert ('Canción disponible en servidor!');
+		//window.location = "http://localhost/home_admin.html" ;	
+	}).fail(function(){
+		alert ('Error en al subir canción!');
+	});
+}
+
+
+
+function getlogout(objetoLogout, TOKEN) 
+{
+	var url = API_BASE_URL + '/login/login_out';	
+	$.ajax({
+		url : url,
+		type : 'POST',
+		data : $.param(objetoLogout),
+		headers: {"X-Auth-Token":TOKEN}
+	}).done(function(data, status, jqxhr) {
+		window.location = "http://localhost/index.html" ;		 
+  	}).fail(function() {
+		alert ('logout fail!');
+	});
+}
+	
+
+/*
 $("#eliminaruser").click(function(e) {
 	e.preventDefault();
 	
@@ -87,25 +137,6 @@ $("#eliminaruser").click(function(e) {
 	}
 });
 
-
-
-
-
-function getlogout(objetoLogout, TOKEN) 
-{
-	var url = API_BASE_URL + '/login/login_out';	
-	$.ajax({
-		url : url,
-		type : 'POST',
-		data : $.param(objetoLogout),
-		headers: {"X-Auth-Token":TOKEN}
-	}).done(function(data, status, jqxhr) {
-		window.location = "http://localhost/index.html" ;		 
-  	}).fail(function() {
-		alert ('logout fail!')
-	});
-}
-	
 
 function eliminar_usuario(usuarioelim, TOKEN) 
 {
@@ -163,25 +194,5 @@ function editar_usuario(nuevoUsuario, TOKEN)
 	{
 			alert ('obtener user mal');
 	});	
-}
+}*/
 
-function insertarUsuario(user,TOKEN) 
-{
-	
-	var data = JSON.stringify(user);
-	var url = API_BASE_URL + '/users/editar/' + user.login;
-	    $.ajax({
-		url : url,
-		type : 'PUT',
-		crossDomain : true,
-		dataType : 'json',
-		contentType : 'application/vnd.dsa.musicloud.user+json',
-		data : data,
-		headers: {"X-Auth-Token":TOKEN},		
-	}).done(function(data, status, jqxhr){
-		alert ('Datos modificados correctamente!');
-		window.location = "http://localhost/home_admin.html" ;	
-	}).fail(function(){
-		alert ('Error en la edición!');
-	});
-}

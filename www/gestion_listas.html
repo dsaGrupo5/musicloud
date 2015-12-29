@@ -158,11 +158,11 @@
 	<br>
 	<br>
     <!-- Eliminar Section -->
-    <section id="listasglobales">
+    <section id="subircan">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2>Editar Listas Globales</h2>
+                    <h2>Editar Catálogo</h2>
                     <hr class="star-primary">
                 </div>
             </div>
@@ -183,14 +183,14 @@
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
                                 <label>Nombre de Canción</label>
-                                <input type="email" class="form-control" placeholder="Nombre Canción" id="nombrecancion" required data-validation-required-message="Por favor introduce tu  email">
+                                <input type="text" class="form-control" placeholder="Nombre Canción" id="nombrecancion" required data-validation-required-message="Por favor introduce tu  email">
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
                                 <label>Género</label>
-                                <input type="password" class="form-control" placeholder="Género Canción" id="genero" required data-validation-required-message="Por favor introduce tu clave de acceso a MusiCloud">
+                                <input type="text" class="form-control" placeholder="Género Canción" id="genero" required data-validation-required-message="Por favor introduce tu clave de acceso a MusiCloud">
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
@@ -198,17 +198,22 @@
                                 <label>Seleccionar Canción</label>
 								<ul class="options">
 									<li>
-										<input type="file" id="myfile" name="myfile" class="rm-input" onchange="selectedFile();"/>
-									</li>
-									                    
+										<input type="file" id="cancion" name="cancion" class="rm-input" onchange="selectedFile();"/>
+									</li>									
+										<div id="fileSize"></div>									
+										<div id="fileType"></div>									                    
 								</ul>							
 								
                             </div>
+							<br>
+							<br>
+							<br>
+							<br>
                         </div>
 						
 						<div class="form-group col-xs-12">
 								<!--<input type="button" value="Subir Archivo" onClick="uploadFile()" class="rm-button" />-->
-                                <button type="submit" class="btn btn-success btn-lg" id="subircancion">Subir archivo</button>
+                                <button type="submit" class="btn btn-success btn-lg" id="subircancion">Subir Canción</button>
 								
                         </div>
 						
@@ -244,6 +249,26 @@
 
 
     <!-- jQuery -->
+	 <script type="text/javascript">
+         
+              function selectedFile() {
+                var archivoSeleccionado = document.getElementById("cancion");
+                var file = archivoSeleccionado.files[0];
+                if (file) {
+                    var fileSize = 0;
+                    if (file.size > 1048576)
+                        fileSize = (Math.round(file.size * 100 / 1048576) / 100).toString() + ' MB';
+                    else
+                        fileSize = (Math.round(file.size * 100 / 1024) / 100).toString() + ' Kb';
+         
+                    var divfileSize = document.getElementById('fileSize');
+                    var divfileType = document.getElementById('fileType');
+                    divfileSize.innerHTML = 'Tamaño: ' + fileSize;
+                    divfileType.innerHTML = 'Tipo: ' + file.type;
+                     
+                }
+              }     
+	</script>
     <script src="js/jquery.js"></script>
 	<script src="js/gestion_listas.js"></script>
 	<script src="js/login.js"></script>
