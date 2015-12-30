@@ -1,4 +1,4 @@
-/*jslint plusplus: true, white: true, nomen: true */
+﻿/*jslint plusplus: true, white: true, nomen: true */
 /*global console, document, navigator, soundManager, window */
 
 (function(window) {

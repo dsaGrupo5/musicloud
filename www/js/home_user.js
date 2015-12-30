@@ -1,14 +1,16 @@
 var API_BASE_URL = "http://127.0.0.1:8080/musicloud";
 var LOGIN = "";
 var PASSWORD = "";
-var TOKEN = "";
+var TOKEN = "7B996B2EAEC711E59EE2441EA1D028CF";
 var url= "";
 
 //REVISAR USO DE LOS TOKEN O COOCKIES. HA DE RESPETAR LOS ROLES
 
 $(document).ready(function() {
-	LOGIN = $.cookie('login');
-	TOKEN = $.cookie('token');
+	//LOGIN = $.cookie('login');
+	//TOKEN = $.cookie('token');
+	
+	obtenerCATALOGO(TOKEN);
 });
 
 $("#log_out").click(function(e){
@@ -47,7 +49,7 @@ function darserdebaja(objetoBaja, TOKEN)
 	$.ajax({
 		url : url,
 		type : 'DELETE',
-		headers: {"X-Auth-Token":TOKEN}
+		headers: {"X-Auth-Token":TOKEN} 
 	}).done(function(data, status, jqxhr) {
 		alert ('Baja realizada correctamente');
 		window.location = "http://localhost/index.html" ;		
@@ -55,4 +57,32 @@ function darserdebaja(objetoBaja, TOKEN)
 		alert ('fallo baja');
 	});
 
+}
+function insertarCATALOGO(data){
+	var canciones = data.canciones;
+		$.each(canciones, function(i, v)
+		{
+			var cancion= v; 
+			$("#catalogo").append("<tr><td data-th="+"Artista"+">" +cancion.artista+"</td><td data-th="+"Nombre" +">" +cancion.nombre +"</td><td data-th="+"Genero" +">" +cancion.genero +"</td><td data-th="+"Acciones"  +"><input type="+"button"+" name="+"Boton1"+" value="+"play"+"></td></tr>");
+		})
+	
+	  
+	  
+   
+	
+}
+function obtenerCATALOGO(TOKEN){
+	console.log(TOKEN);
+	var url = API_BASE_URL + '/cancion/catalogo_canciones';
+	$.ajax({
+		url : url,
+		type : 'GET',
+		contentType : 'application/vnd.dsa.musicloud.cancion.coleccion+json',
+		headers: {"X-Auth-Token":TOKEN}
+	}).done(function(data, status, jqxhr) {
+		console.log(data);
+		insertarCATALOGO(data);		
+  	}).fail(function() {
+		alert ('fallo ');
+	});
 }
