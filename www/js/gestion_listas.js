@@ -3,6 +3,7 @@ var LOGIN = "";
 var PASSWORD = "";
 var TOKEN = "";
 var url= "";
+var lastFilename;
 
 
 
@@ -65,8 +66,14 @@ $("#subircancion").click(function(e) {
 			console.log(nuevaCancion);
 			console.log(TOKEN);
 			
+			var formData = new FormData();
 			
-			cargar_cancion(nuevaCancion, TOKEN);	
+			formData.append("file", nuevaCancion.file);
+			formData.append("artista", nuevaCancion.artista);
+			formData.append("nombre", nuevaCancion.nombre);
+			formData.append("genero", nuevaCancion.genero);
+			
+			cargar_cancion(formData, TOKEN);	
 		}
 	
 	}
@@ -76,7 +83,7 @@ $("#subircancion").click(function(e) {
 
 
 
-function cargar_cancion(nuevaCancion,TOKEN) 
+/*function cargar_cancionuno(nuevaCancion,TOKEN) 
 {
 	
 	var data = JSON.stringify(nuevaCancion);
@@ -86,10 +93,9 @@ function cargar_cancion(nuevaCancion,TOKEN)
 	    $.ajax({
 		url : url,
 		type : 'POST',
-		crossDomain : true,
-		dataType : 'json',
-		//contentType : 'multipart/form-data',
-		contentType : 'application/vnd.dsa.musicloud.cancion+json',
+		crossDomain : true,		
+		contentType : 'multipart/form-data',
+		//contentType : 'application/vnd.dsa.musicloud.cancion+json',
 		data : data,
 		headers: {"X-Auth-Token":TOKEN},		
 	}).done(function(data, status, jqxhr){
@@ -98,6 +104,79 @@ function cargar_cancion(nuevaCancion,TOKEN)
 	}).fail(function(){
 		alert ('Error en al subir canción!');
 	});
+}*/
+
+function cargar_cancion(formData,TOKEN){
+	
+	$('progress').toggle();	
+	
+	console.log(formData);
+	var url = API_BASE_URL + '/cancion/cargarcancion';
+	
+	$.ajax({
+		url: url,
+		type: 'POST',
+		/*xhr: function() {  
+	    	var myXhr = $.ajaxSettings.xhr();
+	        if(myXhr.upload){ 
+	            myXhr.upload.addEventListener('progress',progressHandlingFunction, false); // For handling the progress of the upload
+	        }
+	        return myXhr;
+        },*/
+		crossDomain : true,
+		data: formData,
+		headers: {"X-Auth-Token":TOKEN},
+		cache: false,
+		contentType: false,
+        processData: false
+	})
+	.done(function (data, status, jqxhr) {
+		/*var response = $.parseJSON(jqxhr.nuevaCancion);
+		lastFilename = response.cancion;
+		
+		$('#uploadedImage').attr('src', response.imageURL);
+		$('progress').toggle();
+		$('nuevaCancion')[0].reset();*/
+		console.log(data);
+		alert("Archivo subido correctamente!");
+		window.location = "http://localhost/gestion_listas.html" ;	
+	})
+	 .fail(function (jqXHR, textStatus, errorThrown) {
+    	alert("KO");
+		console.log(textStatus);
+		if (jqXHR.status === 0) {
+    
+            alert('Not connect: Verify Network.');
+
+        } else if (jqXHR.status == 404) {
+
+            alert('Requested page not found [404]');
+
+        } else if (jqXHR.status == 500) {
+
+            alert('Internal Server Error [500].');
+
+        } else if (textStatus === 'parsererror') {
+
+            alert('Requested JSON parse failed.');
+
+        } else if (textStatus === 'timeout') {
+
+            alert('Time out error.');
+
+        } else if (textStatus === 'abort') {
+
+            alert('Ajax request aborted.');
+
+        } else {
+
+            alert('Uncaught Error: ' + jqXHR.responseText);
+
+		}
+	
+	
+	
+});
 }
 
 
