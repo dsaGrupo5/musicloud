@@ -135,11 +135,12 @@ function cargar_cancion(formData,TOKEN){
 		lastFilename = response.cancion;
 		
 		$('#uploadedImage').attr('src', response.imageURL);
-		$('progress').toggle();
+		
 		$('nuevaCancion')[0].reset();*/
 		console.log(data);
-		alert("Archivo subido correctamente!");
-		window.location = "http://localhost/gestion_listas.html" ;	
+		//alert("Archivo subido correctamente!");
+		$('progress').toggle();
+		//window.location = "http://localhost/gestion_listas.html" ;	
 	})
 	 .fail(function (jqXHR, textStatus, errorThrown) {
     	alert("KO");
@@ -177,6 +178,12 @@ function cargar_cancion(formData,TOKEN){
 	
 	
 });
+}
+
+function progressHandlingFunction(e){
+    if(e.lengthComputable){
+        $('progress').attr({value:e.loaded,max:e.total});
+    }
 }
 
 

@@ -1,7 +1,7 @@
 var API_BASE_URL = "http://127.0.0.1:8080/musicloud";
 var LOGIN = "";
 var PASSWORD = "";
-var TOKEN = "7B996B2EAEC711E59EE2441EA1D028CF";
+var TOKEN = " 0CA90339AF2311E5BA0648D224AD6F63";
 var url= "";
 
 //REVISAR USO DE LOS TOKEN O COOCKIES. HA DE RESPETAR LOS ROLES
@@ -64,13 +64,21 @@ function insertarCATALOGO(data){
 		{
 			var cancion= v; 
 			$("#catalogo").append("<tr><td data-th="+"Artista"+">" +cancion.artista+"</td><td data-th="+"Nombre" +">" +cancion.nombre +"</td><td data-th="+"Genero" +">" +cancion.genero +"</td><td data-th="+"Acciones"  +"><input type="+"button"+" name="+"Boton1"+" value="+"play"+"></td></tr>");
-		})
-	
-	  
-	  
-   
+		})  
 	
 }
+
+function insertarNuevo(data){
+	var canciones = data.canciones;
+		$.each(canciones, function(i, v)
+		{
+			var cancion= v; 
+			$("#catalogo1").append("<div class="+"promo"+"><div class="+"deal"+"><span>Artista: "+cancion.artista+"</span><span>Género: "+cancion.genero+"</div></span><span class="+"price"+">"+cancion.nombre+"</span>"+cancion.genero +"<button>Sign up</button></div>");
+		})  
+	
+}
+
+
 function obtenerCATALOGO(TOKEN){
 	console.log(TOKEN);
 	var url = API_BASE_URL + '/cancion/catalogo_canciones';
@@ -81,7 +89,8 @@ function obtenerCATALOGO(TOKEN){
 		headers: {"X-Auth-Token":TOKEN}
 	}).done(function(data, status, jqxhr) {
 		console.log(data);
-		insertarCATALOGO(data);		
+		insertarCATALOGO(data);
+		insertarNuevo(data);
   	}).fail(function() {
 		alert ('fallo ');
 	});
