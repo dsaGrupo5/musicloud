@@ -66,9 +66,7 @@
 		 <li class="page-scroll">
           <a href="#eliminaruser">Eliminar Perfil</a>
          </li>
-	     <li class="page-scroll">
-          <a href="#reproductor">Reproductor</a>
-         </li>
+	     
 		 <li>
 		  <button type="submit" class="btn btn-success btn-lg" id="log_out">Logout</button>
 		 </li>
@@ -187,39 +185,122 @@
 	<br>
 	<br>
 
-  <section id="catalogoCanciones"> 		
-     <table id="catalogo">
-	  <thead>
-	   <tr>
-		<th data-column-id="artista" >Artista</th>
-		<th data-column-id="nombre">Nombre</th>
-		<th data-column-id="genero">Genero</th>
-		<th data-column-id="acciones">Acciones</th>
-       </tr>					
-	  </thead>
-	 </table>		
-    </section>
-	
-	<br>
-	<br>
-	
-	 <div class="container">
-	  <div class="promos" id="catalogo1">  
-		<div class='promo'>
-		 <div class='deal'>
-		  <span>Premium</span>
-		  <span>This is really a good deal!</span>
-		 </div>
-		  <span class="price">$79</span>
-		   <ul class="features">
-			<li>Some great feature</li>
-			<li>Another super feature</li>
-			<li>And more...</li>   
-		   </ul>
-		 <button>Sign up</button>
+  <section id="catalogoCanciones">
+   <div class="container">
+    <div class="row">
+     <div class="col-lg-12 text-center">
+      <h2>Catalogo</h2>
+      <hr class="star-primary">
+    </div>
+    </div>
+	<div id="grid-data-api-header" class="bootgrid-header container-fluid">
+	 <div class="row">
+	  <div class="col-sm-12 actionBar">
+	   <div class="search form-group">
+	    <div class="input-group">
+		 <span class="icon glyphicon input-group-addon glyphicon-search"></span>
+		 <input type="text" class="search-field form-control" placeholder="Search">
 		</div>
 	   </div>
-      </div>
+	   <div class="actions btn-group">
+	   <button class="btn btn-default" type="button" title="Refresh">
+	    <span class="icon glyphicon glyphicon-refresh"></span>
+	   </button>
+	   <div class="dropdown btn-group">
+	    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+		 <span class="dropdown-text">10</span>
+		 <span class="caret"></span>
+		</button>
+		 <ul class="dropdown-menu pull-right" role="menu">
+		  <li class="active" aria-selected="true">
+		   <a data-action="10" class="dropdown-item dropdown-item-button">10</a>
+		  </li>
+		  <li aria-selected="false">
+		   <a data-action="25" class="dropdown-item dropdown-item-button">25</a>
+		  </li>
+		  <li aria-selected="false">
+		   <a data-action="50" class="dropdown-item dropdown-item-button">50</a>
+		  </li>
+		  <li aria-selected="false">
+		   <a data-action="-1" class="dropdown-item dropdown-item-button">All</a>
+		  </li>
+		 </ul>
+		</div>
+		<div class="dropdown btn-group">
+		 <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+		  <span class="dropdown-text"><span class="icon glyphicon glyphicon-th-list"></span></span> 
+		  <span class="caret"></span>
+		 </button>
+		 <ul class="dropdown-menu pull-right" role="menu">
+		  <li>
+		   <label class="dropdown-item"><input name="id" type="checkbox" value="1" class="dropdown-item-checkbox" checked="checked"> Artista</label>
+		  </li>
+		  <li>
+		   <label class="dropdown-item"><input name="sender" type="checkbox" value="1" class="dropdown-item-checkbox" checked="checked"> Nombre</label>
+		  </li>
+		  <li>
+		   <label class="dropdown-item"><input name="received" type="checkbox" value="1" class="dropdown-item-checkbox" checked="checked"> Genero</label>
+		  </li>
+		 </ul>
+        </div>
+	   </div>
+	  </div>
+	 </div>
+	</div>
+    <table id="catalogo" class ="table table-condensed table-hover table-striped">
+	  <thead>
+	   <tr>
+		<th data-column-id="artista">Artista</th>
+		<th data-column-id="nombre">Nombre</th>
+		<th data-column-id="genero">Genero</th>
+		<th data-column-id="commands" data-formatter="commands" data-sortable="false">Acciones</th>
+       </tr>					
+	  </thead>
+	  <tbody>
+	  </tbody>
+	 </table>
+	 <div id="grid-data-api-footer" class="bootgrid-footer container-fluid">
+	  <div class="row"><div class="col-sm-6">
+	   <ul class="pagination">
+	    <li class="first" aria-disabled="false">
+		 <a data-page="first" class="button">«</a>
+		</li>
+		<li class="prev" aria-disabled="false">
+		 <a data-page="prev" class="button">&lt;</a>
+		</li>
+		<li class="page-109" aria-disabled="false" aria-selected="false">
+		 <a data-page="109" class="button">109</a>
+		</li>
+		<li class="page-110" aria-disabled="false" aria-selected="false">
+		 <a data-page="110" class="button">110</a>
+		</li>
+		<li class="page-111" aria-disabled="false" aria-selected="false">
+		 <a data-page="111" class="button">111</a>
+		</li>
+		<li class="page-112" aria-disabled="false" aria-selected="false">
+		 <a data-page="112" class="button">112</a>
+		</li>
+		<li class="page-113 active" aria-disabled="false" aria-selected="true">
+		 <a data-page="113" class="button">113</a>
+		</li>
+		<li class="next disabled" aria-disabled="true">
+		 <a data-page="next" class="button">&gt;</a>
+		</li>
+		<li class="last disabled" aria-disabled="true">
+		 <a data-page="last" class="button">»</a>
+		</li>
+	  </ul>
+	 </div>
+	 <div class="col-sm-6 infoBar">
+	  <div class="infos">Showing 1121 to 1123 of 1123 entries</div>
+	 </div>
+	</div>
+   </div>
+  </div>
+ </section>
+	
+	<br>
+	<br>
 	    
   <section id="eliminaruser">
   <div class="container">
@@ -245,6 +326,8 @@
     
 	<br>
 	<br>
+<!----------------------------------FINAL  SECCIONES USUARIO REGISTRADO ------------------------------------------> 
+<!----------------------------------INICIO REPRODUCTOR --------------------------------------> 
 	
   <nav class="navbar navbar-default navbar-fixed-bottom">
 	 <div class="container">
@@ -337,7 +420,7 @@
       </div>
 	</nav>
 			
-<!----------------------------------FINAL  SECCIONES USUARIO REGISTRADO ------------------------------------------>  
+ <!---------------------------------FINAL REPRODUCTOR --------------------------------------> 
 <!----------------------------------INICIO BOTON PARA SUBIR A INICIO PAGINA -------------------------------------->  
   <div class="scroll-top page-scroll visible-xs visible-sm">
    <a class="btn btn-primary" href="#page-top">

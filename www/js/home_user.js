@@ -63,7 +63,7 @@ function insertarCATALOGO(data){
 		$.each(canciones, function(i, v)
 		{
 			var cancion= v; 
-			$("#catalogo").append("<tr><td data-th="+"Artista"+">" +cancion.artista+"</td><td data-th="+"Nombre" +">" +cancion.nombre +"</td><td data-th="+"Genero" +">" +cancion.genero +"</td><td data-th="+"Acciones"  +"><input type="+"button"+" name="+"Boton1"+" value="+"play"+"></td></tr>");
+			$("#catalogo").append("<tr><td data-th="+"Artista"+">" +cancion.artista+"</td><td data-th="+"Nombre" +">" +cancion.nombre +"</td><td data-th="+"Genero" +">" +cancion.genero +"</td><td data-th="+"Acciones"+"><button type=\"button\" class=\"btn btn-xs btn-default command-edit\"><span class=\"fa fa-play\"></span></button>"+"         "+"<button type=\"button\" class=\"btn btn-xs btn-default command-edit\"><span class=\"fa fa-plus\"></span></button></td></tr>");
 		})  
 	
 }
@@ -73,7 +73,7 @@ function insertarNuevo(data){
 		$.each(canciones, function(i, v)
 		{
 			var cancion= v; 
-			$("#catalogo1").append("<div class="+"promo"+"><div class="+"deal"+"><span>Artista: "+cancion.artista+"</span><span>Género: "+cancion.genero+"</div></span><span class="+"price"+">"+cancion.nombre+"</span>"+cancion.genero +"<button>Sign up</button></div>");
+			$("#grid-data").append("<div class="+"promo"+"><div class="+"deal"+"><span>Artista: "+cancion.artista+"</span><span>Género: "+cancion.genero+"</div></span><span class="+"price"+">"+cancion.nombre+"</span>"+cancion.genero +"<button>Sign up</button></div>");
 		})  
 	
 }
