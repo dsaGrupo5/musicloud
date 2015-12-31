@@ -54,7 +54,7 @@
   };
 
   soundManager.setup({
-    // trade-off: higher UI responsiveness (play/progress bar), but may use more CPU.
+    //rade-off: higher UI responsiveness (play/progress bar), but may use more CPU.
     html5PollingInterval: 50,
     flashVersion: 9
   });

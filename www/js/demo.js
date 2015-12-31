@@ -9,9 +9,7 @@
   var Player = window.SM2BarPlayer;
 
   // the demo may need flash, we'll set that up here.
-  soundManager.setup({
-    url: '../../swf/'
-  });
+  //soundManager.setup({url: '/swf/'});
 
   // minimal utils for demo
   utils = {

@@ -1,14 +1,14 @@
 var API_BASE_URL = "http://127.0.0.1:8080/musicloud";
 var LOGIN = "";
 var PASSWORD = "";
-var TOKEN = " 0CA90339AF2311E5BA0648D224AD6F63";
+var TOKEN = "";
 var url= "";
 
 //REVISAR USO DE LOS TOKEN O COOCKIES. HA DE RESPETAR LOS ROLES
 
 $(document).ready(function() {
-	//LOGIN = $.cookie('login');
-	//TOKEN = $.cookie('token');
+	LOGIN = $.cookie('login');
+	TOKEN = $.cookie('token');
 	
 	obtenerCATALOGO(TOKEN);
 });
