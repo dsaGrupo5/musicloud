@@ -1,9 +1,6 @@
 package edu.upc.eetac.dsa.musicloud.dao;
 
-import edu.upc.eetac.dsa.musicloud.entity.Cancion;
-import edu.upc.eetac.dsa.musicloud.entity.CancionColeccion;
-import edu.upc.eetac.dsa.musicloud.entity.Listas_Usuarios;
-import edu.upc.eetac.dsa.musicloud.entity.User;
+import edu.upc.eetac.dsa.musicloud.entity.*;
 
 import javax.ws.rs.InternalServerErrorException;
 import java.io.*;
@@ -83,7 +80,7 @@ public class CancionDAOImpl implements CancionDAO{
             throw new CancionExisteException();
 
         cancion.setId(UUID.randomUUID().toString().replaceAll("-", ""));
-        cancion.setUrl(prb.getString("musicloud.context")+ "/reproduccion/" + cancion.getId() + ".mp3");
+        cancion.setUrl(prb.getString("SongBaseURL.context")+ cancion.getId() + ".mp3");
         try {
             connection = Database.getConnection();
             stmt = connection.prepareStatement(CancionDAOQuery.cargar_cancion_BD);
@@ -524,6 +521,40 @@ public class CancionDAOImpl implements CancionDAO{
             if (connection != null) connection.close();
         }
         return lista;
+    }
+    @Override
+    public Listas_UsuariosColeccion obtener_COLECCIONLISTAS(String login) throws SQLException
+    {
+
+        User user = new User();
+        Listas_UsuariosColeccion coleccion = new Listas_UsuariosColeccion();
+
+        UserDAO userdao= new UserDAOImpl();
+        Connection connection = null;
+        PreparedStatement stmt = null;
+        user = userdao.obtener_User_por_Login(login);
+        try {
+            connection = Database.getConnection();
+            stmt = connection.prepareStatement(CancionDAOQuery.obtener_COLECCION_DE_LISTAS_USUARIO);
+            stmt.setString(1,user.getId());
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next())
+            {
+                Listas_Usuarios lista = new Listas_Usuarios();
+                lista.setId(rs.getString("id"));
+                lista.setIduser(rs.getString("iduser"));
+                lista.setNombre(rs.getString("nombre"));
+                coleccion.getListas().add(lista);
+            }
+
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            if (stmt != null) stmt.close();
+            if (connection != null) connection.close();
+        }
+        return coleccion;
+
     }
 }
 

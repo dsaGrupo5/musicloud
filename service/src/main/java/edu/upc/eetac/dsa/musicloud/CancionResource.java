@@ -5,6 +5,7 @@ import edu.upc.eetac.dsa.musicloud.dao.*;
 import edu.upc.eetac.dsa.musicloud.entity.Cancion;
 import edu.upc.eetac.dsa.musicloud.entity.CancionColeccion;
 import edu.upc.eetac.dsa.musicloud.entity.Listas_Usuarios;
+import edu.upc.eetac.dsa.musicloud.entity.Listas_UsuariosColeccion;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
@@ -120,6 +121,16 @@ public class CancionResource
         catch (SQLException e){throw new InternalServerErrorException();}
         return lista;
     }
-
+    @RolesAllowed({"administrador","registrado"})
+    @Path(("/obtener_coleccion_listausuario/{login}"))
+    @GET
+    @Produces(MusicloudMediaType.MUSICLOUD_LISTA_USUARIO_COLECCION)
+    public Listas_UsuariosColeccion obtener_LISTAUSUARIOSCOLECCION(@PathParam("login") String login) throws SQLException{
+        Listas_UsuariosColeccion coleccion= new Listas_UsuariosColeccion();;
+        CancionDAOImpl canciondao = new CancionDAOImpl();
+        try{coleccion = canciondao.obtener_COLECCIONLISTAS(login);}
+        catch (SQLException e){throw new InternalServerErrorException();}
+        return coleccion;
+    }
 }
 

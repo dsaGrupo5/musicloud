@@ -52,7 +52,8 @@ function getlogin(login, password)
 				$.cookie('login', login);
 				$.cookie('login', data.login);
 				$.cookie('token', data.token);
-				
+				$.cookie('iduser', data.iduser);
+				alert(data.iduser);
 			    window.location = "http://localhost/home_user.html" ;
 			}
 			if(data.role== 'administrador')

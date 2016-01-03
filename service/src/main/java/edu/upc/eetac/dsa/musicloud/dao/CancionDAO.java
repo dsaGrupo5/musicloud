@@ -3,6 +3,7 @@ package edu.upc.eetac.dsa.musicloud.dao;
 import edu.upc.eetac.dsa.musicloud.entity.Cancion;
 import edu.upc.eetac.dsa.musicloud.entity.CancionColeccion;
 import edu.upc.eetac.dsa.musicloud.entity.Listas_Usuarios;
+import edu.upc.eetac.dsa.musicloud.entity.Listas_UsuariosColeccion;
 
 import java.io.InputStream;
 import java.sql.SQLException;
@@ -29,5 +30,5 @@ public interface CancionDAO {
      public void insertar_LISTACANCION(String idlista,String idcancion)  throws  SQLException;
      public void eliminar_LISTACANCION(String idlista,String idcancion)  throws  SQLException;
      public Listas_Usuarios obtener_LISTAUSUARIOS_por_ID(String idlista) throws SQLException, ListaExisteException,ListaNoExisteException,UserNoExisteException;
-
+     public Listas_UsuariosColeccion obtener_COLECCIONLISTAS(String login) throws SQLException;
 }
