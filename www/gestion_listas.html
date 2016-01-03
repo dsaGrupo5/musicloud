@@ -206,7 +206,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2>Editar Catálogo</h2>
+                    <h2>Subir Canción a Catálogo</h2>
                     <hr class="star-primary">
                 </div>
             </div>
@@ -215,7 +215,23 @@
                     <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
                     <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
                     <form name="sentMessage" id="registroForm" role="form" novalidate >
-                        <div class="row control-group">
+                        
+                        
+						<table><div class="row control-group"> <font size="5">· Seleccionar género</font>
+									<select id="genero" style="height:40px" >
+									  <option value="otros">Otros</option>
+									  <option value="clasica">Clásica</option>
+									  <option value="rock">Rock</option>
+									  <option value="pop">Pop</option>
+									  <option value="electronica">Electrónica</option>
+									  
+									</select>
+									
+									
+									
+						</div>
+						
+							
                             
 							<div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
@@ -231,21 +247,8 @@
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
-                        <div class="row control-group">
-                            <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <!--<label>Género</label>
-                                <input type="text" class="form-control" placeholder="Género Canción" id="genero" required data-validation-required-message="Por favor introduce tu clave de acceso a MusiCloud">
-                                <p class="help-block text-danger"></p>-->
-								
-									<select id="genero" >
-									  <option value="clasica">Clásica</option>
-									  <option value="rock">Rock</option>
-									  <option value="pop">Pop</option>
-									  <option value="electronica">Electrónica</option>
-									  <option value="otros">Otros</option>
-									</select>
-                            </div>
-                        </div>
+						
+						<div class="row control-group">
 						<div class="form-group col-xs-12 floating-label-form-group controls">
                                 <label>Seleccionar Canción</label>
 								<ul class="options">
@@ -254,23 +257,23 @@
 									</li>									
 										<div id="fileSize"></div>									
 										<div id="fileType"></div>
+										
+									<li>
 										<progress style="display: none;"></progress>
+									</li>
 								</ul>							
 								
                             </div>
-							<br>
-							<br>
-							<br>
-							<br>
-                        </div>
+						</div>
+						
 						
 						<div class="form-group col-xs-12">
 								<!--<input type="button" value="Subir Archivo" onClick="uploadFile()" class="rm-button" />-->
-                                <button type="submit" class="btn btn-success btn-lg" id="subircancion">Subir Canción</button>
-								
-                        </div>
+                                <button type="submit" class="btn btn-success btn-lg" id="subircancion">Subir</button>
+						</div>
+					
 						
-                            </div>
+                </div>
                         </div>
                        
                         
