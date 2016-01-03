@@ -3,31 +3,39 @@
 
 <head>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>MusiCloud - ADMIN</title>
-
-    <!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="css/freelancer.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-    <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <!-- META------------------------------------------------------->
+	 <!-- meta reproductot------------------------------------------>
+	  <meta name="robots" content="noindex" />
+      <meta name="viewport" content="width=500, initial-scale=1">
+	  <script src="js/bar-ui.js"></script>
+        <script src="js/demo.js"></script>
+	    <script type="text/javascript" src="js/soundmanager2.js"></script>
+	 <!------------------------------------------------------------->
+	 <!-- meta sin definir------------------------------------------->
+      <meta charset="utf-8" />    
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="">
+      <meta name="author" content="">
+	 <!---------------------------------------------------------------->
+     <title>MusiCloud - Listas</title>
+	<!-- CSS----------------------------------------------------------->
+	 <!-- CSS reproductor--------------------------------------->
+     <link href="css/bar-ui.css" rel="stylesheet">
+	 <link href="css/demo.css" rel="stylesheet">
+	 <!----------------------------------------------------------->
+	 <!-- CSS sin definir------------------------------------------>
+      <link href="css/bootstrap.min.css" rel="stylesheet">
+	  <link href="css/tabla-oscura.css" rel="stylesheet">
+      <link href="css/freelancer.css" rel="stylesheet">
+	  <link href="css/bootstrap.css" rel="stylesheet" />
+	  <link href="css/jquery.bootgrid.css" rel="stylesheet" />   
+	 <!--------------------->
+	 <!-- CSS fuentes ------>
+      <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+      <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+      <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+     <!--------------------->	
 
 </head>
 
@@ -44,7 +52,8 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="home_admin.html">MusiCloud - Listas</a>
+				<a class="navbar-brand" href="home_admin.html" title="MusiCloud - @dmin"><</a>
+                <a class="navbar-brand" href="">MusiCloud - Listas</a>
 				
             </div>
 
@@ -55,15 +64,9 @@
                         <a href="#page-top"></a>
                     </li>
                   <li class="page-scroll">
-                        <a href="#crearlist">Crear</a>
+                        <a href="#catalog">Catálogo</a>
                     </li>
-                    <li class="page-scroll">
-                        <a href="#editarlist">Editar</a>
-                    </li>
-                    <li class="page-scroll">
-                        <a href="#eliminarlist">Eliminar</a>
-                    </li>
-					<li class="page-scroll">
+                  	<li class="page-scroll">
                         <a href="#subircan">Subir Canción</a>
                     </li>
 					<li>
@@ -75,90 +78,131 @@
         </div>
         <!-- /.container-fluid -->
     </nav>
+	<br>
 
-    <br>
-	<br>
-    <!-- crear Section -->
-    <section id="crearlist">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2>Crear Lista</h2>
-                    <hr class="star-primary">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2">
-                    <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
-                    <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
-                    <form name="sentMessage" id="registroForm" novalidate>
-                        <div class="row control-group">
-                            <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Nombre de la nueva lista</label>
-                                <input type="text" class="form-control" placeholder="Nombre de la lista" id="nombre_lista" required data-validation-required-message="Por favor introduce tu usuario para MusiCloud">
-                                <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-						
-						<div class="form-group col-xs-12">
-                                <button type="submit" class="btn btn-success btn-lg" id="crealista">Crear</button>
-                            </div>
-							<div class="row">
-								<span id="resultado_edit"></span>
-							</div>
-                        </div>
-                            </div>
-                        </div>              
-                        
-                    </form>
-                </div>
-            </div>
+<!-- Catálogo-->	
+	<section id="catalog">
+   <div class="container">
+    <div class="row">
+     <div class="col-lg-12 text-center">
+      <h2>Catálogo</h2>
+      <hr class="star-primary">
+    </div>
+    </div>
+	<div id="grid-data-api-header" class="bootgrid-header container-fluid">
+	 <div class="row">
+	  <div class="col-sm-12 actionBar">
+	   <div class="search form-group">
+	    <div class="input-group">
+		 <span class="icon glyphicon input-group-addon glyphicon-search"></span>
+		 <input type="text" class="search-field form-control" placeholder="Search">
+		</div>
+	   </div>
+	   <div class="actions btn-group">
+	   <button class="btn btn-default" type="button" title="Refresh">
+	    <span class="icon glyphicon glyphicon-refresh"></span>
+	   </button>
+	   <div class="dropdown btn-group">
+	    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+		 <span class="dropdown-text">10</span>
+		 <span class="caret"></span>
+		</button>
+		 <ul class="dropdown-menu pull-right" role="menu">
+		  <li class="active" aria-selected="true">
+		   <a data-action="10" class="dropdown-item dropdown-item-button">10</a>
+		  </li>
+		  <li aria-selected="false">
+		   <a data-action="25" class="dropdown-item dropdown-item-button">25</a>
+		  </li>
+		  <li aria-selected="false">
+		   <a data-action="50" class="dropdown-item dropdown-item-button">50</a>
+		  </li>
+		  <li aria-selected="false">
+		   <a data-action="-1" class="dropdown-item dropdown-item-button">All</a>
+		  </li>
+		 </ul>
+		</div>
+		<div class="dropdown btn-group">
+		 <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+		  <span class="dropdown-text"><span class="icon glyphicon glyphicon-th-list"></span></span> 
+		  <span class="caret"></span>
+		 </button>
+		 <ul class="dropdown-menu pull-right" role="menu">
+		  <li>
+		   <label class="dropdown-item"><input name="id" type="checkbox" value="1" class="dropdown-item-checkbox" checked="checked"> Artista</label>
+		  </li>
+		  <li>
+		   <label class="dropdown-item"><input name="sender" type="checkbox" value="1" class="dropdown-item-checkbox" checked="checked"> Nombre</label>
+		  </li>
+		  <li>
+		   <label class="dropdown-item"><input name="received" type="checkbox" value="1" class="dropdown-item-checkbox" checked="checked"> Genero</label>
+		  </li>
+		 </ul>
         </div>
-    </section>
+	   </div>
+	  </div>
+	 </div>
+	</div>
+    <table id="catalogo" class ="table table-condensed table-hover table-striped">
+	  <thead>
+	   <tr>
+		<th data-column-id="artista">Artista</th>
+		<th data-column-id="nombre">Nombre</th>
+		<th data-column-id="genero">Genero</th>
+		<th data-column-id="commands" data-formatter="commands" data-sortable="false">Acciones</th>
+       </tr>					
+	  </thead>
+	  <tbody>
+	  </tbody>
+	 </table>
+	 <div id="grid-data-api-footer" class="bootgrid-footer container-fluid">
+	  <div class="row"><div class="col-sm-6">
+	   <ul class="pagination">
+	    <li class="first" aria-disabled="false">
+		 <a data-page="first" class="button">«</a>
+		</li>
+		<li class="prev" aria-disabled="false">
+		 <a data-page="prev" class="button">&lt;</a>
+		</li>
+		<li class="page-109" aria-disabled="false" aria-selected="false">
+		 <a data-page="109" class="button">109</a>
+		</li>
+		<li class="page-110" aria-disabled="false" aria-selected="false">
+		 <a data-page="110" class="button">110</a>
+		</li>
+		<li class="page-111" aria-disabled="false" aria-selected="false">
+		 <a data-page="111" class="button">111</a>
+		</li>
+		<li class="page-112" aria-disabled="false" aria-selected="false">
+		 <a data-page="112" class="button">112</a>
+		</li>
+		<li class="page-113 active" aria-disabled="false" aria-selected="true">
+		 <a data-page="113" class="button">113</a>
+		</li>
+		<li class="next disabled" aria-disabled="true">
+		 <a data-page="next" class="button">&gt;</a>
+		</li>
+		<li class="last disabled" aria-disabled="true">
+		 <a data-page="last" class="button">»</a>
+		</li>
+	  </ul>
+	 </div>
+	 <div class="col-sm-6 infoBar">
+	  <div class="infos">Showing 1121 to 1123 of 1123 entries</div>
+	 </div>
+	</div>
+   </div>
+  </div>
+ </section>
+ 
+<!-- FINAL CATALOGO-------------------------->
 	
 	
-    <br>
-	<br>
-    <!-- Eliminar Section -->
-    <section id="editarlist">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2>Editar Lista</h2>
-                    <hr class="star-primary">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2">
-                    <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
-                    <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
-                    <form name="sentMessage" id="registroForm" novalidate>
-                        <div class="row control-group">
-                            <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Usuario a eliminar</label>
-                                <input type="text" class="form-control" placeholder="ID Usuario a eliminar" id="login_eliminar" required data-validation-required-message="Por favor introduce tu usuario para MusiCloud">
-                                <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-						
-						<div class="form-group col-xs-12">
-                                <button type="submit" class="btn btn-success btn-lg" id="eliminaruser">Eliminar</button>
-                        </div>
-                        </div>
-                            </div>
-                        </div>
-                       
-                        
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-	
-	<br>
-	<br>
-    <!-- Eliminar Section -->
+    <!-- subir cancion Section -->
     <section id="subircan">
+	<br>
+	<br>
+	
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -193,7 +237,7 @@
                                 <input type="text" class="form-control" placeholder="Género Canción" id="genero" required data-validation-required-message="Por favor introduce tu clave de acceso a MusiCloud">
                                 <p class="help-block text-danger"></p>-->
 								
-									<select id="genero">
+									<select id="genero" >
 									  <option value="clasica">Clásica</option>
 									  <option value="rock">Rock</option>
 									  <option value="pop">Pop</option>
@@ -236,18 +280,7 @@
         </div>
     </section>
 
-        <!-- Footer -->
-    <footer class="text-center">
-        <div class="footer-below">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        Copyright &copy; Your Website 2014
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
+ 
     <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
     <div class="scroll-top page-scroll visible-xs visible-sm">
         <a class="btn btn-primary" href="#page-top">
@@ -278,25 +311,27 @@
                 }
               }     
 	</script>
-    <script src="js/jquery.js"></script>
-	<script src="js/gestion_listas.js"></script>
-	<script src="js/login.js"></script>
-	<script src="js/jquery.cookie.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-
-    <!-- Plugin JavaScript -->
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-    <script src="js/classie.js"></script>
-    <script src="js/cbpAnimatedHeader.js"></script>
-	
-    <!-- Contact Form JavaScript -->
-    <script src="js/jqBootstrapValidation.js"></script>
-    
-
-    <!-- Custom Theme JavaScript -->
-    <script src="js/freelancer.js"></script>
+          <!------------------------------------>
+	  <!-- sin definir---------------------->
+		<script src="js/jquery-1.11.1.min.js"></script>
+		<script src="js/bootstrap.js"></script>
+		<script src="js/jquery.bootgrid.js"></script>
+		<script src="js/jquery.bootgrid.fa.js"></script>
+		<script src="js/jquery.js"></script>
+		<script src="js/gestion_listas.js"></script>
+		<script src="js/login.js"></script>
+		<script src="js/jquery.cookie.js"></script>
+		<!-- Bootstrap Core JavaScript -->
+		<script src="js/bootstrap.min.js"></script>
+		<!-- Plugin JavaScript -->
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+		<script src="js/classie.js"></script>
+		<script src="js/cbpAnimatedHeader.js"></script>	
+        <!-- Contact Form JavaScript -->
+        <script src="js/jqBootstrapValidation.js"></script>
+        <!-- Custom Theme JavaScript -->
+        <script src="js/freelancer.js"></script>
+<!----------------------------------FINAL RUTAS ARCHIVOS JAVASCRIPT ----------------------------------------------->
 	
 	
 
