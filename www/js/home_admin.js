@@ -181,3 +181,4 @@ function insertarUsuario(user,TOKEN)
 		alert ('Error en la edición!');
 	});
 }
+
