@@ -32,9 +32,14 @@ $("#añadirlista").click(function(e){
 
 $("#baja").click(function(e){
 	e.preventDefault();
-	var objetoBaja = new Object();
-	objetoBaja.login = LOGIN;
-	darserdebaja(objetoBaja, TOKEN);	
+	if(confirm("¿Quieres eliminar tu perfil?")) {
+
+		var objetoBaja = new Object();
+		objetoBaja.login = LOGIN;
+		darserdebaja(objetoBaja, TOKEN);
+
+	}	
+	
 });
 
 $("body").on("click","#botonreproducir",function(event)
@@ -170,11 +175,11 @@ function insertarCATALOGO(data)
 			$("#catalogo").append("<tr><td data-th=" +"artista" +">" +cancion.artista+
 								  "</td><td data-th="+"nombre"  +">" +cancion.nombre +
 								  "</td><td data-th="+"genero"  +">" +cancion.genero +
-								  "</td><td data-th="+"genero"  +">" +cancion.url +
+								  "</td><td data-th="+"url"  +" style="+"display:none"+">"+cancion.url +
 								  "</td><td data-th="+"acciones"+"><button type=\"button\"class=\"btn btn-xs btn-default command-edit\" id=\"botonreproducir\"><span class=\"fa fa-play\"></span></button>"+" "+
 								  "</td><td data-th="+"insertar"+"><button type=\"button\" class=\"btn btn-xs btn-default command-edit\"><span class=\"fa fa-plus\"></span></button></td></tr>"
 								 );
-		    
+		    u
 		}) 
 			
 			

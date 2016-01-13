@@ -45,7 +45,7 @@ public class CancionResource
         }
         return cancion;
     }
-    @RolesAllowed({"registrado"})
+    @RolesAllowed({"administrador"})
     @Path("/eliminarcancion/{id}")
     @DELETE
     public void eliminarCancion(@PathParam("id") String id) throws SQLException, CancionNoencontradaSFException, CancionNoExisteException{

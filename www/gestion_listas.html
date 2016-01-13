@@ -4,13 +4,7 @@
 <head>
 
     <!-- META------------------------------------------------------->
-	 <!-- meta reproductot------------------------------------------>
-	  <meta name="robots" content="noindex" />
-      <meta name="viewport" content="width=500, initial-scale=1">
-	  <script src="js/bar-ui.js"></script>
-        <script src="js/demo.js"></script>
-	    <script type="text/javascript" src="js/soundmanager2.js"></script>
-	 <!------------------------------------------------------------->
+	 
 	 <!-- meta sin definir------------------------------------------->
       <meta charset="utf-8" />    
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -26,6 +20,7 @@
 	 <!----------------------------------------------------------->
 	 <!-- CSS sin definir------------------------------------------>
       <link href="css/bootstrap.min.css" rel="stylesheet">
+	   <link href="css/boton.css" rel="stylesheet">
 	  <link href="css/tabla-oscura.css" rel="stylesheet">
       <link href="css/freelancer.css" rel="stylesheet">
 	  <link href="css/bootstrap.css" rel="stylesheet" />
@@ -144,12 +139,15 @@
 	 </div>
 	</div>
     <table id="catalogo" class ="table table-condensed table-hover table-striped">
-	  <thead>
+	 <thead>
 	   <tr>
 		<th data-column-id="artista">Artista</th>
 		<th data-column-id="nombre">Nombre</th>
-		<th data-column-id="genero">Genero</th>
-		<th data-column-id="commands" data-formatter="commands" data-sortable="false">Acciones</th>
+		<th data-column-id="genero">Género</th>
+		<th data-column-id="id" style="display:none">Id</th>
+		<th data-column-id="url" style="display:none">Url</th>
+		<th data-column-id="reproducir" data-formatter="commands" data-sortable="false">Eliminar</th>
+		
        </tr>					
 	  </thead>
 	  <tbody>
@@ -217,16 +215,19 @@
                     <form name="sentMessage" id="registroForm" role="form" novalidate >
                         
                         
-						<table><div class="row control-group"> <font size="5">· Seleccionar género</font>
+						<div class="row control-group"> <font size="5"> Seleccionar género</font>
+									<span>
 									<select id="genero" style="height:40px" >
-									  <option value="otros">Otros</option>
-									  <option value="clasica">Clásica</option>
-									  <option value="rock">Rock</option>
-									  <option value="pop">Pop</option>
-									  <option value="electronica">Electrónica</option>
+									  <option value="Otros">Otros</option>
+									  <option value="Clásica">Clásica</option>
+									  <option value="Rock">Rock</option>
+									  <option value="Pop">Pop</option>
+									  <option value="Electrónica">Electrónica</option>
 									  
 									</select>
+									</span>
 									
+
 									
 									
 						</div>
@@ -251,9 +252,22 @@
 						<div class="row control-group">
 						<div class="form-group col-xs-12 floating-label-form-group controls">
                                 <label>Seleccionar Canción</label>
-								<ul class="options">
+									
+									
+									<span class="file-input btn btn-primary btn-file">
+										Seleccionar Canción <input type="file" id="cancion" name="myfile" onchange="selectedFile();"/>
+									</span>
+									<span class="file-input btn btn-primary btn-file"></span><span class="file-input btn btn-primary btn-file"></span><span class="file-input btn btn-primary btn-file"></span><span class="file-input btn btn-primary btn-file"></span><span class="file-input btn btn-primary btn-file"></span><span class="file-input btn btn-primary btn-file"></span><span class="file-input btn btn-primary btn-file"></span><span class="file-input btn btn-primary btn-file"></span><span class="file-input btn btn-primary btn-file"></span><span class="file-input btn btn-primary btn-file"></span><span class="file-input btn btn-primary btn-file"></span><span class="file-input btn btn-primary btn-file"> </span><span class="file-input btn btn-primary btn-file"> </span>
+									
+									
+									
+									<span class="file-input btn btn-primary btn-file">							
+											<button type="submit" id="subircancion">Subir</button>
+									</span>
+									
+									<ul class="options">
 									<li>
-										<input type="file" id="cancion" name="cancion" class="rm-input" onchange="selectedFile();"/>
+										<!--<input type="file" id="cancion" name="cancion" class="rm-input" onchange="selectedFile();"/>-->
 									</li>									
 										<div id="fileSize"></div>									
 										<div id="fileType"></div>
@@ -261,16 +275,13 @@
 									<li>
 										<progress style="display: none;"></progress>
 									</li>
-								</ul>							
+									</ul>							
 								
                             </div>
 						</div>
 						
 						
-						<div class="form-group col-xs-12">
-								<!--<input type="button" value="Subir Archivo" onClick="uploadFile()" class="rm-button" />-->
-                                <button type="submit" class="btn btn-success btn-lg" id="subircancion">Subir</button>
-						</div>
+						
 					
 						
                 </div>
@@ -279,8 +290,15 @@
                         
                     </form>
                 </div>
-            </div>
-        </div>
+		
+										
+									
+            
+										
+									
+									
+            
+        
     </section>
 
  
