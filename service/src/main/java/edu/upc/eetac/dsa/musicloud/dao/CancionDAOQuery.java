@@ -21,7 +21,7 @@ public interface CancionDAOQuery {
     public final static String insertar_LISTA_CANCION =        "insert into lista_cancion (idlista,idcancion)  values (UNHEX(?),UNHEX(?))";
     public final static String eliminar_LISTA_CANCION =        "delete from  lista_cancion where idlista=unhex(?) and idcancion=unhex(?)";
     public final static String obtener_COLECCION_DE_LISTAS_USUARIO =   "select hex(id) as id,hex(iduser) as iduser, nombre from listas_usuarios where iduser=unhex(?)";
-
+    public final static String eliminar_LISTAUSUARIO =        "delete from  listas_usuarios where id=unhex(?)";
 
 
 

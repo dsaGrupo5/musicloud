@@ -26,7 +26,6 @@ $("#añadirlista").click(function(e){
 	e.preventDefault();
 	intlista = new Object;
 	intlista.iduser=IDUSER;
-	alert(intlista.iduser);
 	intlista.nombre= $("#nombrelistanueva").val();		
 	insertarNUEVALISTA(intlista,TOKEN,LOGIN);
 });
@@ -57,13 +56,35 @@ $("body").on("click","#botonreproducir",function(event)
             
 			cargarcancionREPRODUCTOR(artista,nombre,url)
       });
-$("body").on("click","#botoneliminar",function(event)
+$("body").on("click","#botoneliminarlista",function(event)
 {
-	        var nombrelista;
 	        event.preventDefault();
-            nombrelista= ("#listas_usuario").getElementsByTagName('h3');
-		    alert(nombrelista);
-});  
+            var valores="";
+		    var nombres = new Array(8);
+			var idlista="";
+            // Obtenemos todos los valores contenidos en los <td> de la fila
+            // seleccionada
+            $(this).parents("tr").find("td").each(function(){valores+=$(this).html()+"\n";});
+			var nombres = valores.split("\n");
+            idlista=nombres[1];
+			eliminarLISTAUSUARIO(idlista,TOKEN,LOGIN);
+});
+
+
+function eliminarLISTAUSUARIO(idlista,TOKEN,LOGIN){
+	var url = API_BASE_URL + '/cancion/eliminar_listausuario/'+ idlista;
+	$.ajax({
+		url : url,
+		type : 'DELETE',
+		crossDomain : true,		
+		headers: {"X-Auth-Token":TOKEN},		
+	}).done(TOKEN,LOGIN,function(data, status, jqxhr){
+		obtenerLISTASUSUARIO(TOKEN,LOGIN)		
+	}).fail(function(){
+		alert ('eliminar lista ko!');
+	});
+	
+}
 function insertarNUEVALISTA(intlista,TOKEN,LOGIN){
 	var test= new Object;
 	var url = API_BASE_URL + '/cancion/crear_listareproduccion';
@@ -75,9 +96,6 @@ function insertarNUEVALISTA(intlista,TOKEN,LOGIN){
 		data : $.param(intlista),
 		headers: {"X-Auth-Token":TOKEN},		
 	}).done(test,LOGIN,function(data, status, jqxhr){
-		alert('insertar nueva lista ok');
-		alert(TOKEN);
-		alert(LOGIN);
 		obtenerLISTASUSUARIO(TOKEN,LOGIN);
 	}).fail(function(){
 		alert ('fallo funcion insertarNUEVALISTA!');
@@ -86,14 +104,20 @@ function insertarNUEVALISTA(intlista,TOKEN,LOGIN){
 function cargarLISTASUSUARIOS(data)
 {
 	var listas= data.listas;
-	console.log(listas);
+	$('#listalistas').find('option').remove();
+	$("#lista_usuario").find("tr:gt(0)").remove();
+	
 	$.each(listas, function(i, v)
 	    {
 			var lista= v; 
 			$("#lista_usuario").append("<tr><td data-th=" +"artista" +">" +lista.nombre+
-								  "</td><td data-th="+"acciones"+"><button type=\"button\"class=\"btn btn-xs btn-default command-edit\" id=\"botonreproducir\"><span class=\"fa fa-play\"></span></button>"+" "+
-								  "</td><td data-th="+"insertar"+"><button type=\"button\" class=\"btn btn-xs btn-default command-edit\"><span class=\"fa fa-plus\"></span></button></td></tr>");		
-								  })
+								  "</td><td data-th=" +"idlista" +">" +lista.id+
+								  "</td><td data-th="+"acciones"+"><button type=\"button\"class=\"btn btn-xs btn-default command-edit\" id=\"botonreproducirlista\"><span class=\"fa fa-play\"></span></button>"+" "+
+								  "</td><td data-th="+"acciones"+"><button type=\"button\"class=\"btn btn-xs btn-default command-edit\" id=\"botoneditarlista\"><span class=\"fa fa-pencil-square-o\"></span></button>"+" "+
+								  "</td><td data-th="+"insertar"+"><button type=\"button\"class=\"btn btn-xs btn-default command-edit\" id=\"botoneliminarlista\"><span class=\"fa fa-times\"></span></button></td></tr>");
+           $("#listalistas").append("<option value="+i+">"+lista.nombre+"</option>");								  
+		})
+								  
 }	  
 function cargarcancionREPRODUCTOR(artista,nombre,url)
 {
@@ -153,7 +177,7 @@ function insertarCATALOGO(data)
 		    
 		}) 
 			
-			$("#lista").append("<option value="+"1"+">Lista 1</option><option value="+"2"+">Lista2</option>");
+			
 			
 
 }
@@ -183,7 +207,6 @@ function obtenerCATALOGO(TOKEN)
 }
 function obtenerLISTASUSUARIO(TOKEN,LOGIN)
 {
-	console.log(TOKEN);
 	var url = API_BASE_URL + '/cancion/obtener_coleccion_listausuario/'+LOGIN;
 	$.ajax({
 		url : url,

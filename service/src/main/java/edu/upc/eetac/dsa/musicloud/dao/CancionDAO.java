@@ -31,4 +31,5 @@ public interface CancionDAO {
      public void eliminar_LISTACANCION(String idlista,String idcancion)  throws  SQLException;
      public Listas_Usuarios obtener_LISTAUSUARIOS_por_ID(String idlista) throws SQLException, ListaExisteException,ListaNoExisteException,UserNoExisteException;
      public Listas_UsuariosColeccion obtener_COLECCIONLISTAS(String login) throws SQLException;
+     public void eliminarLISTAUSUARIO(String id) throws SQLException,ListaNoExisteException,ListaExisteException,UserNoExisteException;
 }

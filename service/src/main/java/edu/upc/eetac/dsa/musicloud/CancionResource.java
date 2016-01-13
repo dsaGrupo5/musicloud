@@ -132,5 +132,14 @@ public class CancionResource
         catch (SQLException e){throw new InternalServerErrorException();}
         return coleccion;
     }
+    @RolesAllowed({"registrado"})
+    @Path("/eliminar_listausuario/{id}")
+    @DELETE
+    public void eliminar_LISTAUSUARIO(@PathParam("id") String id) throws SQLException,ListaNoExisteException,UserNoExisteException,ListaExisteException{
+        CancionDAO cancionDAO= new CancionDAOImpl();
+        try{cancionDAO.eliminarLISTAUSUARIO(id);}
+        catch(ListaNoExisteException e){new WebApplicationException("El nombre de esta lista no existe",Response.Status.CONFLICT );}
+        catch (SQLException e){throw new InternalServerErrorException();}
+    }
 }
 

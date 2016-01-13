@@ -556,6 +556,31 @@ public class CancionDAOImpl implements CancionDAO{
         return coleccion;
 
     }
+    @Override
+    public void eliminarLISTAUSUARIO(String id) throws SQLException,ListaNoExisteException,ListaExisteException,UserNoExisteException{
+        Connection connection = null;
+        PreparedStatement stmt = null;
+        Listas_Usuarios listausuario= new Listas_Usuarios();
+        listausuario = obtener_LISTAUSUARIOS_por_ID(id);
+        try
+        {
+            if(listausuario==null) throw new ListaNoExisteException();
+            connection = Database.getConnection();
+            stmt = connection.prepareStatement(CancionDAOQuery.eliminar_LISTAUSUARIO);
+            stmt.setString(1, id);
+            stmt.executeUpdate();
+        }
+        catch (SQLException e){throw e;}
+        finally
+        {
+            if (stmt != null) stmt.close();
+            if (connection != null)
+            {
+                connection.setAutoCommit(true);
+                connection.close();
+            }
+        }
+    }
 }
 
 
