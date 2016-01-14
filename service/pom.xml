@@ -110,7 +110,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>edu.upc.eetac.dsa.muscicloud.Main</mainClass>
+                            <mainClass>edu.upc.eetac.dsa.musicloud.Main</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
