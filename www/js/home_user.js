@@ -1,4 +1,4 @@
-var API_BASE_URL = "http://147.83.7.208:9090/musicloud";
+var API_BASE_URL = "http://147.83.7.205:9090/musicloud";
 var LOGIN = "";
 var PASSWORD = "";
 var TOKEN = "";
@@ -101,7 +101,7 @@ $("body").on("click","#botoneditarlista",function(event)
 			var nombres = valores.split("\n");
             idlista=nombres[1];
 			$.cookie('idlista', idlista);
-			window.location = "http://147.83.7.208:9090/editarlista.html" ;
+			window.location = "http://147.83.7.205:9090/editarlista.html" ;
 			
 });
 
@@ -278,7 +278,7 @@ function getlogout(objetoLogout, TOKEN)
 		data : $.param(objetoLogout),
 		headers: {"X-Auth-Token":TOKEN}
 	}).done(function(data, status, jqxhr) {
-		window.location = "http://147.83.7.208:9090/index.html" ;		 
+		window.location = "http://147.83.7.205:9090/index.html" ;		 
   	}).fail(function() {
 		alert ('logout fail!')
 	});
@@ -292,7 +292,7 @@ function darserdebaja(objetoBaja, TOKEN)
 		headers: {"X-Auth-Token":TOKEN} 
 	}).done(function(data, status, jqxhr) {
 		alert ('Baja realizada correctamente');
-		window.location = "http://147.83.7.208:9090/index.html" ;		
+		window.location = "http://localhost/index.html" ;		
   	}).fail(function() {
 		alert ('fallo baja');
 	});
