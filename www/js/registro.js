@@ -1,4 +1,4 @@
-var API_BASE_URL = "http://147.83.7.208:8080/musicloud";
+var API_BASE_URL = "http://147.83.7.208:9090/musicloud";
 var USERNAME = "";
 var PASSWORD = "";
 
@@ -68,7 +68,7 @@ var url = API_BASE_URL + '/users/registrar';
 		
 	}).done(function(data, status, jqxhr) {
 		 alert ('Alta realizada con éxito! Ya puede logarse con sus credenciales en el aparatado "Login"');
-			window.location = "http://147.83.7.208:8080/index.html" ;
+			window.location = "http://147.83.7.208:9090/index.html" ;
   	}).fail(function() {
 		alert ('Usuario login ya escogido. Debes cambiar el ID de usuario MusiCloud');
 	});
