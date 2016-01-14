@@ -62,10 +62,10 @@
           <a href="#editarperfil">Editar Perfil</a>
          </li>
          <li class="page-scroll">
-          <a href="#catalogoCanciones">Catalogo</a>
+          <a href="#catalogoCanciones">Catálogo</a>
          </li>
 		 <li class="page-scroll">
-          <a href="#eliminaruser">Eliminar Perfil</a>
+          <a href="" id="baja">Eliminar Perfil</a>
          </li>
 	     
 		 <li>
@@ -83,8 +83,10 @@
   <section id="listaspersonales">
    <div class="container">
     <div class="row">
+	<div class="col-lg-12 text-center">
      <h2>Mis Listas</h2>
      <hr class="star-primary">
+	 </div>
 	  <button type="button" class="btn btn-xs btn-default command-edit" id="añadirlista"><span class="fa fa-plus"></span></button>
 		<div class="form-group col-xs-12 floating-label-form-group controls">
 	      <label>Introduce el nombre de la lista</label>
@@ -95,7 +97,7 @@
 		 <thead>
 		  <tr>
 		   <th data-column-id="nombrelista">Nombre</th>
-		   <th data-column-id="idlista">Idlista</th>
+		   <th data-column-id="idlista" style="display:none">Idlista</th>
 		   <th data-column-id="reproducir" data-formatter="commands" data-sortable="false">Reproducir</th>
 		   <th data-column-id="editar" data-formatter="commands" data-sortable="false">Editar</th>
 		   <th data-column-id="eliminar" data-formatter="commands" data-sortable="false">Eliminar</th>
@@ -176,7 +178,7 @@
    <div class="container">
     <div class="row">
      <div class="col-lg-12 text-center">
-      <h2>Catalogo</h2>
+      <h2>Catálogo</h2>
       <hr class="star-primary">
     </div>
     </div>
@@ -239,8 +241,9 @@
 	   <tr>
 		<th data-column-id="artista">Artista</th>
 		<th data-column-id="nombre">Nombre</th>
-		<th data-column-id="genero">Genero</th>
-		<th data-column-id="url">Url</th>
+		<th data-column-id="genero">Género</th>
+		<th data-column-id="url" style="display:none">Url</th>
+		<th data-column-id="id" style="display:none">Id</th>
 		<th data-column-id="reproducir" data-formatter="commands" data-sortable="false">Reproducir</th>
 		<th data-column-id="insertar" data-formatter="commands" data-sortable="false">Insertar <select id="listalistas"></select></th>
        </tr>					
@@ -291,31 +294,7 @@
 	<br>
 	<br>
 	    
-  <section id="eliminaruser">
-  <div class="container">
-   <div class="row">
-     <div class="col-lg-12 text-center">
-      <h2>Eliminar Perfil</h2>
-      <hr class="star-primary">
-     </div>
-    </div>
-    <div class="row">
-     <div class="col-lg-8 col-lg-offset-2">
-      <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
-      <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
-      <form name="sentMessage" id="registroForm" novalidate>
-       <div class="form-group col-xs-12">
-        <button type="submit" class="btn btn-success btn-lg" id="baja">Darme de baja</button>
-       </div>
-	  </form>
-     </div>
-    </div>
-   </div>
-   <p>
-
  
- 
-  </section>
     
 	<br>
 	<br>

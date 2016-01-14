@@ -21,7 +21,7 @@ public interface CancionDAO {
      public Cancion editar_CANCION (Cancion Cancion) throws SQLException,CancionNoExisteException;
      public Cancion obtener_CANCION_por_ID (String id) throws SQLException;
      public Cancion obtener_CANCION_por_ARTISTA_y_NOMBRE(String artista, String nombre) throws SQLException;
-     public CancionColeccion obtener_catalogo_CANCIONES(String Ordenpor,long timestamp, boolean before) throws SQLException;
+     public CancionColeccion obtener_catalogo_CANCIONES(long timestamp, boolean before) throws SQLException;
      public Listas_Usuarios crear_LISTAUSUARIOS(String iduser, String nombre) throws SQLException,ListaExisteException,UserNoExisteException;
      public Listas_Usuarios modifica_LISTAUSUARIO(String idlista,CancionColeccion lista, String nombre) throws SQLException, ListaExisteException, UserNoExisteException, ListaNoExisteException;
      public Listas_Usuarios comprobar_existe_LISTAUSUARIOS_por_NOMBRE(String id) throws  SQLException,ListaExisteException;

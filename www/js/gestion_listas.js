@@ -4,7 +4,7 @@ var PASSWORD = "";
 var TOKEN = "";
 var url= "";
 var lastFilename;
-
+var cancioncoleccion="";
 
 
 $(document).ready(function() {
@@ -22,8 +22,28 @@ $("#log_out").click(function(e){
 	
 });
 
-
- 
+ $("#siguiente").click(function(e){
+	e.preventDefault();
+	this.canciones = cancioncoleccion;
+	this.obtenerURI= function(rel){
+		var result = new Object;
+		$.each(this.canciones.links, function(i, v){var link = v;if(link.rel==rel){ result = link;}})
+			return result;}
+	var prev2 = this.obtenerURI('next');
+	obtenerCATALOGOPAGINADO(TOKEN,prev2);
+	
+});
+$("#anterior").click(function(e){
+	e.preventDefault();
+	this.canciones = cancioncoleccion;
+	this.obtenerURI= function(rel){
+		var result = new Object;
+		$.each(this.canciones.links, function(i, v){var link = v;if(link.rel==rel){ result = link;}})
+			return result;}
+	var prev2 = this.obtenerURI('prev');
+	obtenerCATALOGOPAGINADO(TOKEN,prev2);
+	
+});
 $("#subircancion").click(function(e) {
 	e.preventDefault();
 	
@@ -83,7 +103,29 @@ $("#subircancion").click(function(e) {
 	
 });
 
-
+$("body").on("click","#botoneliminar",function(event)
+{
+	        event.preventDefault();
+            var valores="";
+		    var rest="";
+		    var nombre="";
+		    var artista="";
+		    var url="";
+			var nombres = new Array(8);
+            // Obtenemos todos los valores contenidos en los <td> de la fila
+            // seleccionada
+            $(this).parents("tr").find("td").each(function(){valores+=$(this).html()+"\n";});
+			var nombres = valores.split("\n");
+            artista= nombres[0];
+			nombre= nombres[1];
+			id= nombres[3];
+            
+			eliminarCancion(id, TOKEN);
+			
+			
+			
+			
+      });
 
 function cargar_cancion(formData,TOKEN){
 	
@@ -109,21 +151,30 @@ function cargar_cancion(formData,TOKEN){
 		contentType: false,
         processData: false
 	})
-	.done(function (data, status, jqxhr) {
+	.done(TOKEN,function (data, status, jqxhr) {
 		/*var response = $.parseJSON(jqxhr.nuevaCancion);
 		lastFilename = response.cancion;
 		
 		$('#uploadedImage').attr('src', response.imageURL);
 		
 		$('nuevaCancion')[0].reset();*/
-		console.log(data);
+		
+		document.getElementById('artista').value=null;
+		document.getElementById('nombrecancion').value=null;
+		document.getElementById('genero').value=null;
+		document.getElementById('cancion').value=null;
+		document.getElementById('fileSize').value=null;
+		document.getElementById('fileType').value=null;
+		
+		
+		
 		alert("Archivo subido correctamente!");
 		$('progress').toggle();
-		window.location = "http://localhost/gestion_listas.html" ;	
+		obtenerCATALOGO(TOKEN);	
 	})
 	 .fail(function (jqXHR, textStatus, errorThrown) {
     	alert("KO");
-		console.log(textStatus);
+		
 		if (jqXHR.status === 0) {
     
             alert('Not connect: Verify Network.');
@@ -165,8 +216,6 @@ function progressHandlingFunction(e){
     }
 }
 
-
-
 function getlogout(objetoLogout, TOKEN) 
 {
 	var url = API_BASE_URL + '/login/login_out';	
@@ -182,27 +231,44 @@ function getlogout(objetoLogout, TOKEN)
 	});
 }
 
-function insertarCATALOGO(data){
+function insertarCATALOGO(data)
+{
+	$("#catalogo").find("tr:gt(0)").remove();
 	var canciones = data.canciones;
 		$.each(canciones, function(i, v)
 		{
 			var cancion= v; 
-			$("#catalogo").append("<tr><td data-th="+"Artista"+">" +cancion.artista+"</td><td data-th="+"Nombre" +">" +cancion.nombre +"</td><td data-th="+"Genero" +">" +cancion.genero +"</td><td data-th="+"Acciones"+"><button type=\"button\" class=\"btn btn-xs btn-default command-edit\"><span class=\"fa fa-play\"></span></button>"+"         "+"<button type=\"button\" class=\"btn btn-xs btn-default command-edit\"><span class=\"fa fa-plus\"></span></button></td></tr>");
-		})  
-	
+			$("#catalogo").append("<tr><td data-th=" +"artista" +">" +cancion.artista+
+								  "</td><td data-th="+"nombre"  +">" +cancion.nombre +
+								  "</td><td data-th="+"genero"  +">" +cancion.genero +
+								  "</td><td data-th="+"id"  +" style="+"display:none"+">" +cancion.id +
+								  "</td><td data-th="+"url"  +" style="+"display:none"+">" +cancion.url +
+								  "</td><td data-th="+"acciones"+"><button type=\"button\"class=\"btn btn-xs btn-default command-edit\" id=\"botoneliminar\"><span class=\"fa fa-times\"></span></button></td></tr>"
+								 );
+		    
+		}) 
+			
+			
+			
+
 }
-
-function insertarNuevo(data){
-	var canciones = data.canciones;
-		$.each(canciones, function(i, v)
-		{
-			var cancion= v; 
-			$("#grid-data").append("<div class="+"promo"+"><div class="+"deal"+"><span>Artista: "+cancion.artista+"</span><span>Género: "+cancion.genero+"</div></span><span class="+"price"+">"+cancion.nombre+"</span>"+cancion.genero +"<button>Sign up</button></div>");
-		})  
-	
+function obtenerCATALOGOPAGINADO(TOKEN,url){
+	console.log(TOKEN);
+	console.log(url.uri);
+	//var url = API_BASE_URL + '/cancion/catalogo_canciones';
+	$.ajax({
+		url : url.uri,
+		type : 'GET',
+		contentType : 'application/vnd.dsa.musicloud.cancion.coleccion+json',
+		headers: {"X-Auth-Token":TOKEN}
+	}).done(function(data, status, jqxhr) {
+		console.log(data);
+		insertarCATALOGO(data);
+		cancioncoleccion = data;
+ 	}).fail(function() {
+		alert ('fallo ');
+	});
 }
-
-
 function obtenerCATALOGO(TOKEN){
 	console.log(TOKEN);
 	var url = API_BASE_URL + '/cancion/catalogo_canciones';
@@ -214,10 +280,25 @@ function obtenerCATALOGO(TOKEN){
 	}).done(function(data, status, jqxhr) {
 		console.log(data);
 		insertarCATALOGO(data);
-		insertarNuevo(data);
-  	}).fail(function() {
+		cancioncoleccion = data;
+ 	}).fail(function() {
 		alert ('fallo ');
 	});
+}
+
+function eliminarCancion(id, TOKEN) 
+{
+	var url = API_BASE_URL + '/cancion/eliminarcancion/'+ id;
+	$.ajax({
+		url : url,
+		type : 'DELETE',
+		headers: {"X-Auth-Token":TOKEN} 
+	}).done(TOKEN,function(data, status, jqxhr) {
+		obtenerCATALOGO(TOKEN);	
+  	}).fail(function() {
+		alert ('Fallo al eliminar canción!');
+	});
+
 }
 	
 
