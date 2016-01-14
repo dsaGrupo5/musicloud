@@ -1,4 +1,4 @@
-var API_BASE_URL = "http://127.0.0.1:8080/musicloud";
+var API_BASE_URL =  "http://147.83.7.208:8080/musicloud";
 var LOGIN = "";
 var PASSWORD = "";
 var TOKEN = "";
@@ -98,7 +98,7 @@ function getlogout(objetoLogout, TOKEN)
 		data : $.param(objetoLogout),
 		headers: {"X-Auth-Token":TOKEN}
 	}).done(function(data, status, jqxhr) {
-		window.location = "http://localhost/index.html" ;		 
+		window.location =  "http://147.83.7.208:8080/index.html" ;		 
   	}).fail(function() {
 		alert ('logout fail!')
 	});
@@ -114,7 +114,7 @@ function eliminar_usuario(usuarioelim, TOKEN)
 		headers: {"X-Auth-Token":TOKEN}
 	}).done(function(data, status, jqxhr) {
 		alert ('Usuario eliminado correctamente');
-		window.location = "http://localhost/home_admin.html" ;		
+		window.location =  "http://147.83.7.208:8080/home_admin.html" ;		
   	}).fail(function() {
 			document.getElementById('login_eliminar').style.background='#F6B5B5';
 			document.getElementById('login_eliminar').value=null;			
@@ -178,7 +178,7 @@ function insertarUsuario(user,TOKEN)
 		headers: {"X-Auth-Token":TOKEN},		
 	}).done(function(data, status, jqxhr){
 		alert ('Datos modificados correctamente!');
-		window.location = "http://localhost/home_admin.html" ;	
+		window.location =  "http://147.83.7.208:8080/home_admin.html" ;	
 	}).fail(function(){
 		alert ('Error en la edición!');
 	});

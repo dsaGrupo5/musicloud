@@ -1,4 +1,4 @@
-var API_BASE_URL = "http://127.0.0.1:8080/musicloud";
+var API_BASE_URL = "http://147.83.7.208:8080/musicloud";
 var USERNAME = "";
 var PASSWORD = "";
 
@@ -54,14 +54,14 @@ function getlogin(login, password)
 				$.cookie('token', data.token);
 				$.cookie('iduser', data.iduser);
 				alert(data.iduser);
-			    window.location = "http://localhost/home_user.html" ;
+			    window.location =  "http://147.83.7.208:8080/home_user.html" ;
 			}
 			if(data.role== 'administrador')
 			{
 				$.cookie('login', login);
 				$.cookie('login', data.login);
 				$.cookie('token', data.token);
-				window.location = "http://localhost/home_admin.html" ;
+				window.location =  "http://147.83.7.208:8080/home_admin.html" ;
 			}
 		})
 	    .fail( function( jqXHR, textStatus, errorThrown )
