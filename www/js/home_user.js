@@ -10,7 +10,7 @@ $(document).ready(function() {
 	LOGIN = $.cookie('login');
 	TOKEN = $.cookie('token');
 	IDUSER = $.cookie('iduser');
-	console.log(IDUSER);
+	
 	obtenerLISTASUSUARIO(TOKEN,LOGIN);
 	obtenerCATALOGO(TOKEN);
 });
@@ -61,6 +61,20 @@ $("body").on("click","#botonreproducir",function(event)
             
 			cargarcancionREPRODUCTOR(artista,nombre,url)
       });
+$("body").on("click","#botonreproducirlista",function(event)
+{
+	        event.preventDefault();
+            var valores="";
+		    var idlista="";
+			var nombres = new Array(8);
+            // Obtenemos todos los valores contenidos en los <td> de la fila
+            // seleccionada
+            $(this).parents("tr").find("td").each(function(){valores+=$(this).html()+"\n";});
+			var nombres = valores.split("\n");
+            idlista=nombres[1];
+          
+			obtenerLISTACANCIONEREPRODUCIRSUSUARIO(TOKEN,idlista);
+      });
 $("body").on("click","#botoneliminarlista",function(event)
 {
 	        event.preventDefault();
@@ -75,6 +89,131 @@ $("body").on("click","#botoneliminarlista",function(event)
 			eliminarLISTAUSUARIO(idlista,TOKEN,LOGIN);
 });
 
+$("body").on("click","#botoneditarlista",function(event)
+{
+	        event.preventDefault();
+            var valores="";
+		    var nombres = new Array(8);
+			var idlista="";
+            // Obtenemos todos los valores contenidos en los <td> de la fila
+            // seleccionada
+            $(this).parents("tr").find("td").each(function(){valores+=$(this).html()+"\n";});
+			var nombres = valores.split("\n");
+            idlista=nombres[1];
+			$.cookie('idlista', idlista);
+			window.location = "http://localhost/editarlista.html" ;
+			
+});
+
+$("body").on("click","#botoninsertar",function(event)
+{
+	        event.preventDefault();
+            var valores="";
+		    var nombres = new Array(8);
+			var id="";
+            // Obtenemos todos los valores contenidos en los <td> de la fila
+            // seleccionada
+            $(this).parents("tr").find("td").each(function(){valores+=$(this).html()+"\n";});
+			var nombres = valores.split("\n");
+            id=nombres[4];
+			var idlista="";
+			var idlista = $("#listalistas").val();   
+	
+			
+			obtenerCANCION(id,TOKEN,idlista);
+			
+			
+});
+function cargarlistaREPRODUCTOR(data)
+{
+	var canciones = data.canciones.canciones;
+	console.log(canciones);
+	$.each(canciones, function(i, v)
+	    {
+			var cancion=v;
+		  $("#listacanciones").append("<li><a href="+cancion.url+"><b>"+cancion.artista+"</b> -"+cancion.nombre+"<span class="+"label"+">Explicit</span></a></li>");
+		})
+}
+function obtenerLISTACANCIONEREPRODUCIRSUSUARIO(TOKEN,IDLISTA)
+{	
+
+	var url = API_BASE_URL + '/cancion/obtener_listausuario/'+IDLISTA;
+	$.ajax({
+		url : url,
+		type : 'GET',
+		contentType : 'application/vnd.dsa.musicloud.lista_usuario+json',
+		headers: {"X-Auth-Token":TOKEN}
+	}).done(function(data, status, jqxhr) {
+	   
+		console.log(data);
+		cargarlistaREPRODUCTOR(data);
+  	}).fail(function() {
+		alert ('mierda');
+	});
+}
+function modificarlista(CANCIONES, TOKEN, IDLISTA){
+	var data = JSON.stringify(CANCIONES);
+	console.log(data);
+	var url = API_BASE_URL + '/cancion/editar_listareproduccion/'+IDLISTA;
+
+	$.ajax({
+		url : url,
+		type : 'PUT',
+		data : data,
+		dataType : 'json',
+		contentType : 'application/vnd.dsa.musicloud.lista_usuario+json',
+		headers: {"X-Auth-Token":TOKEN}
+	}).done(function(data, status, jqxhr) {
+		alert('ok modificar');
+				
+		
+  	}).fail(function() {
+		alert ('fallo  modificarlista ');
+	});
+	
+	
+	
+}
+
+function obtenerLISTACANCIONESUSUARIO(cancion,TOKEN,IDLISTA)
+{	
+	var url = API_BASE_URL + '/cancion/obtener_listausuario/'+IDLISTA;
+	$.ajax({
+		url : url,
+		type : 'GET',
+		contentType : 'application/vnd.dsa.musicloud.lista_usuario+json',
+		headers: {"X-Auth-Token":TOKEN}
+	}).done(cancion,IDLISTA,TOKEN, function(data, status, jqxhr) {
+		console.log(cancion);
+		
+		console.log(data);		
+		data.canciones.canciones.push(cancion);
+		
+		console.log(data);
+		modificarlista(data, TOKEN, IDLISTA);
+		
+  	}).fail(function() {
+		alert ('fallo obtenerLISTACANCIONESUSUARIO');
+	});
+}
+
+function obtenerCANCION(idcancion,TOKEN,idlista)
+{	
+	var url = API_BASE_URL + '/cancion/obtener_cancion/'+idcancion;
+	$.ajax({
+		url : url,
+		type : 'GET',
+		contentType : 'application/vnd.dsa.musicloud.cancion+json',
+		headers: {"X-Auth-Token":TOKEN}
+	}).done(idlista,function(data, status, jqxhr) {
+		console.log(data);
+		var cancion = data;
+		obtenerLISTACANCIONESUSUARIO(cancion,TOKEN,idlista);
+		
+  	}).fail(function() {
+		alert ('fallo ');
+	});
+}
 
 function eliminarLISTAUSUARIO(idlista,TOKEN,LOGIN){
 	var url = API_BASE_URL + '/cancion/eliminar_listausuario/'+ idlista;
@@ -116,11 +255,11 @@ function cargarLISTASUSUARIOS(data)
 	    {
 			var lista= v; 
 			$("#lista_usuario").append("<tr><td data-th=" +"artista" +">" +lista.nombre+
-								  "</td><td data-th=" +"idlista" +">" +lista.id+
+								  "</td><td data-th=" +"idlista" +" style=\"display:none\">" +lista.id+
 								  "</td><td data-th="+"acciones"+"><button type=\"button\"class=\"btn btn-xs btn-default command-edit\" id=\"botonreproducirlista\"><span class=\"fa fa-play\"></span></button>"+" "+
 								  "</td><td data-th="+"acciones"+"><button type=\"button\"class=\"btn btn-xs btn-default command-edit\" id=\"botoneditarlista\"><span class=\"fa fa-pencil-square-o\"></span></button>"+" "+
 								  "</td><td data-th="+"insertar"+"><button type=\"button\"class=\"btn btn-xs btn-default command-edit\" id=\"botoneliminarlista\"><span class=\"fa fa-times\"></span></button></td></tr>");
-           $("#listalistas").append("<option value="+i+">"+lista.nombre+"</option>");								  
+           $("#listalistas").append("<option value="+lista.id+">"+lista.nombre+"</option>");								  
 		})
 								  
 }	  
@@ -129,14 +268,7 @@ function cargarcancionREPRODUCTOR(artista,nombre,url)
 	$("#listacanciones").append("<li><a href="+url+"><b>"+artista+"</b> -"+nombre+"<span class="+"label"+">Explicit</span></a></li>");
 
 }
-function cargarlistaREPRODUCTOR(data)
-{
-	var listas= data.listas;
-	$.each(listas, function(i, v)
-	{
-	 $("#listacanciones").append("<li><a href="+listas.canciones.cancion.url+"><b>"+listas.canciones.cancion.url.artista+"</b> -"+listas.canciones.cancion.url.nombre+"<span class="+"label"+">Explicit</span></a></li>");
-	})
-}
+
 function getlogout(objetoLogout, TOKEN) 
 {
 	var url = API_BASE_URL + '/login/login_out';	
@@ -176,10 +308,11 @@ function insertarCATALOGO(data)
 								  "</td><td data-th="+"nombre"  +">" +cancion.nombre +
 								  "</td><td data-th="+"genero"  +">" +cancion.genero +
 								  "</td><td data-th="+"url"  +" style="+"display:none"+">"+cancion.url +
+								  "</td><td data-th="+"id"  +" style="+"display:none"+">"+cancion.id +
 								  "</td><td data-th="+"acciones"+"><button type=\"button\"class=\"btn btn-xs btn-default command-edit\" id=\"botonreproducir\"><span class=\"fa fa-play\"></span></button>"+" "+
-								  "</td><td data-th="+"insertar"+"><button type=\"button\" class=\"btn btn-xs btn-default command-edit\"><span class=\"fa fa-plus\"></span></button></td></tr>"
+								  "</td><td data-th="+"insertar"+"><button type=\"button\" class=\"btn btn-xs btn-default command-edit\" id=\"botoninsertar\"><span class=\"fa fa-plus\"></span></button></td></tr>"
 								 );
-		    u
+		    
 		}) 
 			
 			
@@ -219,7 +352,7 @@ function obtenerLISTASUSUARIO(TOKEN,LOGIN)
 		contentType : 'application/vnd.dsa.musicloud.lista_usuario.coleccion+json',
 		headers: {"X-Auth-Token":TOKEN}
 	}).done(function(data, status, jqxhr) {
-			console.log(data);
+			
 		    cargarLISTASUSUARIOS(data);
   	}).fail(function() {
 		alert ('fallo ');

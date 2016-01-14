@@ -4,7 +4,7 @@ var PASSWORD = "";
 var TOKEN = "";
 var url= "";
 var lastFilename;
-
+var cancioncoleccion="";
 
 
 $(document).ready(function() {
@@ -22,7 +22,28 @@ $("#log_out").click(function(e){
 	
 });
 
- 
+ $("#siguiente").click(function(e){
+	e.preventDefault();
+	this.canciones = cancioncoleccion;
+	this.obtenerURI= function(rel){
+		var result = new Object;
+		$.each(this.canciones.links, function(i, v){var link = v;if(link.rel==rel){ result = link;}})
+			return result;}
+	var prev2 = this.obtenerURI('next');
+	obtenerCATALOGOPAGINADO(TOKEN,prev2);
+	
+});
+$("#anterior").click(function(e){
+	e.preventDefault();
+	this.canciones = cancioncoleccion;
+	this.obtenerURI= function(rel){
+		var result = new Object;
+		$.each(this.canciones.links, function(i, v){var link = v;if(link.rel==rel){ result = link;}})
+			return result;}
+	var prev2 = this.obtenerURI('prev');
+	obtenerCATALOGOPAGINADO(TOKEN,prev2);
+	
+});
 $("#subircancion").click(function(e) {
 	e.preventDefault();
 	
@@ -231,7 +252,23 @@ function insertarCATALOGO(data)
 			
 
 }
-
+function obtenerCATALOGOPAGINADO(TOKEN,url){
+	console.log(TOKEN);
+	console.log(url.uri);
+	//var url = API_BASE_URL + '/cancion/catalogo_canciones';
+	$.ajax({
+		url : url.uri,
+		type : 'GET',
+		contentType : 'application/vnd.dsa.musicloud.cancion.coleccion+json',
+		headers: {"X-Auth-Token":TOKEN}
+	}).done(function(data, status, jqxhr) {
+		console.log(data);
+		insertarCATALOGO(data);
+		cancioncoleccion = data;
+ 	}).fail(function() {
+		alert ('fallo ');
+	});
+}
 function obtenerCATALOGO(TOKEN){
 	console.log(TOKEN);
 	var url = API_BASE_URL + '/cancion/catalogo_canciones';
@@ -243,6 +280,7 @@ function obtenerCATALOGO(TOKEN){
 	}).done(function(data, status, jqxhr) {
 		console.log(data);
 		insertarCATALOGO(data);
+		cancioncoleccion = data;
  	}).fail(function() {
 		alert ('fallo ');
 	});

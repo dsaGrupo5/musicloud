@@ -64,13 +64,13 @@ public class CancionResource
     @Path(("/catalogo_canciones"))
     @GET
     @Produces(MusicloudMediaType.MUSICLOUD_CANCION_COLECCION)
-    public CancionColeccion obtener_catalogo_Canciones(@QueryParam("timestamp") long timestamp, @DefaultValue("true") @QueryParam("before") boolean before,@DefaultValue("creation_timestamp") @QueryParam("ordenpor") String ordenpor) throws SQLException{
+    public CancionColeccion obtener_catalogo_Canciones(@QueryParam("timestamp") long timestamp, @DefaultValue("true") @QueryParam("before") boolean before) throws SQLException{
         CancionDAO canciondao = new CancionDAOImpl();
         CancionColeccion cancioncoleccion = null ;
         try
         {
             if (before && timestamp == 0) timestamp = System.currentTimeMillis();
-            cancioncoleccion = canciondao.obtener_catalogo_CANCIONES(ordenpor,timestamp, before);
+            cancioncoleccion = canciondao.obtener_catalogo_CANCIONES(timestamp, before);
         }
         catch(SQLException e)
         {
@@ -140,6 +140,17 @@ public class CancionResource
         try{cancionDAO.eliminarLISTAUSUARIO(id);}
         catch(ListaNoExisteException e){new WebApplicationException("El nombre de esta lista no existe",Response.Status.CONFLICT );}
         catch (SQLException e){throw new InternalServerErrorException();}
+    }
+    @RolesAllowed({"administrador","registrado"})
+    @Path(("/obtener_cancion/{id}"))
+    @GET
+    @Produces(MusicloudMediaType.MUSICLOUD_CANCION)
+    public Cancion obtener_CANCIONPORID(@PathParam("id") String id) throws SQLException{
+        Cancion cancion= new Cancion();
+        CancionDAOImpl canciondao = new CancionDAOImpl();
+        try{cancion = canciondao.obtener_CANCION_por_ID(id);}
+        catch (SQLException e){throw new InternalServerErrorException();}
+        return cancion;
     }
 }
 
