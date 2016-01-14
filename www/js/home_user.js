@@ -171,7 +171,7 @@ function insertarCATALOGO(data)
 								  "</td><td data-th="+"nombre"  +">" +cancion.nombre +
 								  "</td><td data-th="+"genero"  +">" +cancion.genero +
 								  "</td><td data-th="+"genero"  +">" +cancion.url +
-								  "</td><td data-th="+"acciones"+"><button type=\"button\"class=\"btn btn-xs btn-default command-edit\" id=\"botonreproducir\"><span class=\"fa fa-play\"></span></button>"+" "+
+								  "</td><td data-th="+"acciones"+"><button type=\"button\"class=\"btn btn-xs btn-default command-edit\" id=\"botonreproducir\"><span class=\"fa fa-music\"></span></button>"+" "+
 								  "</td><td data-th="+"insertar"+"><button type=\"button\" class=\"btn btn-xs btn-default command-edit\"><span class=\"fa fa-plus\"></span></button></td></tr>"
 								 );
 		    

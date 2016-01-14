@@ -225,23 +225,7 @@
     <!-- Custom Theme JavaScript -->
     <script src="js/freelancer.js"></script>
 	
-	<script>
- var preventUnloadPrompt;
-var messageBeforeUnload = "my message here - Are you sure you want to leave this page?";
-//var redirectAfterPrompt = "http://www.google.co.in";
-$('a').live('click', function() { preventUnloadPrompt = true; });
-$('form').live('submit', function() { preventUnloadPrompt = true; });
-$(window).bind("beforeunload", function(e) { 
-    var rval;
-    if(preventUnloadPrompt) {
-        return;
-    } else {
-        //location.replace(redirectAfterPrompt);
-        return messageBeforeUnload;
-    }
-    return rval;
-})
-</script>
+	
 	
 	
 

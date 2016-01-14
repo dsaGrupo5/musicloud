@@ -9,10 +9,12 @@ var url= "";
 $(document).ready(function() {
 	LOGIN = $.cookie('login');
 	TOKEN = $.cookie('token');
+	console.log(TOKEN);
 });
 
 $("#log_out").click(function(e){
 	e.preventDefault();
+	
 	var objetoLogout = new Object();
 	objetoLogout.login = LOGIN;
 	getlogout(objetoLogout, TOKEN);
