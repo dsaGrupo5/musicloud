@@ -10,8 +10,8 @@ public interface CancionDAOQuery {
     public final static String obtener_CANCION_por_ARTISTA_Y_NOMBRE =   "select hex(c.id) as id, c.artista, c.nombre, c.genero, c.url from canciones c where c.artista=? and c.nombre=?";
     public final static String ELIMINAR_CANCION =         "delete from canciones where id=unhex(?)";
     public final static String MODIFICAR_CANCION =        "update canciones set artista=?, nombre=?, genero=?, url=? where id=unhex(?)";
-    public final static String OBTENER_COLECCION_CANCIONES_APARTIR_ID_PAGINADA_A_5 =       "select hex(id) as id,artista, nombre, genero,url, last_modified, creation_timestamp from canciones where creation_timestamp < ? order by creation_timestamp asc limit 5";
-    public final static String OBTENER_COLECCION_CANCIONES_APARTIR_ID_PAGINADA_A_5_after = "select hex(id) as id,artista, nombre, genero,url, last_modified, creation_timestamp from canciones where creation_timestamp > ? order by creation_timestamp asc limit 5";
+    public final static String OBTENER_COLECCION_CANCIONES_APARTIR_ID_PAGINADA_A_5 =       "select hex(id) as id,artista, nombre, genero,url, last_modified, creation_timestamp from canciones where creation_timestamp < ? order by creation_timestamp asc limit 500";
+    public final static String OBTENER_COLECCION_CANCIONES_APARTIR_ID_PAGINADA_A_5_after = "select hex(id) as id,artista, nombre, genero,url, last_modified, creation_timestamp from canciones where creation_timestamp > ? order by creation_timestamp asc limit 500";
     public final static String crear_LISTAUSUARIOS =                          "insert into listas_usuarios (id,iduser,nombre)  values (UNHEX(?),UNHEX(?), ?)";
     public final static String crear_registro_en_tabla_LISTA_CANCION =        "insert into lista_cancion   (idlista,idcancion) values (UNHEX(?),UNHEX(?))";
     public final static String comprobar_existe_LISTAUSUARIOS_por_NOMBRE =                 "select hex(id) as id, hex(iduser) as iduser, nombre, last_modified, creation_timestamp  from listas_usuarios   where nombre=?";

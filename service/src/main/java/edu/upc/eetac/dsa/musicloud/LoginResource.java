@@ -15,7 +15,7 @@ package edu.upc.eetac.dsa.musicloud;
     public class LoginResource {
 
         @Context
-        SecurityContext securityContext;
+        private SecurityContext securityContext;
         @RolesAllowed({"administrador","registrado"})
         @Path(("/login_out"))
         @POST
@@ -32,30 +32,23 @@ package edu.upc.eetac.dsa.musicloud;
         @POST
         @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
         @Produces(MusicloudMediaType.MUSICLOUD_AUTH_TOKEN)
-        public AuthToken login(@FormParam("login") String login, @FormParam("password") String password){
+        public AuthToken login(@FormParam("login") String login, @FormParam("password") String password) throws  SQLException{
             if(login == null || password == null)
                 throw new BadRequestException("all parameters are mandatory");
 
             User user = null;
-            String id = null;
-            Boolean token = null;
             AuthToken authToken = null;
             try{
 
                 UserDAO userDAO = new UserDAOImpl();
                 user = userDAO.obtener_User_por_Login(login);
-                AuthTokenDAO authTokenDAO = new AuthTokenDAOImpl();
-                id = user.getId();
-                token = authTokenDAO.obtenerToken(id);
-                if(token == true)
-                    throw new WebApplicationException("Ya estas logeado ", Response.Status.CONFLICT);
-
                 if(user == null)
                     throw new BadRequestException("login = " + login + " not found.");
                 if(!userDAO.check_Password(user.getId(), password))
                     throw new BadRequestException("incorrect password");
 
-
+                AuthTokenDAO authTokenDAO = new AuthTokenDAOImpl();
+                authTokenDAO.deleteToken(user.getId());
                 authToken = authTokenDAO.createAuthToken(user.getId());
             }catch(SQLException e){
                 throw new InternalServerErrorException();

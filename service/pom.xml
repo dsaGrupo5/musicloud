@@ -38,12 +38,6 @@
             <version>4.9</version>
             <scope>test</scope>
         </dependency>
-
-        <dependency>
-            <groupId>org.glassfish.jersey.ext</groupId>
-            <artifactId>jersey-declarative-linking</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>javax.el</groupId>
             <artifactId>javax.el-api</artifactId>

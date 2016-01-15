@@ -37,7 +37,6 @@
      <!--------------------->	
 </head>
 <body id="page-top" class="index">
-
 <!-----------------------------------INICIO BARRA NAVEGACIÓN --------------------------------------------------->
   <nav class="navbar navbar-default navbar-fixed-top">
    <div class="container">
@@ -182,60 +181,7 @@
       <hr class="star-primary">
     </div>
     </div>
-	<div id="grid-data-api-header" class="bootgrid-header container-fluid">
-	 <div class="row">
-	  <div class="col-sm-12 actionBar">
-	   <div class="search form-group">
-	    <div class="input-group">
-		 <span class="icon glyphicon input-group-addon glyphicon-search"></span>
-		 <input type="text" class="search-field form-control" placeholder="Search">
-		</div>
-	   </div>
-	   <div class="actions btn-group">
-	   <button class="btn btn-default" type="button" title="Refresh">
-	    <span class="icon glyphicon glyphicon-refresh"></span>
-	   </button>
-	   <div class="dropdown btn-group">
-	    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-		 <span class="dropdown-text">10</span>
-		 <span class="caret"></span>
-		</button>
-		 <ul class="dropdown-menu pull-right" role="menu">
-		  <li class="active" aria-selected="true">
-		   <a data-action="10" class="dropdown-item dropdown-item-button">10</a>
-		  </li>
-		  <li aria-selected="false">
-		   <a data-action="25" class="dropdown-item dropdown-item-button">25</a>
-		  </li>
-		  <li aria-selected="false">
-		   <a data-action="50" class="dropdown-item dropdown-item-button">50</a>
-		  </li>
-		  <li aria-selected="false">
-		   <a data-action="-1" class="dropdown-item dropdown-item-button">All</a>
-		  </li>
-		 </ul>
-		</div>
-		<div class="dropdown btn-group">
-		 <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-		  <span class="dropdown-text"><span class="icon glyphicon glyphicon-th-list"></span></span> 
-		  <span class="caret"></span>
-		 </button>
-		 <ul class="dropdown-menu pull-right" role="menu">
-		  <li>
-		   <label class="dropdown-item"><input name="id" type="checkbox" value="1" class="dropdown-item-checkbox" checked="checked"> Artista</label>
-		  </li>
-		  <li>
-		   <label class="dropdown-item"><input name="sender" type="checkbox" value="1" class="dropdown-item-checkbox" checked="checked"> Nombre</label>
-		  </li>
-		  <li>
-		   <label class="dropdown-item"><input name="received" type="checkbox" value="1" class="dropdown-item-checkbox" checked="checked"> Genero</label>
-		  </li>
-		 </ul>
-        </div>
-	   </div>
-	  </div>
-	 </div>
-	</div>
+	
     <table id="catalogo" class ="table table-condensed table-hover table-striped">
 	  <thead>
 	   <tr>
@@ -254,38 +200,17 @@
 	 <div id="grid-data-api-footer" class="bootgrid-footer container-fluid">
 	  <div class="row"><div class="col-sm-6">
 	   <ul class="pagination">
-	    <li class="first" aria-disabled="false">
-		 <a data-page="first" class="button">«</a>
+	    <li class="prev" aria-disabled="false">
+		 <a data-page="prev"  id="anterior" class="button">&lt;</a>
 		</li>
-		<li class="prev" aria-disabled="false">
-		 <a data-page="prev" class="button">&lt;</a>
+		
+		<li class="next" aria-disabled="false">
+		 <a data-page="next" id="siguiente" class="button">&gt;</a>
 		</li>
-		<li class="page-109" aria-disabled="false" aria-selected="false">
-		 <a data-page="109" class="button">109</a>
-		</li>
-		<li class="page-110" aria-disabled="false" aria-selected="false">
-		 <a data-page="110" class="button">110</a>
-		</li>
-		<li class="page-111" aria-disabled="false" aria-selected="false">
-		 <a data-page="111" class="button">111</a>
-		</li>
-		<li class="page-112" aria-disabled="false" aria-selected="false">
-		 <a data-page="112" class="button">112</a>
-		</li>
-		<li class="page-113 active" aria-disabled="false" aria-selected="true">
-		 <a data-page="113" class="button">113</a>
-		</li>
-		<li class="next disabled" aria-disabled="true">
-		 <a data-page="next" class="button">&gt;</a>
-		</li>
-		<li class="last disabled" aria-disabled="true">
-		 <a data-page="last" class="button">»</a>
-		</li>
+		
 	  </ul>
 	 </div>
-	 <div class="col-sm-6 infoBar">
-	  <div class="infos">Showing 1121 to 1123 of 1123 entries</div>
-	 </div>
+	 
 	</div>
    </div>
   </div>

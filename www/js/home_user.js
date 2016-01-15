@@ -1,15 +1,20 @@
-var API_BASE_URL = "http://147.83.7.205:9090/musicloud";
+var API_BASE_URL = "http://127.0.0.1:8080/musicloud";
 var LOGIN = "";
 var PASSWORD = "";
 var TOKEN = "";
 var url= "";
 var IDUSER= "";
+var cancioncoleccion="";
+var MAX2 ="";
 //REVISAR USO DE LOS TOKEN O COOCKIES. HA DE RESPETAR LOS ROLES
 
 $(document).ready(function() {
 	LOGIN = $.cookie('login');
 	TOKEN = $.cookie('token');
 	IDUSER = $.cookie('iduser');
+	
+	MAX2='0';
+	$.cookie('max', MAX2);
 	
 	obtenerLISTASUSUARIO(TOKEN,LOGIN);
 	obtenerCATALOGO(TOKEN);
@@ -24,10 +29,18 @@ $("#log_out").click(function(e){
 
 $("#añadirlista").click(function(e){
 	e.preventDefault();
-	intlista = new Object;
-	intlista.iduser=IDUSER;
-	intlista.nombre= $("#nombrelistanueva").val();		
-	insertarNUEVALISTA(intlista,TOKEN,LOGIN);
+	if($("#nombrelistanueva").val() == "")
+		{
+			document.getElementById('nombrelistanueva').style.background='#F6B5B5';
+			$('#nombrelistanueva').attr('placeholder','RELLENE EL CAMPO');
+		}else{
+			intlista = new Object;
+			intlista.iduser=IDUSER;
+			intlista.nombre= $("#nombrelistanueva").val();		
+			insertarNUEVALISTA(intlista,TOKEN,LOGIN);
+			document.getElementById('nombrelistanueva').style.background='#FFFFFF';
+			document.getElementById('nombrelistanueva').value=null;
+		}
 });
 
 $("#baja").click(function(e){
@@ -101,7 +114,8 @@ $("body").on("click","#botoneditarlista",function(event)
 			var nombres = valores.split("\n");
             idlista=nombres[1];
 			$.cookie('idlista', idlista);
-			window.location = "http://147.83.7.205:9090/editarlista.html" ;
+			var pagina = "http://localhost/editarlista.html";
+			Abrir_ventana(pagina);
 			
 });
 
@@ -124,6 +138,26 @@ $("body").on("click","#botoninsertar",function(event)
 			
 			
 });
+
+ $("#siguiente").click(function(e){
+	e.preventDefault();
+	
+	
+	insertarCATALOGO(cancioncoleccion);
+	
+});
+$("#anterior").click(function(e){
+	e.preventDefault();
+	
+	
+	insertarCATALOGO2(cancioncoleccion);
+	
+});
+
+function Abrir_ventana(pagina){
+		var opciones="toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=no, width=750, height=365, top=100, left=100";
+		window.open(pagina,"",opciones);
+}
 function cargarlistaREPRODUCTOR(data)
 {
 	var canciones = data.canciones.canciones;
@@ -145,30 +179,30 @@ function obtenerLISTACANCIONEREPRODUCIRSUSUARIO(TOKEN,IDLISTA)
 		headers: {"X-Auth-Token":TOKEN}
 	}).done(function(data, status, jqxhr) {
 	   
-		console.log(data);
+		
 		cargarlistaREPRODUCTOR(data);
   	}).fail(function() {
 		alert ('mierda');
 	});
 }
 function modificarlista(CANCIONES, TOKEN, IDLISTA){
+	console.log(CANCIONES);
 	var data = JSON.stringify(CANCIONES);
-	console.log(data);
-	var url = API_BASE_URL + '/cancion/editar_listareproduccion/'+IDLISTA;
 
+	var de = API_BASE_URL + '/cancion/editar_listareproduccion/'+IDLISTA;
 	$.ajax({
-		url : url,
+		url : de,
 		type : 'PUT',
 		data : data,
 		dataType : 'json',
 		contentType : 'application/vnd.dsa.musicloud.lista_usuario+json',
 		headers: {"X-Auth-Token":TOKEN}
 	}).done(function(data, status, jqxhr) {
-		alert('ok modificar');
+		
 				
 		
-  	}).fail(function() {
-		alert ('fallo  modificarlista ');
+  	}).fail(function() 	{
+		alert ('fallo putaaaaaaa');
 	});
 	
 	
@@ -184,12 +218,10 @@ function obtenerLISTACANCIONESUSUARIO(cancion,TOKEN,IDLISTA)
 		contentType : 'application/vnd.dsa.musicloud.lista_usuario+json',
 		headers: {"X-Auth-Token":TOKEN}
 	}).done(cancion,IDLISTA,TOKEN, function(data, status, jqxhr) {
-		console.log(cancion);
-		
-		console.log(data);		
+			
 		data.canciones.canciones.push(cancion);
 		
-		console.log(data);
+		
 		modificarlista(data, TOKEN, IDLISTA);
 		
   	}).fail(function() {
@@ -278,7 +310,7 @@ function getlogout(objetoLogout, TOKEN)
 		data : $.param(objetoLogout),
 		headers: {"X-Auth-Token":TOKEN}
 	}).done(function(data, status, jqxhr) {
-		window.location = "http://147.83.7.205:9090/index.html" ;		 
+		window.location = "http://localhost/index.html" ;		 
   	}).fail(function() {
 		alert ('logout fail!')
 	});
@@ -298,25 +330,66 @@ function darserdebaja(objetoBaja, TOKEN)
 	});
 
 }
+
+
 function insertarCATALOGO(data)
 {
+	console.log(data);
+	var mm=$.cookie('max');
+	$("#catalogo").find("tr:gt(0)").remove();
 	var canciones = data.canciones;
-		$.each(canciones, function(i, v)
+	
+		
+		for(var i=0; i<5; i++)
 		{
-			var cancion= v; 
-			$("#catalogo").append("<tr><td data-th=" +"artista" +">" +cancion.artista+
-								  "</td><td data-th="+"nombre"  +">" +cancion.nombre +
-								  "</td><td data-th="+"genero"  +">" +cancion.genero +
-								  "</td><td data-th="+"url"  +" style="+"display:none"+">"+cancion.url +
-								  "</td><td data-th="+"id"  +" style="+"display:none"+">"+cancion.id +
+			
+			
+			$("#catalogo").append("<tr><td data-th=" +"artista" +">" +canciones[mm].artista+
+								  "</td><td data-th="+"nombre"  +">" +canciones[mm].nombre +
+								  "</td><td data-th="+"genero"  +">" +canciones[mm].genero +
+								  "</td><td data-th="+"url"  +" style="+"display:none"+">"+canciones[mm].url +
+								  "</td><td data-th="+"id"  +" style="+"display:none"+">"+canciones[mm].id +
 								  "</td><td data-th="+"acciones"+"><button type=\"button\"class=\"btn btn-xs btn-default command-edit\" id=\"botonreproducir\"><span class=\"fa fa-play\"></span></button>"+" "+
 								  "</td><td data-th="+"insertar"+"><button type=\"button\" class=\"btn btn-xs btn-default command-edit\" id=\"botoninsertar\"><span class=\"fa fa-plus\"></span></button></td></tr>"
 								 );
+								mm++;
+								 
 		    
-		}) 
+		}
+		$.cookie('max', mm);
+			console.log(mm);
 			
 			
 			
+
+}
+
+function insertarCATALOGO2(data)
+{
+	console.log(data);
+	var mm=$.cookie('max');
+	$("#catalogo").find("tr:gt(0)").remove();
+	var canciones = data.canciones;
+	
+		
+		for(var i=0; i<5; i++)
+		{
+			
+			
+			$("#catalogo").append("<tr><td data-th=" +"artista" +">" +canciones[mm].artista+
+								  "</td><td data-th="+"nombre"  +">" +canciones[mm].nombre +
+								  "</td><td data-th="+"genero"  +">" +canciones[mm].genero +
+								   "</td><td data-th="+"url"  +" style="+"display:none"+">"+canciones[mm].url +
+								  "</td><td data-th="+"id"  +" style="+"display:none"+">"+canciones[mm].id +
+								  "</td><td data-th="+"acciones"+"><button type=\"button\"class=\"btn btn-xs btn-default command-edit\" id=\"botonreproducir\"><span class=\"fa fa-play\"></span></button>"+" "+
+								  "</td><td data-th="+"insertar"+"><button type=\"button\" class=\"btn btn-xs btn-default command-edit\" id=\"botoninsertar\"><span class=\"fa fa-plus\"></span></button></td></tr>"
+								 );
+								mm--;
+								 
+		    
+		}
+		$.cookie('max', mm);
+			console.log(mm);			
 
 }
 function insertarNuevo(data)
@@ -339,6 +412,7 @@ function obtenerCATALOGO(TOKEN)
 	}).done(function(data, status, jqxhr) {
 		insertarCATALOGO(data);
 		insertarNuevo(data);
+		cancioncoleccion = data;
   	}).fail(function() {
 		alert ('fallo ');
 	});

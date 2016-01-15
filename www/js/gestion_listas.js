@@ -1,15 +1,18 @@
-var API_BASE_URL = "http://147.83.7.205:9090/musicloud";
+var API_BASE_URL = "http://127.0.0.1:8080/musicloud";
 var LOGIN = "";
 var PASSWORD = "";
 var TOKEN = "";
 var url= "";
 var lastFilename;
 var cancioncoleccion="";
+var MAX ="";
 
 
 $(document).ready(function() {
 	LOGIN = $.cookie('login');
 	TOKEN = $.cookie('token');
+	MAX='0';
+	$.cookie('max', MAX);
 	
 	obtenerCATALOGO(TOKEN);
 });
@@ -24,24 +27,16 @@ $("#log_out").click(function(e){
 
  $("#siguiente").click(function(e){
 	e.preventDefault();
-	this.canciones = cancioncoleccion;
-	this.obtenerURI= function(rel){
-		var result = new Object;
-		$.each(this.canciones.links, function(i, v){var link = v;if(link.rel==rel){ result = link;}})
-			return result;}
-	var prev2 = this.obtenerURI('next');
-	obtenerCATALOGOPAGINADO(TOKEN,prev2);
+	
+	
+	insertarCATALOGO(cancioncoleccion);
 	
 });
 $("#anterior").click(function(e){
 	e.preventDefault();
-	this.canciones = cancioncoleccion;
-	this.obtenerURI= function(rel){
-		var result = new Object;
-		$.each(this.canciones.links, function(i, v){var link = v;if(link.rel==rel){ result = link;}})
-			return result;}
-	var prev2 = this.obtenerURI('prev');
-	obtenerCATALOGOPAGINADO(TOKEN,prev2);
+	
+	
+	insertarCATALOGO2(cancioncoleccion);
 	
 });
 $("#subircancion").click(function(e) {
@@ -161,7 +156,7 @@ function cargar_cancion(formData,TOKEN){
 		
 		document.getElementById('artista').value=null;
 		document.getElementById('nombrecancion').value=null;
-		document.getElementById('genero').value=null;
+		document.getElementById('genero').value='Otros';
 		document.getElementById('cancion').value=null;
 		document.getElementById('fileSize').value=null;
 		document.getElementById('fileType').value=null;
@@ -225,7 +220,7 @@ function getlogout(objetoLogout, TOKEN)
 		data : $.param(objetoLogout),
 		headers: {"X-Auth-Token":TOKEN}
 	}).done(function(data, status, jqxhr) {
-		window.location ="http://147.83.7.205:9090/index.html" ;		 
+		window.location = "http://localhost/index.html" ;		 
   	}).fail(function() {
 		alert ('logout fail!');
 	});
@@ -233,41 +228,63 @@ function getlogout(objetoLogout, TOKEN)
 
 function insertarCATALOGO(data)
 {
+	console.log(data);
+	var mm=$.cookie('max');
 	$("#catalogo").find("tr:gt(0)").remove();
 	var canciones = data.canciones;
-		$.each(canciones, function(i, v)
+	
+		
+		for(var i=0; i<5; i++)
 		{
-			var cancion= v; 
-			$("#catalogo").append("<tr><td data-th=" +"artista" +">" +cancion.artista+
-								  "</td><td data-th="+"nombre"  +">" +cancion.nombre +
-								  "</td><td data-th="+"genero"  +">" +cancion.genero +
-								  "</td><td data-th="+"id"  +" style="+"display:none"+">" +cancion.id +
-								  "</td><td data-th="+"url"  +" style="+"display:none"+">" +cancion.url +
+			
+			
+			$("#catalogo").append("<tr><td data-th=" +"artista" +">" +canciones[mm].artista+
+								  "</td><td data-th="+"nombre"  +">" +canciones[mm].nombre +
+								  "</td><td data-th="+"genero"  +">" +canciones[mm].genero +
+								  "</td><td data-th="+"id"  +" style="+"display:none"+">" +canciones[mm].id +
+								  "</td><td data-th="+"url"  +" style="+"display:none"+">" +canciones[mm].url +
 								  "</td><td data-th="+"acciones"+"><button type=\"button\"class=\"btn btn-xs btn-default command-edit\" id=\"botoneliminar\"><span class=\"fa fa-times\"></span></button></td></tr>"
 								 );
+								mm++;
+								 
 		    
-		}) 
+		}
+		$.cookie('max', mm);
+			console.log(mm);
 			
 			
 			
 
 }
-function obtenerCATALOGOPAGINADO(TOKEN,url){
-	console.log(TOKEN);
-	console.log(url.uri);
-	//var url = API_BASE_URL + '/cancion/catalogo_canciones';
-	$.ajax({
-		url : url.uri,
-		type : 'GET',
-		contentType : 'application/vnd.dsa.musicloud.cancion.coleccion+json',
-		headers: {"X-Auth-Token":TOKEN}
-	}).done(function(data, status, jqxhr) {
-		console.log(data);
-		insertarCATALOGO(data);
-		cancioncoleccion = data;
- 	}).fail(function() {
-		alert ('fallo ');
-	});
+function insertarCATALOGO2(data)
+{
+	console.log(data);
+	var mm=$.cookie('max');
+	$("#catalogo").find("tr:gt(0)").remove();
+	var canciones = data.canciones;
+	
+		
+		for(var i=0; i<5; i++)
+		{
+			
+			
+			$("#catalogo").append("<tr><td data-th=" +"artista" +">" +canciones[mm].artista+
+								  "</td><td data-th="+"nombre"  +">" +canciones[mm].nombre +
+								  "</td><td data-th="+"genero"  +">" +canciones[mm].genero +
+								  "</td><td data-th="+"id"  +" style="+"display:none"+">" +canciones[mm].id +
+								  "</td><td data-th="+"url"  +" style="+"display:none"+">" +canciones[mm].url +
+								  "</td><td data-th="+"acciones"+"><button type=\"button\"class=\"btn btn-xs btn-default command-edit\" id=\"botoneliminar\"><span class=\"fa fa-times\"></span></button></td></tr>"
+								 );
+								mm--;
+								 
+		    
+		}
+		$.cookie('max', mm);
+			console.log(mm);
+			
+			
+			
+
 }
 function obtenerCATALOGO(TOKEN){
 	console.log(TOKEN);
@@ -279,8 +296,10 @@ function obtenerCATALOGO(TOKEN){
 		headers: {"X-Auth-Token":TOKEN}
 	}).done(function(data, status, jqxhr) {
 		console.log(data);
+		
 		insertarCATALOGO(data);
 		cancioncoleccion = data;
+		
  	}).fail(function() {
 		alert ('fallo ');
 	});
