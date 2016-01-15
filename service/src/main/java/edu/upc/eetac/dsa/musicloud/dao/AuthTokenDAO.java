@@ -12,5 +12,5 @@ public interface AuthTokenDAO {
     public UserInfo    getUserByAuthToken (String token)  throws SQLException;
     public AuthToken   createAuthToken    (String iduser) throws SQLException;
     public void        deleteToken        (String iduser) throws SQLException;
-    public boolean     obtenerToken       (String iduser) throws SQLException;
+
 }

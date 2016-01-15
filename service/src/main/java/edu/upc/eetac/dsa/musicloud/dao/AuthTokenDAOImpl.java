@@ -50,8 +50,7 @@ public class AuthTokenDAOImpl implements AuthTokenDAO {
         Connection connection = null;
         PreparedStatement stmt = null;
         String token = null;
-        String role = null;
-        AuthToken authToken = new AuthToken();
+        AuthToken authToken = null;
         try {
             connection = Database.getConnection();
 
@@ -59,26 +58,18 @@ public class AuthTokenDAOImpl implements AuthTokenDAO {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) token = rs.getString(1);
             else throw new SQLException();
-            stmt.close();
 
+            stmt.close();
             stmt = connection.prepareStatement(AuthTokenDAOQuery.CREATE_TOKEN);
             stmt.setString(1, iduser);
             stmt.setString(2, token);
+
             stmt.executeUpdate();
-            stmt.close();
 
 
-            stmt = connection.prepareStatement(AuthTokenDAOQuery.GET_ROLES_OF_USER);
-            stmt.setString(1, iduser);
-            rs = stmt.executeQuery();
-            while (rs.next())
-            {
-                authToken.setRole(rs.getString("role"));
-            }
+            authToken = new AuthToken();
             authToken.setToken(token);
             authToken.setIduser(iduser);
-            stmt.close();
-
         } catch (SQLException e) {
             throw e;
         } finally {
@@ -106,32 +97,4 @@ public class AuthTokenDAOImpl implements AuthTokenDAO {
             if (connection != null) connection.close();
         }
     }
-
-    public boolean obtenerToken(String iduser) throws SQLException  {
-    Connection connection = null;
-    PreparedStatement stmt = null;
-    AuthToken authToken = null;
-    try {
-        connection = Database.getConnection();
-
-        stmt = connection.prepareStatement(AuthTokenDAOQuery.GET_TOKEN_BY_USER);
-        stmt.setString(1, iduser);
-        ResultSet rs = stmt.executeQuery();
-
-        if (rs.next()){
-            String token = rs.getString("token");
-            if(token  != null)
-                return true;
-            stmt.close();
-        }
-    } catch (SQLException e) {
-        throw e;
-    }
-    finally
-    {
-        if (stmt != null) stmt.close();
-        if (connection != null) connection.close();
-    }
-    return false;
-}
 }
