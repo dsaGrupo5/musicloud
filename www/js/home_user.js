@@ -1,5 +1,5 @@
-//var API_BASE_URL = "http://127.0.0.1:8080/musicloud";  //local
-var API_BASE_URL = "http://147.83.7.205:9090/musicloud";  //produccion
+var API_BASE_URL = "http://127.0.0.1:8080/musicloud";  //local
+//var API_BASE_URL = "http://147.83.7.205:9090/musicloud";  //produccion
 var LOGIN = "";
 var PASSWORD = "";
 var TOKEN = "";
@@ -144,15 +144,20 @@ $("body").on("click","#botoninsertar",function(event)
  $("#siguiente").click(function(e){
 	e.preventDefault();
 	
+	var tamaño = $.cookie('tamaño');
+	//tamaño--;
+	var posicion = $.cookie('max');
+	console.log(tamaño);
+	console.log(posicion);
+	if(posicion<tamaño){insertarCATALOGO(cancioncoleccion);}
 	
-	insertarCATALOGO(cancioncoleccion);
 	
 });
 $("#anterior").click(function(e){
 	e.preventDefault();
-	
-	
-	insertarCATALOGO2(cancioncoleccion);
+	var tamaño = $.cookie('tamaño');
+	var posicion = $.cookie('max');
+	if(posicion>tamaño){insertarCATALOGO2(cancioncoleccion);}
 	
 });
 
@@ -342,9 +347,17 @@ function insertarCATALOGO(data)
 	var mm=$.cookie('max');
 	$("#catalogo").find("tr:gt(0)").remove();
 	var canciones = data.canciones;
+	var pin ="";
+	var tamaño = $.cookie('tamaño');
+	var tan ="";
 	
+	console.log('tamaño array canciones='+tamaño);
+	console.log('posicion array'+mm);
+	if(tamaño<6){tan=tamaño;}
+	else{tan=6;}
+	console.log('valor i'+tan);
 		
-		for(var i=0; i<5; i++)
+		for(var i=0; i<tan; i++)
 		{
 			
 			
@@ -360,8 +373,9 @@ function insertarCATALOGO(data)
 								 
 		    
 		}
+		console.log(mm);
 		$.cookie('max', mm);
-			console.log(mm);
+			
 			
 			
 			
@@ -371,12 +385,14 @@ function insertarCATALOGO(data)
 function insertarCATALOGO2(data)
 {
 	console.log(data);
-	var mm=$.cookie('max');
+	var mm=$.cookie('max');	
+	mm=mm-12;
+	console.log(mm);
 	$("#catalogo").find("tr:gt(0)").remove();
 	var canciones = data.canciones;
 	
 		
-		for(var i=0; i<5; i++)
+		for(var i=0; i<6; i++)
 		{
 			
 			
@@ -388,12 +404,12 @@ function insertarCATALOGO2(data)
 								  "</td><td data-th="+"acciones"+"><button type=\"button\"class=\"btn btn-xs btn-default command-edit\" id=\"botonreproducir\"><span class=\"fa fa-play\"></span></button>"+" "+
 								  "</td><td data-th="+"insertar"+"><button type=\"button\" class=\"btn btn-xs btn-default command-edit\" id=\"botoninsertar\"><span class=\"fa fa-plus\"></span></button></td></tr>"
 								 );
-								mm--;
+								mm++;
 								 
 		    
 		}
 		$.cookie('max', mm);
-			console.log(mm);			
+			console.log(mm);		
 
 }
 function insertarNuevo(data)
@@ -414,9 +430,14 @@ function obtenerCATALOGO(TOKEN)
 		contentType : 'application/vnd.dsa.musicloud.cancion.coleccion+json',
 		headers: {"X-Auth-Token":TOKEN}
 	}).done(function(data, status, jqxhr) {
+		var tamaño = data.canciones.length;
+		
+		$.cookie('tamaño', tamaño);
+		
 		insertarCATALOGO(data);
 		insertarNuevo(data);
 		cancioncoleccion = data;
+		
   	}).fail(function() {
 		alert ('fallo ');
 	});
