@@ -1,4 +1,5 @@
-var API_BASE_URL = "http://127.0.0.1:8080/musicloud";
+//var API_BASE_URL = "http://127.0.0.1:8080/musicloud";  //local
+var API_BASE_URL = "http://147.83.7.205:9090/musicloud";  //produccion
 var LOGIN = "";
 var PASSWORD = "";
 var TOKEN = "";
@@ -220,7 +221,8 @@ function getlogout(objetoLogout, TOKEN)
 		data : $.param(objetoLogout),
 		headers: {"X-Auth-Token":TOKEN}
 	}).done(function(data, status, jqxhr) {
-		window.location = "http://localhost/index.html" ;		 
+		//window.location = "http://localhost/index.html" ;
+		window.location = "http://eetacdsa2b.upc.es/index.html" ;		
   	}).fail(function() {
 		alert ('logout fail!');
 	});

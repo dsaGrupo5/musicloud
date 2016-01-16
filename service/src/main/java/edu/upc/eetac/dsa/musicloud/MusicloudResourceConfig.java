@@ -1,5 +1,6 @@
 package edu.upc.eetac.dsa.musicloud;
 
+import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.linking.DeclarativeLinkingFeature;
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.server.ResourceConfig;
@@ -14,5 +15,6 @@ public class MusicloudResourceConfig extends ResourceConfig {
         register(DeclarativeLinkingFeature.class);
         packages("edu.upc.eetac.dsa.beeter.cors");
         register(MultiPartFeature.class);
+        register(JacksonFeature.class);
     }
 }
