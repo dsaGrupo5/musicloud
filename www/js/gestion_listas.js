@@ -1,5 +1,5 @@
-//var API_BASE_URL = "http://127.0.0.1:8080/musicloud";  //local
-var API_BASE_URL = "http://147.83.7.205:9090/musicloud";  //produccion
+var API_BASE_URL = "http://127.0.0.1:8080/musicloud";  //local
+//var API_BASE_URL = "http://147.83.7.205:9090/musicloud";  //produccion
 var LOGIN = "";
 var PASSWORD = "";
 var TOKEN = "";
@@ -12,9 +12,10 @@ var MAX ="";
 $(document).ready(function() {
 	LOGIN = $.cookie('login');
 	TOKEN = $.cookie('token');
-	MAX='0';
-	$.cookie('max', MAX);
-	
+	MAX2= 0;
+	VIST= 0;
+	$.cookie('vist', VIST);
+	$.cookie('max', MAX2);
 	obtenerCATALOGO(TOKEN);
 });
 
@@ -28,16 +29,23 @@ $("#log_out").click(function(e){
 
  $("#siguiente").click(function(e){
 	e.preventDefault();
+	var tam = parseInt($.cookie('tam'));
+	var posicion = parseInt($.cookie('max'));
 	
-	
-	insertarCATALOGO(cancioncoleccion);
-	
+	if(posicion < tam)
+	{
+		insertarCATALOGO(cancioncoleccion);
+		
+	}
+		
 });
 $("#anterior").click(function(e){
 	e.preventDefault();
 	
-	
-	insertarCATALOGO2(cancioncoleccion);
+	var VIST=parseInt($.cookie('vist'));
+	if(VIST>6){
+		insertarCATALOGO2(cancioncoleccion);
+		}
 	
 });
 $("#subircancion").click(function(e) {
@@ -133,14 +141,7 @@ function cargar_cancion(formData,TOKEN){
 	$.ajax({
 		url: url,
 		type: 'POST',
-		/*xhr: function() {  
-	    	var myXhr = $.ajaxSettings.xhr();
-	        if(myXhr.upload){ 
-	            myXhr.upload.addEventListener('progress',progressHandlingFunction, false); // For handling the progress of the upload
-	        }
-	        return myXhr;
-        },*/
-		crossDomain : true,
+		CrossDomain : true,
 		data: formData,
 		headers: {"X-Auth-Token":TOKEN},
 		cache: false,
@@ -148,12 +149,6 @@ function cargar_cancion(formData,TOKEN){
         processData: false
 	})
 	.done(TOKEN,function (data, status, jqxhr) {
-		/*var response = $.parseJSON(jqxhr.nuevaCancion);
-		lastFilename = response.cancion;
-		
-		$('#uploadedImage').attr('src', response.imageURL);
-		
-		$('nuevaCancion')[0].reset();*/
 		
 		document.getElementById('artista').value=null;
 		document.getElementById('nombrecancion').value=null;
@@ -163,44 +158,28 @@ function cargar_cancion(formData,TOKEN){
 		document.getElementById('fileType').value=null;
 		
 		
+		document.getElementById('artista').style.background='#FFFFFF';
+		document.getElementById('nombrecancion').style.background='#FFFFFF';
+		document.getElementById('genero').style.background='#FFFFFF';
+		
+		$('#artista').attr('placeholder',null);
+		$('#nombrecancion').attr('placeholder',null);
+		$('#genero').attr('placeholder',null);
+		var  MAX2= 0;
+		var  VIST= 0;
+		$.cookie('max', MAX2);
+		$.cookie('vist', VIST);
+					
+		obtenerCATALOGO(TOKEN);	
+		
 		
 		alert("Archivo subido correctamente!");
 		$('progress').toggle();
-		obtenerCATALOGO(TOKEN);	
+		
 	})
 	 .fail(function (jqXHR, textStatus, errorThrown) {
-    	alert("KO");
-		
-		if (jqXHR.status === 0) {
-    
-            alert('Not connect: Verify Network.');
-
-        } else if (jqXHR.status == 404) {
-
-            alert('Requested page not found [404]');
-
-        } else if (jqXHR.status == 500) {
-
-            alert('Internal Server Error [500].');
-
-        } else if (textStatus === 'parsererror') {
-
-            alert('Requested JSON parse failed.');
-
-        } else if (textStatus === 'timeout') {
-
-            alert('Time out error.');
-
-        } else if (textStatus === 'abort') {
-
-            alert('Ajax request aborted.');
-
-        } else {
-
-            alert('Uncaught Error: ' + jqXHR.responseText);
-
-		}
-	
+    	alert("Esta cancion ya existe en la base de datos");		
+		$('progress').toggle();
 	
 	
 });
@@ -221,8 +200,8 @@ function getlogout(objetoLogout, TOKEN)
 		data : $.param(objetoLogout),
 		headers: {"X-Auth-Token":TOKEN}
 	}).done(function(data, status, jqxhr) {
-		//window.location = "http://localhost/index.html" ;
-		window.location = "http://eetacdsa2b.upc.es/index.html" ;		
+		window.location = "http://localhost/index.html" ;
+		//window.location = "http://eetacdsa2b.upc.es/index.html" ;		
   	}).fail(function() {
 		alert ('logout fail!');
 	});
@@ -230,13 +209,50 @@ function getlogout(objetoLogout, TOKEN)
 
 function insertarCATALOGO(data)
 {
-	console.log(data);
-	var mm=$.cookie('max');
+	var tam=parseInt($.cookie('tam'));	
+	var mm=parseInt($.cookie('max'));
+	$("#catalogo").find("tr:gt(0)").remove();
+	var canciones = data.canciones;
+	var i= 0;
+	var VIST=parseInt($.cookie('vist'));
+			
+		
+		while(i<6 && mm<tam)
+		{
+			
+			
+			$("#catalogo").append("<tr><td data-th=" +"artista" +">" +canciones[mm].artista+
+								  "</td><td data-th="+"nombre"  +">" +canciones[mm].nombre +
+								  "</td><td data-th="+"genero"  +">" +canciones[mm].genero +
+								  "</td><td data-th="+"id"  +" style="+"display:none"+">" +canciones[mm].id +
+								  "</td><td data-th="+"url"  +" style="+"display:none"+">" +canciones[mm].url +
+								  "</td><td data-th="+"acciones"+"><button type=\"button\"class=\"btn btn-xs btn-default command-edit\" id=\"botoneliminar\"><span class=\"fa fa-times\"></span></button></td></tr>"
+								 );
+								mm++;
+								i++;
+								
+								
+		    
+		}
+		if(i==6 || mm==tam){VIST=VIST+6;}	
+								
+		console.log('POSICION ARRAY= '+mm);
+		console.log(' vist = :'+VIST);
+		$.cookie('max', mm);
+		$.cookie('vist', VIST);			
+			
+
+}
+function insertarCATALOGO2(data)
+{
+	var mm=parseInt($.cookie('max'));	
+	var VIST=parseInt($.cookie('vist'));
+    mm=VIST-12;
 	$("#catalogo").find("tr:gt(0)").remove();
 	var canciones = data.canciones;
 	
 		
-		for(var i=0; i<5; i++)
+		for(var i=0; i<6; i++)
 		{
 			
 			
@@ -251,40 +267,11 @@ function insertarCATALOGO(data)
 								 
 		    
 		}
+		VIST=VIST-6;
+		console.log('POSICION ARRAY= '+mm);
+		console.log(' vist = :'+VIST);
 		$.cookie('max', mm);
-			console.log(mm);
-			
-			
-			
-
-}
-function insertarCATALOGO2(data)
-{
-	console.log(data);
-	var mm=$.cookie('max');
-	$("#catalogo").find("tr:gt(0)").remove();
-	var canciones = data.canciones;
-	
-		
-		for(var i=0; i<5; i++)
-		{
-			
-			
-			$("#catalogo").append("<tr><td data-th=" +"artista" +">" +canciones[mm].artista+
-								  "</td><td data-th="+"nombre"  +">" +canciones[mm].nombre +
-								  "</td><td data-th="+"genero"  +">" +canciones[mm].genero +
-								  "</td><td data-th="+"id"  +" style="+"display:none"+">" +canciones[mm].id +
-								  "</td><td data-th="+"url"  +" style="+"display:none"+">" +canciones[mm].url +
-								  "</td><td data-th="+"acciones"+"><button type=\"button\"class=\"btn btn-xs btn-default command-edit\" id=\"botoneliminar\"><span class=\"fa fa-times\"></span></button></td></tr>"
-								 );
-								mm--;
-								 
-		    
-		}
-		$.cookie('max', mm);
-			console.log(mm);
-			
-			
+		$.cookie('vist', VIST);
 			
 
 }
@@ -297,8 +284,8 @@ function obtenerCATALOGO(TOKEN){
 		contentType : 'application/vnd.dsa.musicloud.cancion.coleccion+json',
 		headers: {"X-Auth-Token":TOKEN}
 	}).done(function(data, status, jqxhr) {
-		console.log(data);
-		
+		var tam = data.canciones.length;		
+		$.cookie('tam', tam);		
 		insertarCATALOGO(data);
 		cancioncoleccion = data;
 		
@@ -315,7 +302,13 @@ function eliminarCancion(id, TOKEN)
 		type : 'DELETE',
 		headers: {"X-Auth-Token":TOKEN} 
 	}).done(TOKEN,function(data, status, jqxhr) {
+		var  MAX2= 0;
+		var  VIST= 0;
+		$.cookie('max', MAX2);
+		$.cookie('vist', VIST);
 		obtenerCATALOGO(TOKEN);	
+		
+		
   	}).fail(function() {
 		alert ('Fallo al eliminar canción!');
 	});

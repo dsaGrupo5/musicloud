@@ -15,5 +15,6 @@ public interface UserDAOQuery {
     public final static String GET_PASSWORD =             "select hex(password) as password from users where id=unhex(?)";
     public final static String MODIFICAR_USER =           "update users set nombre=?, apellidos=?, email=? where login=?";
     public final static String ELIMINAR_USER =            "delete from users where login=?";
+    public final static String obtener_USUARIOS =         "select login,nombre,apellidos,email from users ";
 
 }

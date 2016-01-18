@@ -117,13 +117,7 @@
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
-                        <div class="row control-group">
-                            <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Password</label>
-                                <input type="password" class="form-control" placeholder="Password" id="password" required data-validation-required-message="Por favor introduce tu clave de acceso a MusiCloud">
-                                <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
+                        
 						<div class="form-group col-xs-12">
                                 <button type="submit" class="btn btn-success btn-lg" id="editauser">Editar</button>
                             </div>
@@ -152,31 +146,23 @@
                     <hr class="star-primary">
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2">
-                    <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
-                    <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
-                    <form name="sentMessage" id="registroForm" novalidate>
-                        <div class="row control-group">
-                            <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Usuario a eliminar</label>
-                                <input type="text" class="form-control" placeholder="ID Usuario a eliminar" id="login_eliminar" required data-validation-required-message="Por favor introduce tu usuario para MusiCloud">
-                                <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-						
-						<div class="form-group col-xs-12">
-                                <button type="submit" class="btn btn-success btn-lg" id="eliminaruser">Eliminar</button>
-                        </div>
-                        </div>
-                            </div>
-                        </div>
+            <table id="lista_usuarios" class ="table table-condensed table-hover table-striped">
+	  <thead>
+	   <tr>
+	    <th data-column-id="login">Login</th>
+		<th data-column-id="nombre">Nombre</th>
+		<th data-column-id="apellidos">Apellidos</th>
+		<th data-column-id="email">Email</th>		
+		<th data-column-id="eliminar" data-formatter="commands" data-sortable="false">Eliminar Usuario</th>	
+       </tr>					
+	  </thead>
+	  <tbody>
+	  </tbody>
+	 </table>
+     </div>
                        
                         
-                    </form>
-                </div>
-            </div>
-        </div>
+                 
     </section>
 	
 	<br>
@@ -225,24 +211,7 @@
     <!-- Custom Theme JavaScript -->
     <script src="js/freelancer.js"></script>
 	
-	<script>
- var preventUnloadPrompt;
-var messageBeforeUnload = "my message here - Are you sure you want to leave this page?";
-//var redirectAfterPrompt = "http://www.google.co.in";
-$('a').live('click', function() { preventUnloadPrompt = true; });
-$('form').live('submit', function() { preventUnloadPrompt = true; });
-$(window).bind("beforeunload", function(e) { 
-    var rval;
-    if(preventUnloadPrompt) {
-        return;
-    } else {
-        //location.replace(redirectAfterPrompt);
-        return messageBeforeUnload;
-    }
-    return rval;
-})
-</script>
-	
+		
 	
 
 </body>

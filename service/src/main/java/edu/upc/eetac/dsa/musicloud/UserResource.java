@@ -3,6 +3,7 @@ package edu.upc.eetac.dsa.musicloud;
 
 import edu.upc.eetac.dsa.musicloud.dao.*;
 import edu.upc.eetac.dsa.musicloud.entity.User;
+import edu.upc.eetac.dsa.musicloud.entity.UsersColeccion;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
@@ -85,6 +86,22 @@ public class UserResource {
             catch (SQLException e){throw new InternalServerErrorException();}
             return response;
         }
+        @RolesAllowed({"administrador","registrado"})
+        @Path("/obtenerUSUARIOS")
+        @GET
+        @Produces(MusicloudMediaType.MUSICLOUD_USER_COLECCION)
+        public UsersColeccion obtenerUSUARIOS() throws SQLException,WebApplicationException{
+            UserDAO userdao = new UserDAOImpl();
+            UsersColeccion response = null;
+            try{
+                response = userdao.obtener_COLECCIONUSUARIOS();
+                if(response == null)
+                    throw new  WebApplicationException("El usuario no existe", Response.Status.CONFLICT);
+            }
+            catch (SQLException e){throw new InternalServerErrorException();}
+            return response;
+        }
+
 }
 
 

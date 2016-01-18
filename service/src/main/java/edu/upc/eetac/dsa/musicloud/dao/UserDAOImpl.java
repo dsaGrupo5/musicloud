@@ -1,6 +1,7 @@
 package edu.upc.eetac.dsa.musicloud.dao;
 
 import edu.upc.eetac.dsa.musicloud.entity.User;
+import edu.upc.eetac.dsa.musicloud.entity.UsersColeccion;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -228,6 +229,36 @@ public class UserDAOImpl implements UserDAO{
             }
         }
 
+    }
+    @Override
+    public UsersColeccion obtener_COLECCIONUSUARIOS () throws SQLException{
+
+        User user = null;
+        Connection connection = null;
+        PreparedStatement stmt = null;
+        UsersColeccion colecccionusuarios = new UsersColeccion();
+
+        try {
+            connection = Database.getConnection();
+            stmt = connection.prepareStatement(UserDAOQuery.obtener_USUARIOS);
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                user = new User();
+                user.setLogin(rs.getString("login"));
+                user.setNombre(rs.getString("nombre"));
+                user.setApellidos(rs.getString("apellidos"));
+                user.setEmail(rs.getString("email"));
+                colecccionusuarios.getUsers().add(user);
+
+            }
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            if (stmt != null) stmt.close();
+            if (connection != null) connection.close();
+        }
+        return colecccionusuarios;
     }
 
 }

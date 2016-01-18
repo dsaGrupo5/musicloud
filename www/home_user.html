@@ -128,13 +128,6 @@
         <form name="sentMessage" id="registroForm" novalidate>
          <div class="row control-group">
           <div class="form-group col-xs-12 floating-label-form-group controls">
-           <label>ID de Musicloud</label>
-           <input type="text" class="form-control" placeholder="ID Usuario a editar" id="login_editar" required data-validation-required-message="Por favor introduce tu usuario para MusiCloud">
-           <p class="help-block text-danger"></p>
-          </div>
-         </div>
-		 <div class="row control-group">
-          <div class="form-group col-xs-12 floating-label-form-group controls">
            <label>Nombre</label>
            <input type="text" class="form-control" placeholder="Nombre" id="nombre" required data-validation-required-message="Por favor introduce tu nombre de pila">
            <p class="help-block text-danger"></p>
@@ -154,14 +147,7 @@
            <p class="help-block text-danger"></p>
           </div>
          </div>
-         <div class="row control-group">
-          <div class="form-group col-xs-12 floating-label-form-group controls">
-           <label>Password</label>
-           <input type="password" class="form-control" placeholder="Password" id="password" required data-validation-required-message="Por favor introduce tu clave de acceso a MusiCloud">
-           <p class="help-block text-danger"></p>
-          </div>
-         </div>
-		 <div class="form-group col-xs-12">
+         <div class="form-group col-xs-12">
           <button type="submit" class="btn btn-success btn-lg" id="editaruser">Editar</button>
          </div>
         </form>
@@ -190,7 +176,7 @@
 		<th data-column-id="genero">Género</th>
 		<th data-column-id="url" style="display:none">Url</th>
 		<th data-column-id="id" style="display:none">Id</th>
-		<th data-column-id="reproducir" data-formatter="commands" data-sortable="false">Reproducir</th>
+		<th data-column-id="reproducir" data-formatter="commands" data-sortable="false">Añadir a reproductor</th>
 		<th data-column-id="insertar" data-formatter="commands" data-sortable="false">Insertar <select id="listalistas"></select></th>
        </tr>					
 	  </thead>

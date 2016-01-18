@@ -9,4 +9,6 @@ public interface MusicloudMediaType {
     public final static String MUSICLOUD_LISTA_USUARIO_COLECCION = "application/vnd.dsa.musicloud.lista_usuario.coleccion+json";
     public final static String MUSICLOUD_CANCION_COLECCION =        "application/vnd.dsa.musicloud.cancion.coleccion+json";
     public final static String MUSICLOUD_ROOT =                    "application/vnd.dsa.musicloud.root+json";
+    public final static String MUSICLOUD_USER_COLECCION =        "application/vnd.dsa.musicloud.user.coleccion+json";
+
 }

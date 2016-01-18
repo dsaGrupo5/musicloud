@@ -14,7 +14,9 @@ $(document).ready(function() {
 	TOKEN = $.cookie('token');
 	IDUSER = $.cookie('iduser');
 	
-	MAX2='0';
+	MAX2= 0;
+	VIST= 0;
+	$.cookie('vist', VIST);
 	$.cookie('max', MAX2);
 	
 	obtenerLISTASUSUARIO(TOKEN,LOGIN);
@@ -115,8 +117,8 @@ $("body").on("click","#botoneditarlista",function(event)
 			var nombres = valores.split("\n");
             idlista=nombres[1];
 			$.cookie('idlista', idlista);
-			//var pagina = "http://localhost/editarlista.html";
-			var pagina = "http://eetacdsa2b.upc.es/editarlista.html";
+			var pagina = "http://localhost/editarlista.html";
+			//var pagina = "http://eetacdsa2b.upc.es/editarlista.html";
 			Abrir_ventana(pagina);
 			
 });
@@ -143,24 +145,125 @@ $("body").on("click","#botoninsertar",function(event)
 
  $("#siguiente").click(function(e){
 	e.preventDefault();
+	var tam = parseInt($.cookie('tam'));
+	var posicion = parseInt($.cookie('max'));
 	
-	var tamaño = $.cookie('tamaño');
-	//tamaño--;
-	var posicion = $.cookie('max');
-	console.log(tamaño);
-	console.log(posicion);
-	if(posicion<tamaño){insertarCATALOGO(cancioncoleccion);}
-	
-	
+	if(posicion < tam)
+	{
+		insertarCATALOGO(cancioncoleccion);
+		
+	}
+		
 });
 $("#anterior").click(function(e){
 	e.preventDefault();
-	var tamaño = $.cookie('tamaño');
-	var posicion = $.cookie('max');
-	if(posicion>tamaño){insertarCATALOGO2(cancioncoleccion);}
+	
+	var VIST=parseInt($.cookie('vist'));
+	if(VIST>6){
+		insertarCATALOGO2(cancioncoleccion);
+		}
 	
 });
-
+$("#editaruser").click(function(e) {
+	e.preventDefault();
+	
+		
+	var nuevoUsuario	= new Object();
+	
+	nuevoUsuario.login = LOGIN;
+	
+		if($("#nombre").val() != "")
+		{
+			nuevoUsuario.nombre = $("#nombre").val();
+		}
+		if($("#apellidos").val() != "")
+		{
+			nuevoUsuario.apellidos = $("#apellidos").val();
+		}
+		if($("#email").val() != "")
+		{
+			nuevoUsuario.email = $("#email").val();	
+		}
+			
+	
+	obtener_usuario(nuevoUsuario, TOKEN); 
+	
+	
+	});
+function editar_USUARIO(user,TOKEN) 
+{
+	console.log(user);
+	
+	var data = JSON.stringify(user);
+	var url = API_BASE_URL + '/users/editar/' + user.login;
+	    $.ajax({
+		url : url,
+		type : 'PUT',
+		crossDomain : true,
+		dataType : 'json',
+		contentType : 'application/vnd.dsa.musicloud.user+json',
+		data : data,
+		headers: {"X-Auth-Token":TOKEN},		
+	}).done(function(data, status, jqxhr){
+		alert ('Datos modificados correctamente!');
+		
+		
+		document.getElementById('nombre').value=null;
+		$('#nombre').attr('placeholder','Nombre');
+		
+		document.getElementById('apellidos').value=null;
+		$('#apellidos').attr('placeholder','Apellidos');
+		
+		document.getElementById('email').value=null;
+		$('#email').attr('placeholder','Email');
+		
+		
+	}).fail(function(){
+		alert ('Error en la edición!');
+	});
+}
+function obtener_usuario(nuevoUsuario, TOKEN) 
+{
+	alert('entra onbtener');
+	var url = API_BASE_URL + '/users/obtener/' + nuevoUsuario.login;
+	
+	$.ajax(
+	{
+		url : url,type : 'GET',
+		crossDomain : true,	
+		dataType : 'json',
+		contentType : 'application/vnd.dsa.musicloud.user+json',
+		headers: {"X-Auth-Token":TOKEN}
+	}
+	).success(function(data, status, jqxhr) 
+	{
+			
+			var response = data;
+			var user = new Object(response);
+			
+			if (nuevoUsuario.nombre != undefined)
+			{						
+				user.nombre= nuevoUsuario.nombre;				
+			}
+			
+			if (nuevoUsuario.apellidos != undefined)
+			{		
+				user.apellidos= nuevoUsuario.apellidos;					
+			}
+			if (nuevoUsuario.email != undefined)
+			{		
+				user.email= nuevoUsuario.email;					
+			}						
+		editar_USUARIO(user,TOKEN);
+		console.log(user);
+			
+			
+	}
+	).fail(function()
+	{
+			alert ('obtener user mal');
+	});	
+}
 function Abrir_ventana(pagina){
 		var opciones="toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=no, width=750, height=365, top=100, left=100";
 		window.open(pagina,"",opciones);
@@ -279,13 +382,15 @@ function insertarNUEVALISTA(intlista,TOKEN,LOGIN){
 		data : $.param(intlista),
 		headers: {"X-Auth-Token":TOKEN},		
 	}).done(test,LOGIN,function(data, status, jqxhr){
+		
 		obtenerLISTASUSUARIO(TOKEN,LOGIN);
 	}).fail(function(){
 		alert ('fallo funcion insertarNUEVALISTA!');
 	});
 }
 function cargarLISTASUSUARIOS(data)
-{
+{    alert('entra');
+     console.log(data);
 	var listas= data.listas;
 	$('#listalistas').find('option').remove();
 	$("#lista_usuario").find("tr:gt(0)").remove();
@@ -317,8 +422,8 @@ function getlogout(objetoLogout, TOKEN)
 		data : $.param(objetoLogout),
 		headers: {"X-Auth-Token":TOKEN}
 	}).done(function(data, status, jqxhr) {
-		//window.location = "http://localhost/index.html" ;
-		window.location = "http://eetacdsa2b.upc.es/index.html" ;			
+		window.location = "http://localhost/index.html" ;
+		//window.location = "http://eetacdsa2b.upc.es/index.html" ;			
   	}).fail(function() {
 		alert ('logout fail!')
 	});
@@ -332,8 +437,8 @@ function darserdebaja(objetoBaja, TOKEN)
 		headers: {"X-Auth-Token":TOKEN} 
 	}).done(function(data, status, jqxhr) {
 		alert ('Baja realizada correctamente');
-		//window.location = "http://localhost/index.html" ;
-		window.location = "http://eetacdsa2b.upc.es/index.html" ;			
+		window.location = "http://localhost/index.html" ;
+		//window.location = "http://eetacdsa2b.upc.es/index.html" ;			
   	}).fail(function() {
 		alert ('fallo baja');
 	});
@@ -343,38 +448,35 @@ function darserdebaja(objetoBaja, TOKEN)
 
 function insertarCATALOGO(data)
 {
-	console.log(data);
-	var mm=$.cookie('max');
+	var tam=parseInt($.cookie('tam'));
+	
+	var mm=parseInt($.cookie('max'));
 	$("#catalogo").find("tr:gt(0)").remove();
 	var canciones = data.canciones;
-	var pin ="";
-	var tamaño = $.cookie('tamaño');
-	var tan ="";
-	
-	console.log('tamaño array canciones='+tamaño);
-	console.log('posicion array'+mm);
-	if(tamaño<6){tan=tamaño;}
-	else{tan=6;}
-	console.log('valor i'+tan);
-		
-		for(var i=0; i<tan; i++)
-		{
+	var i= 0;
+	var VIST=parseInt($.cookie('vist'));
 			
-			
+		while(i<6 && mm<tam){				
 			$("#catalogo").append("<tr><td data-th=" +"artista" +">" +canciones[mm].artista+
 								  "</td><td data-th="+"nombre"  +">" +canciones[mm].nombre +
 								  "</td><td data-th="+"genero"  +">" +canciones[mm].genero +
 								  "</td><td data-th="+"url"  +" style="+"display:none"+">"+canciones[mm].url +
 								  "</td><td data-th="+"id"  +" style="+"display:none"+">"+canciones[mm].id +
-								  "</td><td data-th="+"acciones"+"><button type=\"button\"class=\"btn btn-xs btn-default command-edit\" id=\"botonreproducir\"><span class=\"fa fa-play\"></span></button>"+" "+
+								  "</td><td data-th="+"acciones"+"><button type=\"button\"class=\"btn btn-xs btn-default command-edit\" id=\"botonreproducir\"><span class=\"fa fa-music\"></span></button>"+" "+
 								  "</td><td data-th="+"insertar"+"><button type=\"button\" class=\"btn btn-xs btn-default command-edit\" id=\"botoninsertar\"><span class=\"fa fa-plus\"></span></button></td></tr>"
 								 );
 								mm++;
-								 
+								i++;
+								
+								
 		    
 		}
-		console.log(mm);
+		if(i==6 || mm==tam){VIST=VIST+6;}	
+								
+		console.log('POSICION ARRAY= '+mm);
+		console.log(' vist = :'+VIST);
 		$.cookie('max', mm);
+		$.cookie('vist', VIST);
 			
 			
 			
@@ -384,10 +486,10 @@ function insertarCATALOGO(data)
 
 function insertarCATALOGO2(data)
 {
-	console.log(data);
-	var mm=$.cookie('max');	
-	mm=mm-12;
-	console.log(mm);
+	
+	var mm=parseInt($.cookie('max'));	
+	var VIST=parseInt($.cookie('vist'));
+    mm=VIST-12;
 	$("#catalogo").find("tr:gt(0)").remove();
 	var canciones = data.canciones;
 	
@@ -401,26 +503,22 @@ function insertarCATALOGO2(data)
 								  "</td><td data-th="+"genero"  +">" +canciones[mm].genero +
 								   "</td><td data-th="+"url"  +" style="+"display:none"+">"+canciones[mm].url +
 								  "</td><td data-th="+"id"  +" style="+"display:none"+">"+canciones[mm].id +
-								  "</td><td data-th="+"acciones"+"><button type=\"button\"class=\"btn btn-xs btn-default command-edit\" id=\"botonreproducir\"><span class=\"fa fa-play\"></span></button>"+" "+
+								  "</td><td data-th="+"acciones"+"><button type=\"button\"class=\"btn btn-xs btn-default command-edit\" id=\"botonreproducir\"><span class=\"fa fa-music\"></span></button>"+" "+
 								  "</td><td data-th="+"insertar"+"><button type=\"button\" class=\"btn btn-xs btn-default command-edit\" id=\"botoninsertar\"><span class=\"fa fa-plus\"></span></button></td></tr>"
 								 );
 								mm++;
 								 
 		    
 		}
+		VIST=VIST-6;
+		console.log('POSICION ARRAY= '+mm);
+		console.log(' vist = :'+VIST);
 		$.cookie('max', mm);
-			console.log(mm);		
+		$.cookie('vist', VIST);
+			
 
 }
-function insertarNuevo(data)
-{
-	var canciones = data.canciones;
-		$.each(canciones, function(i, v)
-		{
-			var cancion= v; 
-			$("#grid-data").append("<div class="+"promo"+"><div class="+"deal"+"><span>Artista: "+cancion.artista+"</span><span>Género: "+cancion.genero+"</div></span><span class="+"price"+">"+cancion.nombre+"</span>"+cancion.genero +"<button>Sign up</button></div>");
-		})	
-}
+
 function obtenerCATALOGO(TOKEN)
 {	
 	var url = API_BASE_URL + '/cancion/catalogo_canciones';
@@ -430,12 +528,11 @@ function obtenerCATALOGO(TOKEN)
 		contentType : 'application/vnd.dsa.musicloud.cancion.coleccion+json',
 		headers: {"X-Auth-Token":TOKEN}
 	}).done(function(data, status, jqxhr) {
-		var tamaño = data.canciones.length;
+		var tam = data.canciones.length;
 		
-		$.cookie('tamaño', tamaño);
+		$.cookie('tam', tam);
 		
 		insertarCATALOGO(data);
-		insertarNuevo(data);
 		cancioncoleccion = data;
 		
   	}).fail(function() {
@@ -451,7 +548,7 @@ function obtenerLISTASUSUARIO(TOKEN,LOGIN)
 		contentType : 'application/vnd.dsa.musicloud.lista_usuario.coleccion+json',
 		headers: {"X-Auth-Token":TOKEN}
 	}).done(function(data, status, jqxhr) {
-			
+			console.log(data);
 		    cargarLISTASUSUARIOS(data);
   	}).fail(function() {
 		alert ('fallo ');
