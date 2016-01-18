@@ -260,5 +260,30 @@ public class UserDAOImpl implements UserDAO{
         }
         return colecccionusuarios;
     }
+    @Override
+    public void insertarPASWWORD(String login,String password)throws SQLException{
+        Connection connection = null;
+        PreparedStatement stmt = null;
+        try
+        {
+            connection = Database.getConnection();
+            stmt = connection.prepareStatement(UserDAOQuery.modificar_PASSWORD);
+            stmt.setString(1, password);
+            stmt.setString(2, login);
+            int rows = stmt.executeUpdate();
+        }
+        catch (SQLException e) {throw e;}
+        finally
+        {
+            if (stmt != null) stmt.close();
+            if (connection != null)
+            {
+                connection.setAutoCommit(true);
+                connection.close();
+            }
+        }
+
+    }
+
 
 }

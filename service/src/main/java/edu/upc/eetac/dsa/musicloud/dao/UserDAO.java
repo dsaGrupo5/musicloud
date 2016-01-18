@@ -15,4 +15,5 @@ public interface UserDAO {
     public User    modificar_Usuario        (User user)                                                                  throws SQLException, UserNoExisteException;
     public boolean eliminar_Usuario         (String login)                                                               throws SQLException, UserNoExisteException;
     public UsersColeccion obtener_COLECCIONUSUARIOS () throws SQLException;
+    public void insertarPASWWORD         (String password,String login)                                                 throws SQLException;
 }

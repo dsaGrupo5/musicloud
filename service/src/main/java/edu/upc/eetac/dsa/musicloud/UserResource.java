@@ -102,6 +102,22 @@ public class UserResource {
             return response;
         }
 
+        @RolesAllowed({"administrador","registrado"})
+        @Path("/modificarPASSWORD/{login}")
+        @PUT
+        public  Response modificarPASSWORD(@FormParam("password") String password,@PathParam("login") String login) throws SQLException
+        {
+
+            UserDAO userdao = new UserDAOImpl();
+            try {
+                userdao.insertarPASWWORD(login,password);
+            } catch (SQLException e) {
+                throw new InternalServerErrorException();
+            }
+            return Response.ok().build();
+
+        }
+
 }
 
 
