@@ -191,43 +191,41 @@ $("#editaruser").click(function(e) {
 	
 	});
 	
-	$("#cambiarpassword").click(function(e) {
+$("#cambiarpas").click(function(e) 
+{
 	e.preventDefault();
 	
 		
 	var objetopassword	= new Object();
 	
-	objetopassword.login = LOGIN;
+	
 	
 		if($("#nuevapassword").val() != "")
 		{
-			objetopassword.nuevapassword = $("#nuevapassword").val();
+			objetopassword.password = $("#nuevapassword").val();
 		}
 		
-			
-	
-	cambiar_password(objetopassword, TOKEN); 
+	cambiar_password(LOGIN,objetopassword,TOKEN); 
 	
 	
-	});
+});
 	
-function cambiarpassword(objetopassword,TOKEN) 
+function cambiar_password(LOGIN,objetopassword,TOKEN)
 {
+	
+	console.log(objetopassword);
 		
-	var url = API_BASE_URL + '/users/modificarPASSWORD/' + objetopassword.login;
+	var url = API_BASE_URL + '/users/modificarPASSWORD/' +LOGIN;
 	    $.ajax({
 		url : url,
-		type : 'PUT',
+		type : 'POST',
 		crossDomain : true,
-		data : $.param(objetopassword.nuevapassword),
+		data : $.param(objetopassword),
 		headers: {"X-Auth-Token":TOKEN},		
 	}).done(function(data, status, jqxhr){
-		alert ('Password cambiada correctamente!');
-		
-		
+		alert ('Password cambiada correctamente!');		
 		document.getElementById('nuevapassword').value=null;
 		$('#nuevapassword').attr('placeholder','Nueva Password');
-		
 				
 	}).fail(function(){
 		alert ('Error al cambiar password!');
@@ -270,7 +268,7 @@ function editar_USUARIO(user,TOKEN)
 }
 function obtener_usuario(nuevoUsuario, TOKEN) 
 {
-	alert('entra onbtener');
+	
 	var url = API_BASE_URL + '/users/obtener/' + nuevoUsuario.login;
 	
 	$.ajax(
@@ -435,7 +433,7 @@ function insertarNUEVALISTA(intlista,TOKEN,LOGIN){
 	});
 }
 function cargarLISTASUSUARIOS(data)
-{    alert('entra');
+{    
      console.log(data);
 	var listas= data.listas;
 	$('#listalistas').find('option').remove();

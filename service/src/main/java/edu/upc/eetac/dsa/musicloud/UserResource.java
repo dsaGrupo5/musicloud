@@ -104,7 +104,7 @@ public class UserResource {
 
         @RolesAllowed({"administrador","registrado"})
         @Path("/modificarPASSWORD/{login}")
-        @PUT
+        @POST
         public  Response modificarPASSWORD(@FormParam("password") String password,@PathParam("login") String login) throws SQLException
         {
 
