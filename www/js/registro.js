@@ -1,5 +1,5 @@
-var API_BASE_URL = "http://127.0.0.1:8080/musicloud";  //local
-//var API_BASE_URL = "http://147.83.7.205:9090/musicloud";  //produccion
+//var API_BASE_URL = "http://127.0.0.1:8080/musicloud";  //local
+var API_BASE_URL = "http://147.83.7.205:9090/musicloud";  //produccion
 var USERNAME = "";
 var PASSWORD = "";
 
@@ -69,8 +69,8 @@ var url = API_BASE_URL + '/users/registrar';
 		
 	}).done(function(data, status, jqxhr) {
 		 alert ('Alta realizada con éxito! Ya puede logarse con sus credenciales en el aparatado "Login"');
-			window.location = "http://localhost/index.html" ;
-			//window.location = "http://eetacdsa2b.upc.es/index.html" ;
+			//window.location = "http://localhost/index.html" ;
+			window.location = "http://eetacdsa2b.upc.es/index.html" ;
   	}).fail(function() {
 		alert ('Usuario login ya escogido. Debes cambiar el ID de usuario MusiCloud');
 	});
