@@ -1,5 +1,5 @@
-var API_BASE_URL = "http://127.0.0.1:8080/musicloud";  //local
-//var API_BASE_URL = "http://147.83.7.205:9090/musicloud";  //produccion
+//var API_BASE_URL = "http://127.0.0.1:8080/musicloud";  //local
+var API_BASE_URL = "http://147.83.7.205:9090/musicloud";  //produccion
 var USERNAME = "";
 var PASSWORD = "";
 
@@ -59,8 +59,8 @@ function getlogin(login, password)
 				$.cookie('token', data.token);
 				$.cookie('iduser', data.iduser);
 				
-			    window.location = "http://localhost/home_user.html" ;
-				//window.location = "http://eetacdsa2b.upc.es/home_user.html" ;
+			    //window.location = "http://localhost/home_user.html" ;
+				window.location = "http://eetacdsa2b.upc.es/home_user.html" ;
 			}
 			if(data.role== 'administrador')
 			{
@@ -68,8 +68,8 @@ function getlogin(login, password)
 				$.cookie('login', login);
 				$.cookie('login', data.login);
 				$.cookie('token', data.token);
-				window.location = "http://localhost/home_admin.html" ;
-				//window.location = "http://eetacdsa2b.upc.es/home_admin.html" ;
+				//window.location = "http://localhost/home_admin.html" ;
+				window.location = "http://eetacdsa2b.upc.es/home_admin.html" ;
 			}
 		})
 	    .fail( function( jqXHR, textStatus, errorThrown )
